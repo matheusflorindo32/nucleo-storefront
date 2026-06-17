@@ -1,0 +1,361 @@
+/* ====== Núcleo TADS Store — Clean Tech Premium ====== */
+:root {
+  --bg: #f8fafc;
+  --bg-2: #eef6f8;
+  --surface: #ffffff;
+  --marinho: #0a2342;
+  --azul-tech: #1e5aa8;
+  --verde: #16a34a;
+  --agua: #14b8a6;
+  --dourado: #c8a24a;
+  --texto: #1f2937;
+  --texto-2: #64748b;
+  --borda: #e2e8f0;
+  --glow: rgba(20, 184, 166, 0.18);
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    sans-serif;
+  background: var(--bg);
+  color: var(--texto);
+  -webkit-font-smoothing: antialiased;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1;
+  width: 100%;
+}
+
+/* ===== Cabeçalho ===== */
+.cabecalho {
+  background: var(--surface);
+  border-bottom: 1px solid var(--borda);
+  position: relative;
+}
+.cabecalho::after {
+  content: "";
+  display: block;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--dourado),
+    transparent
+  );
+}
+
+.cabecalho-top {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 20px 24px;
+}
+
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo-svg {
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 6px 14px var(--glow));
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  border-left: 2px solid var(--borda);
+  padding-left: 16px;
+}
+
+.logo-title {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--marinho);
+  letter-spacing: 0.3px;
+}
+
+.logo-tagline {
+  margin: 4px 0 0;
+  font-size: 0.92rem;
+  color: var(--texto-2);
+}
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, var(--bg-2) 0%, #ffffff 100%);
+  border-top: 1px solid var(--borda);
+}
+
+.hero-content {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 56px 24px;
+  text-align: center;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: var(--surface);
+  color: var(--azul-tech);
+  border: 1px solid var(--borda);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px var(--glow);
+}
+
+.hero-title {
+  margin: 18px auto 12px;
+  font-size: clamp(1.6rem, 3.2vw, 2.5rem);
+  color: var(--marinho);
+  max-width: 760px;
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+.hero-accent {
+  background: linear-gradient(90deg, var(--azul-tech), var(--agua));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-sub {
+  margin: 0 auto;
+  max-width: 620px;
+  color: var(--texto-2);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+/* ===== Vitrine ===== */
+.vitrine {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 56px 24px;
+}
+
+.vitrine-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.vitrine-title {
+  margin: 0;
+  font-size: 1.6rem;
+  color: var(--marinho);
+  font-weight: 800;
+}
+
+.vitrine-sub {
+  margin: 6px 0 0;
+  color: var(--texto-2);
+}
+
+.vitrine-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+/* ===== Card ===== */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--borda);
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 14px rgba(10, 35, 66, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 36px rgba(10, 35, 66, 0.12), 0 0 0 1px var(--glow);
+}
+
+.card-image-wrap {
+  position: relative;
+  background: linear-gradient(160deg, #f1f8fb 0%, #ffffff 100%);
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+}
+
+.card-image-halo {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    var(--glow) 0%,
+    rgba(30, 90, 168, 0.08) 60%,
+    transparent 75%
+  );
+  filter: blur(2px);
+}
+
+.card-image {
+  position: relative;
+  max-width: 80%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 14px;
+  z-index: 1;
+  box-shadow: 0 10px 24px rgba(10, 35, 66, 0.12);
+}
+
+.card-selo-destaque {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2;
+}
+
+.card-body {
+  padding: 18px 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.card-categoria {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--azul-tech);
+  font-weight: 700;
+}
+
+.card-nome {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--marinho);
+  font-weight: 700;
+}
+
+.card-descricao {
+  margin: 0;
+  color: var(--texto-2);
+  font-size: 0.88rem;
+  line-height: 1.45;
+  flex: 1;
+}
+
+.card-selos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.card-footer {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.card-preco {
+  color: var(--marinho);
+  font-weight: 800;
+  font-size: 1.05rem;
+}
+
+/* ===== Selo ===== */
+.selo {
+  display: inline-block;
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.3px;
+  box-shadow: 0 2px 6px rgba(10, 35, 66, 0.15);
+}
+
+/* ===== Botão ===== */
+.botao {
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  padding: 9px 16px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.botao-primario {
+  background: var(--azul-tech);
+  color: #ffffff;
+  box-shadow: 0 6px 14px rgba(30, 90, 168, 0.28);
+}
+.botao-primario:hover {
+  background: var(--marinho);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(10, 35, 66, 0.28);
+}
+
+/* ===== Rodapé ===== */
+.rodape {
+  background: var(--marinho);
+  color: #e2e8f0;
+  margin-top: 40px;
+}
+
+.rodape-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 22px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 0.9rem;
+}
+
+.rodape-marca {
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.4px;
+}
+
+.rodape-divider {
+  color: var(--dourado);
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 540px) {
+  .logo-area { flex-direction: row; }
+  .logo-svg { width: 56px; height: 56px; }
+  .logo-title { font-size: 1.25rem; }
+  .logo-tagline { font-size: 0.8rem; }
+  .hero-content { padding: 40px 18px; }
+  .vitrine { padding: 40px 18px; }
+}
