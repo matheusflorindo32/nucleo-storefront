@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import Selo from "../components/Selo.jsx";
+import { formatarPreco } from "../utils/formatadores.js";
 
 const rotulosCategoria = {
   smartphones: "Smartphones",
@@ -174,10 +175,7 @@ function Detalhe() {
 
   if (!produto) return null;
 
-  const precoFormatado = produto.price.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  });
+  const precoFormatado = formatarPreco(produto.price);
   const imagens =
     produto.images && produto.images.length > 0
       ? produto.images

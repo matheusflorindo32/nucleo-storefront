@@ -2154,3 +2154,220 @@ body {
   }
   a { color: #000 !important; text-decoration: none !important; }
 }
+
+/* ===== Ação de Auth no cabeçalho ===== */
+.auth-acao {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.auth-acao-oi {
+  font-size: 13px;
+  color: var(--texto-2);
+}
+.auth-acao-oi strong { color: var(--marinho); }
+.auth-acao-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 18px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 14px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.auth-acao-btn--entrar {
+  background: var(--marinho);
+  color: #fff;
+  box-shadow: 0 8px 20px -10px rgba(10, 35, 66, 0.6);
+}
+.auth-acao-btn--entrar:hover { transform: translateY(-1px); background: #0c2a52; }
+.auth-acao-btn--sair {
+  background: #fff;
+  color: var(--marinho);
+  border-color: var(--borda);
+}
+.auth-acao-btn--sair:hover { border-color: var(--marinho); }
+
+/* ===== Tela de Login ===== */
+.auth-wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 56px 24px 80px;
+  display: flex;
+  justify-content: center;
+}
+.auth-card {
+  width: 100%;
+  max-width: 460px;
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-radius: 20px;
+  padding: 36px 32px;
+  box-shadow: 0 30px 60px -30px rgba(10, 35, 66, 0.25);
+}
+.auth-eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--agua);
+  margin-bottom: 8px;
+}
+.auth-title {
+  font-size: 28px;
+  line-height: 1.15;
+  color: var(--marinho);
+  margin: 0 0 8px;
+}
+.auth-sub {
+  color: var(--texto-2);
+  font-size: 15px;
+  margin: 0 0 24px;
+}
+.auth-form { display: flex; flex-direction: column; gap: 14px; }
+.auth-label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--marinho);
+}
+.auth-input {
+  font: inherit;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--borda);
+  background: #f8fafc;
+  color: var(--texto);
+  transition: border-color .15s, box-shadow .15s, background .15s;
+}
+.auth-input:focus {
+  outline: none;
+  border-color: var(--agua);
+  background: #fff;
+  box-shadow: 0 0 0 4px var(--glow);
+}
+.auth-erro {
+  margin: 0;
+  padding: 10px 12px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  border-radius: 10px;
+  font-size: 13px;
+}
+.auth-submit {
+  margin-top: 6px;
+  padding: 12px 16px;
+  font-size: 15px;
+}
+.auth-dica {
+  margin-top: 18px;
+  padding: 10px 12px;
+  background: #f1f5f9;
+  border: 1px dashed var(--borda);
+  border-radius: 10px;
+  color: var(--texto-2);
+  font-size: 13px;
+}
+.auth-dica code {
+  background: #fff;
+  padding: 1px 6px;
+  border-radius: 6px;
+  border: 1px solid var(--borda);
+  color: var(--marinho);
+}
+.auth-voltar {
+  display: inline-block;
+  margin-top: 18px;
+  color: var(--texto-2);
+  font-size: 14px;
+  text-decoration: none;
+}
+.auth-voltar:hover { color: var(--marinho); }
+
+/* ===== Minha conta ===== */
+.conta-wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+.conta-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--borda);
+  margin-bottom: 28px;
+}
+.conta-eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--agua);
+}
+.conta-title {
+  font-size: 32px;
+  color: var(--marinho);
+  margin: 8px 0 4px;
+}
+.conta-nome { color: var(--azul-tech); }
+.conta-sub { color: var(--texto-2); margin: 0; }
+.conta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 18px;
+}
+.conta-card {
+  background: #fff;
+  border: 1px solid var(--borda);
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 18px 36px -28px rgba(10, 35, 66, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.conta-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 24px 44px -28px rgba(10, 35, 66, 0.32);
+}
+.conta-card-icone {
+  font-size: 28px;
+  width: 48px; height: 48px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 12px;
+  background: var(--bg-2);
+}
+.conta-card-titulo { margin: 4px 0 0; color: var(--marinho); font-size: 18px; }
+.conta-card-desc { margin: 0; color: var(--texto-2); font-size: 14px; }
+.conta-card-badge {
+  align-self: flex-start;
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--bg-2);
+  color: var(--marinho);
+}
+.conta-rodape { margin-top: 32px; }
+.conta-link { color: var(--texto-2); text-decoration: none; font-size: 14px; }
+.conta-link:hover { color: var(--marinho); }
+
+@media (max-width: 640px) {
+  .auth-acao-oi { display: none; }
+  .auth-card { padding: 28px 22px; }
+  .conta-title { font-size: 26px; }
+}
