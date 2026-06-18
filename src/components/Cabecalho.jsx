@@ -1,11 +1,11 @@
-import logoNts from "../assets/logo-nts-clean.png.asset.json";
+import LogoNTS from "./LogoNTS.jsx";
 import MenuTopo from "./MenuTopo.jsx";
 
 const itensMenu = [
   { label: "Início", href: "#inicio", ativo: true },
   { label: "Vitrine", href: "#vitrine" },
-  { label: "Categorias", href: "#categorias" },
   { label: "Sobre", href: "#sobre" },
+  { label: "FAQ", href: "#faq" },
   { label: "Contato", href: "#contato" },
 ];
 
@@ -19,11 +19,7 @@ function Cabecalho() {
   return (
     <header className="cabecalho" id="inicio">
       <div className="cabecalho-top">
-        <img
-          src={logoNts.url}
-          alt="Núcleo TADS Store — Tecnologia, ciência e inovação em um só núcleo"
-          className="logo-img"
-        />
+        <LogoNTS className="logo-img" />
         <MenuTopo itens={itensMenu} />
       </div>
 
@@ -76,7 +72,7 @@ function Cabecalho() {
               </div>
               <div className="product-mock-screen">
                 <div className="mock-brand">
-                  <img src={logoNts.url} alt="" />
+                  <LogoNTS className="mock-brand-logo" />
                   <div className="mock-brand-text">
                     <strong>Núcleo TADS Store</strong>
                     <small>Vitrine acadêmica</small>
