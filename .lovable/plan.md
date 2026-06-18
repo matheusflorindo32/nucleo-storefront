@@ -1,94 +1,110 @@
-## Etapa 3 — Semana 14: SPA com React Router
 
-Evolução do projeto atual da Núcleo TADS Store para uma SPA com navegação entre vitrine, detalhe de produto e página 404. Tudo da Etapa 2 (fetch DummyJSON, useState, useEffect, loading, erro, busca, filtro) é preservado.
+## Diagnóstico: a Etapa 3 já está cumprida ✅
 
-### Escopo (somente isto)
+Confrontando o PDF com o projeto atual, **todos os requisitos obrigatórios já estão atendidos**:
 
-1. Instalar `react-router-dom` e envolver `<App />` com `<BrowserRouter>` em `main.jsx`.
-2. Criar `src/pages/` com `Home.jsx`, `Detalhe.jsx`, `NaoEncontrado.jsx`.
-3. Definir rotas em `App.jsx`, com `Layout` envolvendo todas as páginas.
-4. Adaptar `ProdutoCard.jsx` para navegar via `<Link to="/produto/:id">`.
-5. Atualizar CSS (`App.css`) só para acomodar página de detalhe e 404 — mantendo Clean Tech Premium.
-6. Atualizar `README.md` com a seção da Etapa 3.
+| Requisito do PDF | Status no projeto |
+|---|---|
+| `react-router-dom` instalado | ✅ `package.json` |
+| `BrowserRouter` envolvendo `<App />` em `main.jsx` | ✅ |
+| `Routes` / `Route` no `App.jsx` com `/`, `/produto/:id`, `*` | ✅ |
+| Home com vitrine (busca + filtro da Etapa 2) | ✅ `pages/Home.jsx` |
+| Detalhe lê `id` com `useParams` e busca `/products/:id` | ✅ `pages/Detalhe.jsx` |
+| `useEffect` com `[id]` nas dependências | ✅ |
+| `<Link>` no card (sem `<a href>`) | ✅ `ProdutoCard.jsx` |
+| Link "Voltar para a loja" no detalhe | ✅ |
+| 404 com `path="*"` como última rota | ✅ `NaoEncontrado.jsx` |
+| Cabeçalho/Rodapé em todas as telas | ✅ `Layout.jsx` |
+| Sem login / sem rota protegida | ✅ (fica para Etapa 4) |
 
-### Fora do escopo (não será feito)
-
-Login, auth, rota protegida, Minha Conta, carrinho, checkout, deploy, Next.js, TypeScript, Tailwind, backend.
-
----
-
-### Mudanças por arquivo
-
-**`package.json`** — adicionar `react-router-dom`.
-
-**`src/main.jsx`**
-```jsx
-import { BrowserRouter } from "react-router-dom";
-// ...
-<BrowserRouter><App /></BrowserRouter>
-```
-
-**`src/App.jsx`** — substituir composição atual por rotas. O `Layout` continua envolvendo tudo para preservar `Cabecalho` e `Rodape` em todas as telas.
-```jsx
-<Layout>
-  <Routes>
-    <Route path="/" element={<Home />} />
-    <Route path="/produto/:id" element={<Detalhe />} />
-    <Route path="*" element={<NaoEncontrado />} />
-  </Routes>
-</Layout>
-```
-A Home preserva a ordem visual atual: `Diferenciais`, `Vitrine`, `Newsletter`, `Leads`, `SobreContato`, `FAQ`, `Politicas`. Nas páginas Detalhe e 404, só aparece o conteúdo da página + header/footer (sem newsletter/FAQ/etc).
-
-**`src/pages/Home.jsx`** — renderiza a composição atual da página inicial (mesmas seções de hoje). Mantém âncoras `#vitrine`, `#sobre`, etc.
-
-**`src/pages/Detalhe.jsx`** — nova página:
-- `useParams()` para ler `id`.
-- `useState` para `produto`, `carregando`, `erro`.
-- `useEffect(() => { ... }, [id])` chamando `https://dummyjson.com/products/${id}`.
-- Estados: "Carregando produto..." / "Não foi possível carregar os detalhes do produto." / conteúdo.
-- Renderiza: imagem principal + galeria simples (thumbnails clicáveis que trocam a imagem principal via state local), `title`, `brand`, `category` (em pt), `rating`, `stock`, `price` em BRL, `discountPercentage`, `description`.
-- `<Link to="/">← Voltar para a loja</Link>`.
-- Mantém a mesma lógica de tradução de categoria já usada nos componentes (`smartphones → Smartphones`, etc.).
-
-**`src/pages/NaoEncontrado.jsx`** — página 404 amigável:
-- Título: "Página não encontrada"
-- Texto: "O endereço acessado não existe ou foi movido."
-- `<Link to="/">Voltar para a loja</Link>`
-
-**`src/components/ProdutoCard.jsx`** — remover o modal (`ModalProduto`) e substituir o clique por `<Link to={\`/produto/${produto.id}\`}>`. O card inteiro (ou ao menos imagem + botão "Ver produto") vira link. Sem `<a href>`, sem `onClick` de modal. O badge de "📷 N" pode ficar (informa quantas imagens há no detalhe). Arquivos `ModalProduto.jsx` permanecem no projeto mas deixam de ser importados — ou podem ser removidos para manter limpo (decisão: **remover** `ModalProduto.jsx` para o código ficar fácil de explicar ao professor).
-
-**`src/App.css`** — adicionar estilos novos, sem alterar a paleta:
-- `.detalhe-page` (layout 2 colunas: galeria + infos)
-- `.detalhe-imagem-principal`, `.detalhe-galeria`, `.detalhe-thumb`, `.detalhe-thumb--ativa`
-- `.detalhe-infos`, `.detalhe-titulo`, `.detalhe-preco`, `.detalhe-desconto`, `.detalhe-meta`
-- `.detalhe-voltar` (link estilo "← Voltar para a loja")
-- `.nao-encontrado` (centralizado, com CTA de voltar)
-- Responsivo: galeria empilha em mobile.
-
-Remover do CSS apenas o que era exclusivo do modal (`.modal-*`) já que o componente sai.
-
-**`README.md`** — adicionar a seção **Etapa 3 — SPA com React Router (Semana 14)** com:
-- O que foi entregue (router instalado, `BrowserRouter`, rotas `/`, `/produto/:id`, `*`, navegação por `<Link>`, `useParams`, fetch por id, layout preservado).
-- Atualizar a árvore de pastas para incluir `src/pages/`.
-- Checklist final da Etapa 3 espelhando o do enunciado.
-- Atualizar o Roadmap marcando Fase 3 ✅ e mantendo a lista "Fora do escopo" (login, carrinho, checkout etc. continuam fora).
+Ou seja: **clicar no card abre o detalhe, voltar funciona, URL inválida mostra 404, header/footer persistem**. Nada precisa ser refeito.
 
 ---
 
-### Inspiração de design (referência, não cópia)
+## Plano avançado — apenas POLIR o que já existe
 
-Para a página de **Detalhe**, a direção visual segue padrões de PDPs (product detail pages) modernas vistas em componentes do 21st.dev: layout split (galeria à esquerda, infos à direita), thumbnails verticais/horizontais com borda ativa, badge de desconto discreto, hierarquia tipográfica forte no preço, botão de "Voltar" como link sutil com seta. Tudo traduzido para a paleta Clean Tech Premium já existente (azul-marinho `#0A2342`, verde `#16A34A`, dourado discreto, fundo claro, cards brancos). Sem tema escuro, sem libs de UI.
+O PDF lista 3 itens **recomendados (não obrigatórios)**. Vou implementar exatamente esses + refinamentos visuais inspirados em PDPs do 21st.dev, **sem expandir o escopo da etapa** (sem login, sem carrinho, sem checkout, sem libs novas, mesma paleta Clean Tech Premium).
+
+### 1. `NavLink` no menu (recomendado pelo PDF)
+
+- Em `src/components/MenuTopo.jsx`, trocar os `<a href="#...">` da Home por `<NavLink to="/">` + âncoras, e garantir que o item ativo recebe a classe `menu-link--ativo` (já existe estilo, só vou padronizar via `className` função do `NavLink`).
+- Em telas de Detalhe/404, o menu mostra "Loja" como link normal de volta para `/`.
+
+### 2. Estado de carregando reforçado no Detalhe (recomendado pelo PDF)
+
+- Já existe `"Carregando produto..."`. Vou adicionar um **skeleton** simples (blocos cinza com pulse via CSS keyframes — sem libs) no lugar do texto puro: skeleton da imagem principal + linhas de título/preço.
+- Mensagem de erro ganha botão "Tentar novamente" que re-dispara o fetch (reusando o `useEffect` via state `tentativa` adicionado em `[id, tentativa]`).
+
+### 3. Mais campos do produto (recomendado pelo PDF)
+
+Hoje o Detalhe já mostra título, marca, categoria, rating, stock, preço, desconto, descrição. Vou adicionar de forma discreta os campos que a DummyJSON entrega e ainda não usamos:
+- `sku`, `weight`, `dimensions` (W×H×D em cm) → bloco "Especificações".
+- `warrantyInformation`, `shippingInformation`, `returnPolicy` → bloco "Garantia, envio e trocas" com 3 mini-cards.
+- `reviews[]` (até 3) → bloco "Avaliações" com nome, nota em estrelas e comentário.
+- `tags[]` → chips pequenos abaixo do título.
+
+Tudo opcional via verificação `produto.x && ...` para não quebrar se a API mudar.
+
+### 4. Refinamentos visuais (inspiração 21st.dev — PDPs modernas)
+
+Sem mudar paleta nem adicionar bibliotecas:
+- **Galeria**: thumbs com borda ativa em verde `#16A34A`, hover com leve `translateY(-2px)`, transição de opacidade ao trocar a imagem principal (CSS `@keyframes fadeIn`).
+- **Preço**: hierarquia tipográfica mais forte — preço grande em navy, "à vista" como eyebrow pequeno acima, badge de desconto verde arredondado ao lado.
+- **Layout split**: galeria sticky no desktop (`position: sticky; top: 24px`) enquanto as infos rolam — padrão comum em PDPs premium.
+- **Breadcrumb** no topo do Detalhe: `Loja › {Categoria} › {Produto}` usando `<Link>` (o "Loja" e a categoria viram links para `/` com filtro pré-aplicado via query string — ver item 5).
+- **Botão "Voltar"** com ícone seta em SVG inline e hover de underline animado.
+
+### 5. Filtro/busca persistidos na URL (bônus de SPA, dentro do escopo)
+
+Pequena melhoria que demonstra domínio de rotas sem adicionar funcionalidade nova:
+- `Vitrine.jsx` lê e escreve `?busca=...&categoria=...` via `useSearchParams` do React Router.
+- Permite compartilhar/voltar para o mesmo estado de filtro (e o breadcrumb do Detalhe pode linkar "Loja › Smartphones" voltando filtrado).
+- Continua sendo a **mesma busca/filtro da Etapa 2** — só ganhou URL.
+
+### 6. Página 404 mais polida
+
+- Mantém estrutura atual.
+- Adiciona ilustração tipográfica grande "404" com gradiente sutil navy→verde, lista de 3 sugestões clicáveis (Smartphones / Notebooks / Tablets) usando `<Link>` com `?categoria=...`, e CTA principal "Voltar para a loja".
+
+### 7. Acessibilidade e SEO leve
+
+- `<title>` dinâmico por rota via `useEffect` em cada página (`document.title = "Núcleo TADS Store — {produto.title}"`, idem para Home e 404).
+- `aria-current="page"` automático do `NavLink`.
+- `alt` descritivo nas imagens da galeria (já existe, vou padronizar).
 
 ---
 
-### Checklist de validação ao final
+## Arquivos afetados
 
-- `npm install` e `npm run dev` sem erros.
-- `/` mostra vitrine completa com busca, filtro e API funcionando.
-- Clicar em um card vai para `/produto/:id` sem reload.
-- `/produto/1`, `/produto/2`, etc. carregam o produto correto via `useParams` + `useEffect([id])`.
-- Estados de carregando e erro aparecem na página de detalhe.
-- URL inválida (ex.: `/qualquercoisa`) mostra a página 404 com link de volta.
-- `Cabecalho` e `Rodape` aparecem em Home, Detalhe e 404.
-- Sem login, sem auth, sem rota protegida, sem carrinho, sem checkout.
+**Editados** (sem reescrever, só polir):
+- `src/components/MenuTopo.jsx` — usar `NavLink`.
+- `src/components/Vitrine.jsx` — `useSearchParams` para busca/categoria.
+- `src/pages/Detalhe.jsx` — skeleton, breadcrumb, novos campos, retry, `document.title`.
+- `src/pages/Home.jsx` — `document.title`.
+- `src/pages/NaoEncontrado.jsx` — visual + sugestões + `document.title`.
+- `src/App.css` — `.skeleton`, `.detalhe-breadcrumb`, `.detalhe-specs`, `.detalhe-reviews`, `.detalhe-policies`, ajustes sticky, animações.
+
+**Não criados / não removidos**: nenhum arquivo novo, nenhum apagado. Mesma estrutura de pastas (`pages/`, `components/`).
+
+---
+
+## Fora do escopo (continua fora — Etapa 4)
+
+Login, autenticação, rota protegida, carrinho, checkout, "Minha Conta", deploy, Next.js, TypeScript, Tailwind, libs de UI, backend.
+
+---
+
+## Checklist de validação final
+
+- Todos os itens obrigatórios do PDF continuam ✅.
+- Menu destaca página atual com `NavLink`.
+- Detalhe mostra skeleton durante o fetch e botão "Tentar novamente" no erro.
+- Detalhe exibe specs, garantia/envio/trocas, reviews e tags quando a API entrega.
+- Galeria com sticky no desktop e fade ao trocar imagem.
+- Breadcrumb no Detalhe leva de volta à vitrine filtrada pela categoria.
+- URL da Home reflete busca/categoria (`?busca=...&categoria=...`) e vice-versa.
+- 404 mais bonita, com sugestões clicáveis.
+- `document.title` muda por rota.
+- Sem libs novas, mesma paleta, código continua fácil de explicar ao professor.
+
+Inspiração: padrões de PDP do 21st.dev (split sticky, breadcrumb sutil, hierarquia forte no preço, skeleton minimalista) — sem copiar código, traduzido para os tokens já existentes.
