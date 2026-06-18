@@ -315,6 +315,12 @@ interface Product {
 
 ---
 
+## 📝 Documentação e Revisão
+
+Este README foi revisado e aprimorado com assistência de IA (Kimi Claw) para garantir clareza técnica, padronização acadêmica e apresentação profissional. O conteúdo original, arquitetura e código do projeto foram desenvolvidos pelo autor.
+
+---
+
 ## 📄 Licença
 
 Este projeto está licenciado sob a **MIT License** — veja o arquivo [LICENSE](LICENSE) para detalhes.
