@@ -25,16 +25,6 @@ function ProdutoCard({ produto }) {
         <span className="card-categoria">{produto.category}</span>
         <h3 className="card-nome">{produto.title}</h3>
 
-        {typeof produto.rating === "number" && (
-          <span
-            className="card-avaliacao"
-            aria-label={`Avaliação ${produto.rating}`}
-          >
-            ★ {produto.rating.toFixed(1)}
-            <small>· avaliações verificadas</small>
-          </span>
-        )}
-
         {produto.description && (
           <p className="card-descricao">{produto.description}</p>
         )}

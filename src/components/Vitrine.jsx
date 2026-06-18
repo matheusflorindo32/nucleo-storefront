@@ -31,8 +31,11 @@ function Vitrine() {
           )
         );
 
-        const todos = respostas.flatMap((r) => r.products || []);
-        setProdutos(todos.slice(0, 12));
+        // Pega até 5 de cada categoria para garantir variedade
+        const variados = respostas.flatMap((r) =>
+          (r.products || []).slice(0, 5)
+        );
+        setProdutos(variados.slice(0, 20));
       } catch (e) {
         setErro(
           "Não foi possível carregar os produtos. Tente novamente mais tarde."
