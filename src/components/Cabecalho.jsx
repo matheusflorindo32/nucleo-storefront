@@ -51,11 +51,29 @@ function Cabecalho() {
                 <span />
                 <span />
               </div>
-              <div className="product-mock-screen">
-                <div className="mock-line w-60" />
-                <div className="mock-line w-40" />
-                <div className="mock-line w-80" />
-                <div className="mock-block" />
+              <div className="mock-screen">
+                <div className="mock-brand">
+                  <img src={logoNts.url} alt="" />
+                  <div className="mock-brand-text">
+                    <strong>Núcleo TADS Store</strong>
+                    <small>Vitrine acadêmica</small>
+                  </div>
+                </div>
+
+                <div className="mock-featured">
+                  <div className="mock-featured-icon">💻</div>
+                  <div className="mock-featured-info">
+                    <strong>Kit Dev Starter</strong>
+                    <span className="mock-price">a partir de R$ 0,00</span>
+                  </div>
+                  <span className="mock-tag">Destaque</span>
+                </div>
+
+                <div className="mock-thumbs">
+                  <span className="mock-thumb t1" />
+                  <span className="mock-thumb t2" />
+                  <span className="mock-thumb t3" />
+                </div>
               </div>
             </div>
 
