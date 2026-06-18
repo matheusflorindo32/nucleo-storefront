@@ -1,110 +1,140 @@
+## Diagnóstico do PDF anterior
 
-## Diagnóstico: a Etapa 3 já está cumprida ✅
+Você está certo: o print do **Detalhe** veio com o hero "Tecnologia premium para o seu núcleo de produtividade" colado no topo — e esse bloco **não pertence à página de detalhe**. Isso é um bug real do `src/components/Cabecalho.jsx`, que hoje renderiza o `<section className="hero">` dentro do `<header>`. Como o `Layout.jsx` usa o Cabecalho em todas as rotas, o hero da Home vaza para `/produto/:id` e `*`.
 
-Confrontando o PDF com o projeto atual, **todos os requisitos obrigatórios já estão atendidos**:
-
-| Requisito do PDF | Status no projeto |
-|---|---|
-| `react-router-dom` instalado | ✅ `package.json` |
-| `BrowserRouter` envolvendo `<App />` em `main.jsx` | ✅ |
-| `Routes` / `Route` no `App.jsx` com `/`, `/produto/:id`, `*` | ✅ |
-| Home com vitrine (busca + filtro da Etapa 2) | ✅ `pages/Home.jsx` |
-| Detalhe lê `id` com `useParams` e busca `/products/:id` | ✅ `pages/Detalhe.jsx` |
-| `useEffect` com `[id]` nas dependências | ✅ |
-| `<Link>` no card (sem `<a href>`) | ✅ `ProdutoCard.jsx` |
-| Link "Voltar para a loja" no detalhe | ✅ |
-| 404 com `path="*"` como última rota | ✅ `NaoEncontrado.jsx` |
-| Cabeçalho/Rodapé em todas as telas | ✅ `Layout.jsx` |
-| Sem login / sem rota protegida | ✅ (fica para Etapa 4) |
-
-Ou seja: **clicar no card abre o detalhe, voltar funciona, URL inválida mostra 404, header/footer persistem**. Nada precisa ser refeito.
+Além disso, as imagens ficaram pequenas demais no PDF retrato — perde-se a leitura de cards, preços e selos.
 
 ---
 
-## Plano avançado — apenas POLIR o que já existe
+## Parte 1 — Corrigir o bug do hero (dentro do escopo)
 
-O PDF lista 3 itens **recomendados (não obrigatórios)**. Vou implementar exatamente esses + refinamentos visuais inspirados em PDPs do 21st.dev, **sem expandir o escopo da etapa** (sem login, sem carrinho, sem checkout, sem libs novas, mesma paleta Clean Tech Premium).
+É uma correção de **apresentação**, não muda rotas, fetch, useState ou useEffect. 100% compatível com a Etapa 3.
 
-### 1. `NavLink` no menu (recomendado pelo PDF)
+- Em `Cabecalho.jsx`: receber prop `mostrarHero` (default `false`) e só renderizar o `<section className="hero">` quando `true`.
+- Em `Layout.jsx` (ou em cada página): a Home passa `<Cabecalho mostrarHero />`; Detalhe e 404 não passam.
 
-- Em `src/components/MenuTopo.jsx`, trocar os `<a href="#...">` da Home por `<NavLink to="/">` + âncoras, e garantir que o item ativo recebe a classe `menu-link--ativo` (já existe estilo, só vou padronizar via `className` função do `NavLink`).
-- Em telas de Detalhe/404, o menu mostra "Loja" como link normal de volta para `/`.
-
-### 2. Estado de carregando reforçado no Detalhe (recomendado pelo PDF)
-
-- Já existe `"Carregando produto..."`. Vou adicionar um **skeleton** simples (blocos cinza com pulse via CSS keyframes — sem libs) no lugar do texto puro: skeleton da imagem principal + linhas de título/preço.
-- Mensagem de erro ganha botão "Tentar novamente" que re-dispara o fetch (reusando o `useEffect` via state `tentativa` adicionado em `[id, tentativa]`).
-
-### 3. Mais campos do produto (recomendado pelo PDF)
-
-Hoje o Detalhe já mostra título, marca, categoria, rating, stock, preço, desconto, descrição. Vou adicionar de forma discreta os campos que a DummyJSON entrega e ainda não usamos:
-- `sku`, `weight`, `dimensions` (W×H×D em cm) → bloco "Especificações".
-- `warrantyInformation`, `shippingInformation`, `returnPolicy` → bloco "Garantia, envio e trocas" com 3 mini-cards.
-- `reviews[]` (até 3) → bloco "Avaliações" com nome, nota em estrelas e comentário.
-- `tags[]` → chips pequenos abaixo do título.
-
-Tudo opcional via verificação `produto.x && ...` para não quebrar se a API mudar.
-
-### 4. Refinamentos visuais (inspiração 21st.dev — PDPs modernas)
-
-Sem mudar paleta nem adicionar bibliotecas:
-- **Galeria**: thumbs com borda ativa em verde `#16A34A`, hover com leve `translateY(-2px)`, transição de opacidade ao trocar a imagem principal (CSS `@keyframes fadeIn`).
-- **Preço**: hierarquia tipográfica mais forte — preço grande em navy, "à vista" como eyebrow pequeno acima, badge de desconto verde arredondado ao lado.
-- **Layout split**: galeria sticky no desktop (`position: sticky; top: 24px`) enquanto as infos rolam — padrão comum em PDPs premium.
-- **Breadcrumb** no topo do Detalhe: `Loja › {Categoria} › {Produto}` usando `<Link>` (o "Loja" e a categoria viram links para `/` com filtro pré-aplicado via query string — ver item 5).
-- **Botão "Voltar"** com ícone seta em SVG inline e hover de underline animado.
-
-### 5. Filtro/busca persistidos na URL (bônus de SPA, dentro do escopo)
-
-Pequena melhoria que demonstra domínio de rotas sem adicionar funcionalidade nova:
-- `Vitrine.jsx` lê e escreve `?busca=...&categoria=...` via `useSearchParams` do React Router.
-- Permite compartilhar/voltar para o mesmo estado de filtro (e o breadcrumb do Detalhe pode linkar "Loja › Smartphones" voltando filtrado).
-- Continua sendo a **mesma busca/filtro da Etapa 2** — só ganhou URL.
-
-### 6. Página 404 mais polida
-
-- Mantém estrutura atual.
-- Adiciona ilustração tipográfica grande "404" com gradiente sutil navy→verde, lista de 3 sugestões clicáveis (Smartphones / Notebooks / Tablets) usando `<Link>` com `?categoria=...`, e CTA principal "Voltar para a loja".
-
-### 7. Acessibilidade e SEO leve
-
-- `<title>` dinâmico por rota via `useEffect` em cada página (`document.title = "Núcleo TADS Store — {produto.title}"`, idem para Home e 404).
-- `aria-current="page"` automático do `NavLink`.
-- `alt` descritivo nas imagens da galeria (já existe, vou padronizar).
+Resultado: o print do Detalhe fica limpo (só logo + menu + conteúdo da PDP), como o professor espera.
 
 ---
 
-## Arquivos afetados
+## Parte 2 — PDF v2 "Premium Elite" da entrega
 
-**Editados** (sem reescrever, só polir):
-- `src/components/MenuTopo.jsx` — usar `NavLink`.
-- `src/components/Vitrine.jsx` — `useSearchParams` para busca/categoria.
-- `src/pages/Detalhe.jsx` — skeleton, breadcrumb, novos campos, retry, `document.title`.
-- `src/pages/Home.jsx` — `document.title`.
-- `src/pages/NaoEncontrado.jsx` — visual + sugestões + `document.title`.
-- `src/App.css` — `.skeleton`, `.detalhe-breadcrumb`, `.detalhe-specs`, `.detalhe-reviews`, `.detalhe-policies`, ajustes sticky, animações.
+Mesma identidade Núcleo TADS Store (navy `#0A2342`, teal `#14B8A6`, verde `#16A34A`, dourado `#C8A24A`, ink `#0F172A`), mas reconstruído para os prints respirarem.
 
-**Não criados / não removidos**: nenhum arquivo novo, nenhum apagado. Mesma estrutura de pastas (`pages/`, `components/`).
+### Estrutura (8–9 páginas)
+
+```
+1. CAPA (retrato)
+   ├─ Faixa navy com gradiente sutil teal→verde
+   ├─ "ENTREGA · SEMANA 14" eyebrow
+   ├─ Título grande + subtítulo
+   └─ Aluno · IFES · data
+
+2. DADOS DA ENTREGA (retrato)
+   ├─ Tabela com Projeto / Etapa / Stack / Repositório / Preview / Aluno
+   └─ Chips das tecnologias usadas
+
+3. PRINT 01 — LISTA (PAISAGEM, full-bleed)
+   └─ Home recortada em 2 colunas lado a lado (acima e abaixo do scroll),
+      ocupando ~95% da página A4 deitada → texto e cards legíveis
+
+4. PRINT 02 — DETALHE (PAISAGEM, full-bleed)
+   ├─ Print limpo (sem hero) ocupando a página inteira deitada
+   └─ Anotações laterais com setas apontando: useParams, breadcrumb,
+      galeria, specs, políticas, reviews
+
+5. ARQUITETURA DE ROTAS (retrato)
+   └─ Diagrama ASCII das 3 rotas + fluxo card → /produto/:id
+
+6. O QUE JÁ FUNCIONA (retrato)
+   └─ Grid de 10 cards (já existia, mantido)
+
+7. ONDE TRAVEI (retrato)
+   └─ 3 dificuldades + trecho de código
+
+8. PEDIDO DE FEEDBACK (retrato)
+   └─ 5 cards (rotas, pages/, layout detalhe, loading/erro, useSearchParams)
+
+9. PRÓXIMOS PASSOS (retrato)
+   └─ Roadmap mini para Etapa 4
+```
+
+### Decisões técnicas do PDF
+
+- ReportLab com **`pageBreakBefore` + tamanho de página por seção** (algumas A4 retrato, outras A4 paisagem) usando `NextPageTemplate`.
+- Recapturar os dois prints em viewport **1920×1200** para alta resolução.
+- Para o Print 01 (página inteira muito alta), dividir a imagem em duas metades lado a lado — fica enorme e legível.
+- Para o Print 02, captura no detalhe **já sem o hero** (depois do fix da Parte 1), em viewport largo, ocupando full-bleed.
+- Anotações com setas em SVG sobre o print do detalhe (texto + linha + dot).
 
 ---
 
-## Fora do escopo (continua fora — Etapa 4)
+## Parte 3 — Sua pergunta: "Download de especificações" e outros bônus
 
-Login, autenticação, rota protegida, carrinho, checkout, "Minha Conta", deploy, Next.js, TypeScript, Tailwind, libs de UI, backend.
+### Resposta direta
+
+**Sim, dá pra colocar e é estratégico.** Não invade nada do que o PDF da Etapa 3 proíbe (sem login, sem rota protegida, sem projeto novo, sem libs novas). É feature de **apresentação na página de detalhe**, e mostra que você sabe trabalhar com o JSON que vem da API.
+
+### Implementação proposta do download
+
+Botão **"Baixar especificações"** no bloco de preço da PDP. Ao clicar:
+- Gera um arquivo `.txt` (ou `.json`) com nome, marca, SKU, peso, dimensões, preço, garantia, envio, política de trocas e link da API.
+- Tudo em **JavaScript puro** com `Blob` + `URL.createObjectURL` — zero libs.
+- Acessível, com `aria-label` e ícone SVG inline.
+
+**Por que é estratégico:** demonstra (a) que você manipula a resposta da API além de só exibir, (b) UX real de e-commerce ("ficha técnica"), (c) sem nada de backend.
+
+### Outras melhorias que respeitam o escopo
+
+Listo do **mais seguro** para o **mais ousado** — escolha quais entram:
+
+| # | Melhoria | Por que cabe na Etapa 3 | Risco escopo |
+|---|---|---|---|
+| 1 | **Scroll-to-top ao trocar rota** (componente `<ScrollToTop />` com `useLocation` + `useEffect`) | É comportamento padrão de SPA — pura navegação | Nenhum |
+| 2 | **Botão "Compartilhar"** (Web Share API + fallback copiar link) na PDP | URL já existe (`/produto/:id`), só reusa | Nenhum |
+| 3 | **Imprimir ficha** (`window.print()`) com CSS `@media print` enxuto | Frontend puro | Nenhum |
+| 4 | **404 inteligente** — busca 3 produtos sugeridos via `/products?limit=3` e mostra como cards clicáveis | Reusa fetch + Link; reforça navegação | Nenhum |
+| 5 | **Página `/sobre-o-projeto`** (rota nova) explicando arquitetura SPA, com link no menu | Mostra MAIS rotas, que é o tema da etapa | Nenhum — fortalece a etapa |
+| 6 | **Skeleton na vitrine** também (hoje só no detalhe) | Loading reforçado é item recomendado pelo PDF | Nenhum |
+| 7 | **Histórico "Vistos recentemente"** (últimos 4 IDs em `localStorage`) na Home | Persistência leve, sem login | Baixo — mas vale citar como bônus |
+| 8 | **Ordenação na vitrine** (menor preço / maior rating) com `useSearchParams` | Reusa o que já existe | Nenhum |
+
+**Minha recomendação:** entrar **#1, #2, #3, #4, #5, #8** + o **download de especificações**. Esse pacote:
+- Não toca em login/rota protegida/carrinho/checkout (proibições da etapa).
+- **Adiciona uma 4ª rota** (`/sobre-o-projeto`), o que reforça exatamente o que a Semana 14 pede.
+- Dá ao professor coisas concretas para elogiar sem você fugir do tema.
+
+Deixo de fora:
+- **#7 (Vistos recentemente)** — usa `localStorage`, que costuma ser introduzido na Etapa 4. Se quiser, fica para depois.
 
 ---
 
-## Checklist de validação final
+## Arquivos afetados (quando aprovado e mudar para build)
 
-- Todos os itens obrigatórios do PDF continuam ✅.
-- Menu destaca página atual com `NavLink`.
-- Detalhe mostra skeleton durante o fetch e botão "Tentar novamente" no erro.
-- Detalhe exibe specs, garantia/envio/trocas, reviews e tags quando a API entrega.
-- Galeria com sticky no desktop e fade ao trocar imagem.
-- Breadcrumb no Detalhe leva de volta à vitrine filtrada pela categoria.
-- URL da Home reflete busca/categoria (`?busca=...&categoria=...`) e vice-versa.
-- 404 mais bonita, com sugestões clicáveis.
-- `document.title` muda por rota.
-- Sem libs novas, mesma paleta, código continua fácil de explicar ao professor.
+**Código do app:**
+- `src/components/Cabecalho.jsx` — prop `mostrarHero`.
+- `src/components/Layout.jsx` — não renderiza mais o hero por padrão.
+- `src/pages/Home.jsx` — passa `mostrarHero` para o Cabecalho (ou renderiza o hero diretamente).
+- `src/pages/Detalhe.jsx` — botões "Baixar especificações", "Compartilhar", "Imprimir".
+- `src/pages/NaoEncontrado.jsx` — fetch de 3 sugestões reais.
+- `src/pages/SobreProjeto.jsx` — **novo arquivo** (única criação).
+- `src/App.jsx` — registra a rota `/sobre-o-projeto`.
+- `src/components/MenuTopo.jsx` — adiciona item "Sobre o projeto".
+- `src/components/ScrollToTop.jsx` — **novo arquivo** (helper de rota).
+- `src/main.jsx` — envolve com `<ScrollToTop />`.
+- `src/components/Vitrine.jsx` — skeleton + ordenação opcional.
+- `src/App.css` — estilos dos novos botões, skeleton, print media query.
 
-Inspiração: padrões de PDP do 21st.dev (split sticky, breadcrumb sutil, hierarquia forte no preço, skeleton minimalista) — sem copiar código, traduzido para os tokens já existentes.
+**Documento de entrega:**
+- `/mnt/documents/nucleo-tads-store-entrega-semana14-v2.pdf` — nova versão.
+- Recapturar `print-home.png` e `print-detalhe.png` em 1920×1200 após o fix do hero.
+
+---
+
+## Decisões que preciso de você antes de implementar
+
+1. **Topo, top de tudo:** topar a correção do hero (deixar hero **só na Home**)? É o que tira o "imagem errada" do PDF.
+2. **Pacote de bônus:** vai com a recomendação (download + 1, 2, 3, 4, 5, 8) ou prefere um subconjunto?
+3. **Nome da rota nova:** `/sobre-o-projeto`, `/sobre`, ou `/projeto`?
+
+Se topar tudo como está, eu já gero o PDF v2 + faço as edições de código numa única passada quando você aprovar o plano.
