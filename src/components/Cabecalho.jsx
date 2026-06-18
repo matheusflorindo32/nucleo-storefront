@@ -51,7 +51,7 @@ function Cabecalho() {
                 <span />
                 <span />
               </div>
-              <div className="mock-screen">
+              <div className="product-mock-screen">
                 <div className="mock-brand">
                   <img src={logoNts.url} alt="" />
                   <div className="mock-brand-text">
