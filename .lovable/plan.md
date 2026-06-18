@@ -1,98 +1,76 @@
-# Plano — Etapa 2 (Semana 13) · Núcleo TADS Store
+# Plano de reajustes
 
-Objetivo único: trocar o array fixo de produtos por dados da **DummyJSON**, adicionando estados de carregamento/erro, busca por nome e filtro por categoria. Tudo o que já existe da Etapa 1 (identidade visual clara, componentes, CSS próprio) é preservado.
+Quatro frentes, dentro do escopo da Etapa 2 (sem rotas, sem login, sem carrinho).
 
-Nada fora do escopo: sem Router, sem detalhe, sem 404, sem login, sem carrinho, sem Spline, sem Framer Motion, sem TS, sem Tailwind.
+## 1. Voltar a cara tech da loja (mais categorias)
 
----
+A DummyJSON tem 4 categorias tech reais — vamos puxar todas as 4, não só smartphones:
 
-## 1. `src/components/Vitrine.jsx` (refatorar)
+- `smartphones` (celulares)
+- `laptops` (computadores / notebooks)
+- `tablets` (iPad e similares)
+- `mobile-accessories` (acessórios — cabos, mouses Bluetooth, etc.)
 
-Remover o array fixo `produtos` e o cálculo de `categoriasUnicas`. Em vez disso:
+`Vitrine.jsx` continua usando `Promise.all` nas 4 categorias, mas em vez de cortar em 12 produtos vai exibir **até 20**, distribuídos para garantir variedade (pegar até 5 de cada categoria, depois preencher). Assim o catálogo volta a ter notebook, tablet, acessório e celular juntos — visualmente igual à loja original da Etapa 1.
 
-- `import { useEffect, useState } from "react";`
-- Estados:
-  - `produtos` (array, inicial `[]`)
-  - `carregando` (boolean, inicial `true`)
-  - `erro` (string|null, inicial `null`)
-  - `busca` (string, inicial `""`)
-  - `categoria` (string, inicial `"Todas"`)
-- `useEffect(() => { ... }, [])` faz `fetch("https://dummyjson.com/products?limit=12")`, usa `try/catch/finally`, salva `data.products` em `produtos`, captura erro com mensagem amigável, e seta `carregando = false` no `finally`.
-- Derivar `categorias = ["Todas", ...new Set(produtos.map(p => p.category))]`.
-- Derivar `produtosFiltrados` aplicando:
-  - `p.title.toLowerCase().includes(busca.toLowerCase())`
-  - `categoria === "Todas" || p.category === categoria`
-- Render:
-  - Header da vitrine (mantido).
-  - Barra de controles (novo bloco `vitrine-controles`) com:
-    - `<input type="search">` controlado por `busca` (placeholder "Buscar produtos...").
-    - `<select>` controlado por `categoria`, listando `categorias`.
-  - Estados:
-    - Se `carregando` → `<p className="vitrine-estado">Carregando produtos...</p>`
-    - Senão se `erro` → `<p className="vitrine-estado vitrine-erro">Não foi possível carregar os produtos. Tente novamente mais tarde.</p>`
-    - Senão se `produtosFiltrados.length === 0` → `<p className="vitrine-estado">Nenhum produto encontrado.</p>`
-    - Senão → grid com `produtosFiltrados.map(p => <ProdutoCard key={p.id} produto={p} />)`.
-- O componente antigo `FiltroCategorias` deixa de ser usado pela Vitrine (o filtro nativo `<select>` é o pedido da etapa). Manter o arquivo no projeto sem importá-lo, para não quebrar nada.
+Observação honesta: a DummyJSON **não tem** categoria de "teclado mecânico", "headset gamer" ou "mouse gamer" como entidades separadas — só `mobile-accessories`. Esses tipos vão aparecer dentro dessa categoria quando existirem. Não dá para inventar categorias que a API não tem sem sair do escopo da Etapa 2 (que exige fetch real da API).
 
-## 2. `src/components/ProdutoCard.jsx` (adaptar campos)
+## 2. Restaurar a identidade da logo original
 
-Trocar referências para os campos da DummyJSON:
+A logo gerada por IA será removida. Volta a **`LogoNTS` SVG inline** que era a identidade original da Etapa 1 (descrita no README): hexágono vetorial com gradientes lineares, circuitos decorativos, azul-marinho + teal + dourado champagne. Vantagens:
 
-- Imagem: `produto.thumbnail`, `alt={produto.title}`
-- Título: `produto.title`
-- Categoria: `produto.category`
-- Preço: converter USD da API para BRL apenas formatando como BRL (didático, conforme pedido):
-  `produto.price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })`
-- Renderização condicional (substitui `freteGratis`):
-  - Se `produto.rating >= 4.5` → `<Selo texto="Produto destaque" cor="#16A34A" />`
-  - Se `produto.stock > 0` → `<Selo texto="Disponível" cor="#14B8A6" />`
-- Selo principal de destaque continua existindo, alimentado por `produto.category` (ou rótulo fixo "Em catálogo") para manter o visual premium.
-- Remover usos de `produto.nome`, `produto.preco`, `produto.imagem`, `produto.parcelas`, `produto.avaliacao`, `produto.descricao` como obrigatórios (a DummyJSON tem `description` e `rating` — opcional exibir `description` e a estrela com `rating`).
+- É a identidade original do projeto (preserva memória visual).
+- SVG inline = nítido em qualquer tamanho, sem fundo branco, sem CDN.
+- Já estava previsto na arquitetura do projeto.
 
-## 3. `src/App.css` (acréscimos mínimos)
+O `Cabecalho.jsx` passa a importar `LogoNTS` (novo componente em `src/components/LogoNTS.jsx`) no lugar do `<img src={logoNts.url}>`. O `.asset.json` da logo PNG fica órfão e pode ser removido depois.
 
-Adicionar estilos para:
+## 3. Esconder as avaliações ruins
 
-- `.vitrine-controles` — flex/grid responsivo (input + select lado a lado em desktop, coluna em mobile), fundo branco, borda sutil, sombra suave, alinhado ao restante (paleta clara, azul-marinho `#0A2342`, dourado discreto).
-- `.vitrine-busca` (input) e `.vitrine-select` — bordas arredondadas, foco azul-marinho.
-- `.vitrine-estado` — texto centralizado, cor sóbria; `.vitrine-erro` em tom de alerta discreto (sem quebrar a paleta clara).
+As notas da DummyJSON são baixas (2.x–3.x) e atrapalham. Em `ProdutoCard.jsx`:
 
-Nenhuma mudança nas cores existentes nem nos componentes Cabecalho/Diferenciais/Rodapé.
+- **Remover** o bloco `card-avaliacao` (estrela + nota).
+- **Manter** apenas a regra condicional `produto.rating >= 4.5 → Selo "Produto destaque"` (raro, não polui). O selo "Disponível" (stock > 0) continua.
 
-## 4. `src/App.jsx`
+Mantém o conceito de renderização condicional exigido pela Etapa 2, sem expor números feios.
 
-Já está simples. Apenas garantir que continua como `<Layout><Diferenciais /><Vitrine /></Layout>`. Sem lógica de fetch no App.
+## 4. Footer funcional + GitHub real
 
-## 5. `README.md`
+### 4a. Links institucionais que existem
 
-Adicionar uma seção **Etapa 2 — Semana 13** logo após a seção da Etapa 1, listando:
+Hoje `#sobre`, `#contato`, `#politicas`, `#faq` são âncoras mortas. Criar 3 seções novas no fim da página (antes do rodapé), simples e leves, dentro do `App.jsx`:
 
-- Integração com API DummyJSON (`/products?limit=12`)
-- `useState` e `useEffect`
-- Estado de carregamento (`Carregando produtos...`)
-- Estado de erro (mensagem amigável)
-- Busca por nome em tempo real
-- Filtro por categoria via `<select>`
-- `ProdutoCard` adaptado para `title`, `price`, `thumbnail`, `category`
-- Renderização condicional baseada em `rating`/`stock`
+- **`<SobreContato />`** — bloco único com duas colunas:
+  - **Sobre o Núcleo** — 2 parágrafos curtos sobre a loja (acadêmico TADS/IFES).
+  - **Contato** — e-mail, instituição, link "Fale com a gente" (mailto).
+- **`<FAQ />`** — 4–6 perguntas em `<details>`/`<summary>` nativos (sem dependência), respondendo: o que é a loja, prazo de entrega (didático), trocas, frete, suporte, garantia.
+- **`<Politicas />`** — bloco com 3 abas-acordeão também em `<details>`: Política de Privacidade, Política de Trocas, Termos de Uso — texto curto, claramente marcado como **projeto acadêmico**.
 
-Manter todo o conteúdo da Etapa 1 já existente.
+Âncoras: `#sobre`, `#contato`, `#faq`, `#politicas` passam a rolar para as seções reais. Visual segue a paleta Clean Tech já existente (cards brancos, hairlines, azul-marinho).
+
+### 4b. Redes sociais com links reais
+
+Em `Rodape.jsx`:
+
+- **GitHub** → `https://github.com/matheusflorindo32/nucleo-storefront` (do README, autor: Matheus Florindo).
+- **LinkedIn** → `https://linkedin.com/in/matheusflorindo`.
+- **Instagram** → manter como `#` ou remover se você não tiver perfil (pergunto abaixo).
+
+Todos abrem em nova aba (`target="_blank" rel="noopener noreferrer"`).
+
+E-mail do rodapé `contato@nucleotads.store` vira `mailto:matheusdideusf@gmail.com` (do README) — ou outro que você prefira.
 
 ---
 
-## Inspiração de design (21st.dev)
+## Perguntas rápidas antes de eu construir
 
-Padrão "search + select" acima de grid de produtos, paleta clara com hairlines, visto em referências de catálogo/commerce do 21st.dev (kokonutui, serafimcloud). Aplicado aos tokens claros já existentes do projeto — sem mudar a identidade Clean Tech Premium.
+1. **Instagram do rodapé**: você tem um perfil pra linkar, ou removo o ícone?
+2. **E-mail de contato**: uso `matheusdideusf@gmail.com` (do README) ou outro?
+3. **Logo**: confirmo que devo restaurar a **SVG hexagonal original da Etapa 1** (descrita no README) — não a PNG gerada por IA, certo?
 
-## Checklist de aceitação
+## Detalhes técnicos
 
-- [ ] `npm run dev` roda sem erros.
-- [ ] Produtos carregam da DummyJSON.
-- [ ] "Carregando produtos..." aparece antes dos dados.
-- [ ] Mensagem amigável em caso de erro.
-- [ ] Card mostra `title`, `price` (BRL), `thumbnail`, `category`.
-- [ ] Busca filtra em tempo real por título.
-- [ ] Select filtra por categoria.
-- [ ] "Nenhum produto encontrado" quando aplicável.
-- [ ] Sem aviso de `key` no console.
-- [ ] Identidade visual e estrutura de componentes da Etapa 1 preservadas.
+- Arquivos afetados: `src/components/Vitrine.jsx`, `src/components/ProdutoCard.jsx`, `src/components/Cabecalho.jsx`, `src/components/Rodape.jsx`, `src/App.jsx`, `src/App.css`.
+- Arquivos novos: `src/components/LogoNTS.jsx`, `src/components/SobreContato.jsx`, `src/components/FAQ.jsx`, `src/components/Politicas.jsx`.
+- Sem novas dependências, sem Router, sem TS, sem Tailwind. CSS adicionado apenas em `App.css`.
+- Etapa 2 preservada: `useState`, `useEffect`, `fetch`, carregando, erro, busca, filtro, condicional.
