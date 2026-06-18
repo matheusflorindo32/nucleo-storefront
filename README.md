@@ -1,58 +1,66 @@
-# Núcleo Storefront
+# Núcleo Storefront — Atividade Acadêmica IFES/TADS
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/matheusflorindo32/nucleo-storefront/main/.github/assets/nts-hero.png" alt="Núcleo Storefront" width="720" />
-  <br />
   <br />
 
   [![React](https://img.shields.io/badge/React-18.3-61DAFB?logo=react&logoColor=white)](https://react.dev)
   [![Vite](https://img.shields.io/badge/Vite-5.4-646CFF?logo=vite&logoColor=white)](https://vitejs.dev)
   [![License](https://img.shields.io/badge/License-MIT-0A2342)](LICENSE)
-  [![CI](https://img.shields.io/badge/CI-passing-16A34A)](https://github.com/matheusflorindo32/nucleo-storefront/actions)
   <br />
-  <strong>Plataforma de e-commerce acadêmica — Tecnologia, ciência e inovação em um só núcleo.</strong>
+  <strong>Atividade Acadêmica — IFES · Tecnologia em Análise e Desenvolvimento de Sistemas (TADS)</strong>
   <br />
-  <em>Academic e-commerce platform — Technology, science and innovation in one core.</em>
+  <em>Projeto integrador de componentização em React para disciplina de Desenvolvimento Web Front-end</em>
 </div>
 
 ---
 
-## 📋 Índice / Table of Contents
+## 📋 Índice
 
-- [Visão Geral / Overview](#-visão-geral--overview)
-- [Arquitetura / Architecture](#-arquitetura--architecture)
-- [Stack Tecnológico / Tech Stack](#-stack-tecnológico--tech-stack)
-- [Funcionalidades / Features](#-funcionalidades--features)
-- [Demonstração / Demo](#-demonstração--demo)
-- [Instalação / Getting Started](#-instalação--getting-started)
-- [Estrutura de Componentes / Component Structure](#-estrutura-de-componentes--component-structure)
-- [API de Produtos / Product API](#-api-de-produtos--product-api)
-- [Roadmap](#-roadmap)
-- [Contribuição / Contributing](#-contribuição--contributing)
-- [Licença / License](#-licença--license)
-- [Contato / Contact](#-contato--contact)
-
----
-
-## 🎯 Visão Geral / Overview
-
-**PT:** O **Núcleo Storefront** é a vitrine digital do ecossistema Núcleo TADS — uma plataforma de e-commerce focada em produtos de tecnologia para estudantes, desenvolvedores e pesquisadores. Construído com React 18 + Vite, o projeto aplica princípios de componentização, composição e renderização declarativa para criar uma experiência de compra fluida, acessível e performática.
-
-**EN:** **Núcleo Storefront** is the digital storefront of the Núcleo TADS ecosystem — an e-commerce platform focused on technology products for students, developers and researchers. Built with React 18 + Vite, the project applies componentization, composition and declarative rendering principles to create a fluid, accessible and performant shopping experience.
-
-### Objetivos do projeto / Project Goals
-
-| Objetivo | Descrição |
-|----------|-----------|
-| **Componentização** | Arquitetura 100% baseada em componentes reutilizáveis |
-| **Composição** | Layout flexível via `props.children` |
-| **Performance** | Renderização otimizada com `key` e Virtual DOM |
-| **Acessibilidade** | Semântica HTML5, ARIA labels, contraste adequado |
-| **Design System** | Identidade visual consistente (NTS — Núcleo TADS Store) |
+- [Contexto Acadêmico](#-contexto-acadêmico)
+- [Visão Geral](#-visão-geral)
+- [Arquitetura](#-arquitetura)
+- [Stack Tecnológico](#-stack-tecnológico)
+- [Requisitos da Atividade](#-requisitos-da-atividade)
+- [Demonstração](#-demonstração)
+- [Instalação](#-instalação)
+- [Estrutura de Componentes](#-estrtura-de-componentes)
+- [API de Produtos](#-api-de-produtos)
+- [Roadmap de Evolução](#-roadmap-de-evolução)
+- [Licença](#-licença)
+- [Autor](#-autor)
 
 ---
 
-## 🏗️ Arquitetura / Architecture
+## 🎓 Contexto Acadêmico
+
+| Campo | Informação |
+|-------|------------|
+| **Instituição** | Instituto Federal do Espírito Santo (IFES) |
+| **Curso** | Tecnologia em Análise e Desenvolvimento de Sistemas (TADS) |
+| **Disciplina** | Desenvolvimento Web Front-end |
+| **Atividade** | Semana 12 / Etapa 1 — Projeto Integrador |
+| **Tema** | Componentização em React |
+| **Período** | 2024/2025 |
+
+Esta atividade integra os conhecimentos de **componentização**, **composição**, **props**, **renderização condicional** e **listas em React**, aplicados na construção de uma interface de e-commerce acadêmica.
+
+---
+
+## 🎯 Visão Geral
+
+O **Núcleo Storefront** é uma vitrine digital desenvolvida como projeto integrador da disciplina de Desenvolvimento Web Front-end do IFES/TADS. O projeto demonstra a aplicação prática de conceitos fundamentais de React:
+
+- **Componentização** — divisão da UI em componentes reutilizáveis e independentes
+- **Composição** — uso de `props.children` para layouts flexíveis
+- **Props** — passagem de dados entre componentes pai e filho
+- **Renderização de listas** — uso de `.map()` com `key` para performance
+- **Renderização condicional** — exibição de elementos baseada em estado/props
+
+Construído com React 18 e Vite, o projeto simula uma loja virtual de produtos de tecnologia para estudantes de TI, incorporando identidade visual institucional e boas práticas de desenvolvimento front-end.
+
+---
+
+## 🏗️ Arquitetura
 
 ```
 nucleo-storefront/
@@ -73,7 +81,7 @@ nucleo-storefront/
 └── vite.config.js
 ```
 
-### Diagrama de Composição / Composition Diagram
+### Diagrama de Composição
 
 ```
 App
@@ -90,7 +98,7 @@ App
 
 ---
 
-## 🛠️ Stack Tecnológico / Tech Stack
+## 🛠️ Stack Tecnológico
 
 | Camada | Tecnologia | Versão | Propósito |
 |--------|------------|--------|-----------|
@@ -101,7 +109,7 @@ App
 | **Ícones/Assets** | SVG inline | — | Logo vetorial, gradientes, circuitos decorativos |
 | **Imagens** | Unsplash CDN | — | Assets de produto (placeholder) |
 
-### Decisões arquiteturais / Architectural Decisions
+### Decisões arquiteturais
 
 - **Sem CSS frameworks** → Controle total sobre identidade visual NTS
 - **SVG inline** → Logo responsivo, animável, sem requests externos
@@ -110,33 +118,38 @@ App
 
 ---
 
-## ✨ Funcionalidades / Features
+## ✅ Requisitos da Atividade
 
-### Implementadas / Implemented
+### Checklist de entrega
 
-- [x] **Catálogo de produtos** — Grid responsivo com 6 produtos curados
-- [x] **Cards de produto** — Imagem, categoria, descrição, preço formatado (BRL), CTA
-- [x] **Selos dinâmicos** — Badges de destaque, frete grátis (renderização condicional)
-- [x] **Layout composicional** — `Layout` com `props.children` para flexibilidade
-- [x] **Hero section** — Branding com gradiente, tagline e proposta de valor
-- [x] **Logo SVG** — Hexágono + circuitos + monograma NTS com gradientes
-- [x] **Preços localizados** — `toLocaleString("pt-BR", { currency: "BRL" })`
-- [x] **Renderização otimizada** — `.map()` com `key` única para reconciliação eficiente
+- [x] **Projeto criado com React + Vite**
+- [x] **Componentes reutilizáveis** — Cabecalho, Layout, Vitrine, ProdutoCard, Botao, Selo, Rodape
+- [x] **Layout com `props.children`** — Layout composicional flexível
+- [x] **Cabeçalho com identidade visual** — SVG logo, gradientes, tagline
+- [x] **Vitrine de produtos** — Grid com 6 produtos curados
+- [x] **Cards reutilizáveis** — ProdutoCard com props dinâmicas
+- [x] **Props** — Passagem de dados entre componentes
+- [x] **Composição** — Layout envolvendo children
+- [x] **Array fixo de produtos** — Dados simulados para demonstração
+- [x] **Renderização com `.map()`** — Lista dinâmica de produtos
+- [x] **Uso de `key`** — Chave única para reconciliação eficiente
+- [x] **Renderização condicional** — Selo de frete grátis exibido apenas quando `freteGratis === true`
+- [x] **CSS próprio** — Identidade visual clara e consistente
 
-### Em desenvolvimento / In Development
+### Conceitos demonstrados
 
-- [ ] **Carrinho de compras** — Context API + localStorage
-- [ ] **Filtros de categoria** — Sidebar com checkboxes
-- [ ] **Busca em tempo real** — Debounce + filtro de array
-- [ ] **Página de produto** — React Router + route params
-- [ ] **Checkout** — Formulário multi-etapa com validação
-- [ ] **Backend API** — Node.js + Express + MongoDB
-- [ ] **Testes E2E** — Playwright
-- [ ] **CI/CD** — GitHub Actions + Vercel deploy
+| Conceito | Onde foi aplicado | Exemplo no código |
+|----------|-------------------|-------------------|
+| **Componentização** | Todos os `.jsx` | `Cabecalho`, `Vitrine`, `ProdutoCard` |
+| **Props** | `Cabecalho`, `ProdutoCard`, `Botao`, `Selo` | `<Cabecalho titulo="Núcleo TADS Store" />` |
+| **Children** | `Layout.jsx` | `<Layout>{children}</Layout>` |
+| **Lista + key** | `Vitrine.jsx` | `produtos.map(p => <ProdutoCard key={p.id} ... />)` |
+| **Condicional** | `ProdutoCard.jsx` | `{produto.freteGratis && <Selo ... />}` |
+| **Formatação** | `ProdutoCard.jsx` | `preco.toLocaleString("pt-BR", {currency: "BRL"})` |
 
 ---
 
-## 🖥️ Demonstração / Demo
+## 🖥️ Demonstração
 
 ```bash
 # Clone o repositório
@@ -151,22 +164,22 @@ $ npm run dev
 # Acesse http://localhost:5173
 ```
 
-### Preview visual / Visual Preview
+### Preview visual
 
-> **Hero Section** — Branding NTS com proposta de valor e call-to-action
-> **Product Grid** — 6 cards responsivos com imagens, selos e preços
+> **Hero Section** — Branding NTS com proposta de valor e call-to-action  
+> **Product Grid** — 6 cards responsivos com imagens, selos e preços  
 > **Footer** — Identidade visual consistente
 
 ---
 
-## 🚀 Instalação / Getting Started
+## 🚀 Instalação
 
-### Pré-requisitos / Prerequisites
+### Pré-requisitos
 
 - [Node.js](https://nodejs.org/) 18.x ou superior
 - [npm](https://www.npmjs.com/) 9.x ou superior
 
-### Passo a passo / Step by Step
+### Passo a passo
 
 ```bash
 # 1. Clone o repositório
@@ -183,7 +196,7 @@ $ npm run dev
 $ open http://localhost:5173
 ```
 
-### Scripts disponíveis / Available Scripts
+### Scripts disponíveis
 
 | Script | Comando | Descrição |
 |--------|---------|-----------|
@@ -193,7 +206,7 @@ $ open http://localhost:5173
 
 ---
 
-## 🧩 Estrutura de Componentes / Component Structure
+## 🧩 Estrutura de Componentes
 
 ### 1. `Cabecalho.jsx` — Header + Hero
 - **LogoNTS** → SVG vetorial com gradientes lineares, hexágono e circuitos decorativos
@@ -232,11 +245,11 @@ $ open http://localhost:5173
 
 ---
 
-## 📦 API de Produtos / Product API
+## 📦 API de Produtos
 
 Atualmente o catálogo é um array fixo. Futuramente será substituído por uma API RESTful.
 
-### Estrutura do produto / Product Schema
+### Estrutura do produto
 
 ```typescript
 interface Product {
@@ -251,7 +264,7 @@ interface Product {
 }
 ```
 
-### Produtos do catálogo / Catalog Products
+### Produtos do catálogo
 
 | ID | Produto | Categoria | Preço | Frete Grátis | Destaque |
 |----|---------|-----------|-------|--------------|----------|
@@ -264,7 +277,7 @@ interface Product {
 
 ---
 
-## 🗺️ Roadmap
+## 🗺️ Roadmap de Evolução
 
 ### Fase 1 — Fundação (✅ Concluída)
 - [x] Setup React + Vite
@@ -274,7 +287,7 @@ interface Product {
 - [x] Renderização condicional (selo frete grátis)
 - [x] CSS próprio com identidade visual
 
-### Fase 2 — Interatividade (🔄 Em progresso)
+### Fase 2 — Interatividade (📋 Planejada)
 - [ ] Estado global (Context API ou Zustand)
 - [ ] Carrinho de compras
 - [ ] Contador de itens no header
@@ -299,50 +312,14 @@ interface Product {
 
 ---
 
-## 🤝 Contribuição / Contributing
-
-**PT:** Contribuições são bem-vindas! Siga os passos abaixo:
-
-**EN:** Contributions are welcome! Follow the steps below:
-
-```bash
-# 1. Fork o repositório
-# 2. Crie uma branch
-$ git checkout -b feature/nome-da-feature
-
-# 3. Faça commit das alterações
-$ git commit -m "feat: adiciona nova funcionalidade"
-
-# 4. Push para a branch
-$ git push origin feature/nome-da-feature
-
-# 5. Abra um Pull Request
-```
-
-### Padrões de commit / Commit Standards
-
-Seguimos [Conventional Commits](https://www.conventionalcommits.org/):
-
-- `feat:` — Nova funcionalidade
-- `fix:` — Correção de bug
-- `docs:` — Documentação
-- `style:` — Formatação (espaços, ponto e vírgula, etc.)
-- `refactor:` — Refatoração de código
-- `test:` — Adição ou correção de testes
-- `chore:` — Tarefas de build, configuração, etc.
-
----
-
-## 📄 Licença / License
+## 📄 Licença
 
 Este projeto está licenciado sob a **MIT License** — veja o arquivo [LICENSE](LICENSE) para detalhes.
-
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
 ```
 MIT License
 
-Copyright (c) 2024-2025 Núcleo TADS Group
+Copyright (c) 2024-2025 Matheus Florindo de Deus
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -357,25 +334,15 @@ copies or substantial portions of the Software.
 
 ---
 
-## 📞 Contato / Contact
+## 👤 Autor
+
+**Matheus Florindo de Deus**
+
+- **Curso:** TADS — IFES
+- **GitHub:** [@matheusflorindo32](https://github.com/matheusflorindo32)
+- **Email:** [matheusdideusf@gmail.com](mailto:matheusdideusf@gmail.com)
+- **LinkedIn:** [Matheus Florindo](https://linkedin.com/in/matheusflorindo)
 
 <div align="center">
-
-  **Núcleo TADS Group** — Tecnologia, ciência e inovação em um só núcleo.
-
-  [![GitHub](https://img.shields.io/badge/GitHub-matheusflorindo32-181717?logo=github)](https://github.com/matheusflorindo32)
-  [![Email](https://img.shields.io/badge/Email-matheusdideusf@gmail.com-D14836?logo=gmail)](mailto:matheusdideusf@gmail.com)
-  [![LinkedIn](https://img.shields.io/badge/LinkedIn-Matheus%20Florindo-0A66C2?logo=linkedin)](https://linkedin.com/in/matheusflorindo)
-  [![Website](https://img.shields.io/badge/Website-nucleotatico.com.br-0A2342?logo=google-chrome)](https://nucleotatico.com.br)
-
-  <br />
-
-  <em>Desenvolvido com ❤️ por <strong>Matheus Florindo de Deus</strong></em>
-
-</div>
-
----
-
-<div align="center">
-  <sub>🎖️ <strong>NTS</strong> — Núcleo TADS Store · Plataforma acadêmica de e-commerce · React 18 + Vite</sub>
+  <sub>🎖️ <strong>NTS</strong> — Núcleo TADS Store · Atividade Acadêmica IFES/TADS · React 18 + Vite</sub>
 </div>
