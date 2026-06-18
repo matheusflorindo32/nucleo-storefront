@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { Link } from "react-router-dom";
 import Botao from "./Botao.jsx";
 import Selo from "./Selo.jsx";
-import ModalProduto from "./ModalProduto.jsx";
 
 const rotulosCategoria = {
   smartphones: "Smartphones",
@@ -15,34 +14,19 @@ function rotular(cat) {
 }
 
 function ProdutoCard({ produto }) {
-  const [aberto, setAberto] = useState(false);
-
   const precoFormatado = produto.price.toLocaleString("pt-BR", {
     style: "currency",
     currency: "BRL",
   });
   const categoriaPt = rotular(produto.category);
   const qtdImagens = (produto.images && produto.images.length) || 1;
-
-  function abrir() {
-    setAberto(true);
-  }
-
-  function aoTeclar(e) {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      abrir();
-    }
-  }
+  const linkProduto = `/produto/${produto.id}`;
 
   return (
-    <>
-      <article
-        className="card card--clicavel"
-        onClick={abrir}
-        onKeyDown={aoTeclar}
-        role="button"
-        tabIndex={0}
+    <article className="card">
+      <Link
+        to={linkProduto}
+        className="card-link"
         aria-label={`Ver detalhes de ${produto.title}`}
       >
         <div className="card-image-wrap">
@@ -81,17 +65,11 @@ function ProdutoCard({ produto }) {
             <div className="card-preco-bloco">
               <span className="card-preco">{precoFormatado}</span>
             </div>
-            <span onClick={(e) => e.stopPropagation()}>
-              <Botao texto="Ver produto" onClick={abrir} />
-            </span>
+            <Botao texto="Ver produto" />
           </div>
         </div>
-      </article>
-
-      {aberto && (
-        <ModalProduto produto={produto} aoFechar={() => setAberto(false)} />
-      )}
-    </>
+      </Link>
+    </article>
   );
 }
 
