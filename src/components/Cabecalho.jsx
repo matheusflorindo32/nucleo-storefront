@@ -1,4 +1,3 @@
-import logoNts from "../assets/logo-nts-clean.png.asset.json";
 import MenuTopo from "./MenuTopo.jsx";
 
 const itensMenu = [
@@ -15,15 +14,69 @@ const chipsHero = [
   { id: 3, texto: "Suporte por devs" },
 ];
 
+function LogoNTS() {
+  return (
+    <svg
+      className="logo-svg"
+      viewBox="0 0 120 120"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-label="Logo Núcleo TADS Store"
+    >
+      <defs>
+        <linearGradient id="hexGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#0A2342" />
+          <stop offset="100%" stopColor="#1E5AA8" />
+        </linearGradient>
+        <linearGradient id="circuitGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#C8A24A" />
+          <stop offset="100%" stopColor="#16A34A" />
+        </linearGradient>
+      </defs>
+      <g stroke="url(#circuitGrad)" strokeWidth="2" fill="none" strokeLinecap="round">
+        <path d="M14 40 L26 40 L32 34" />
+        <path d="M14 80 L26 80 L32 86" />
+        <path d="M106 40 L94 40 L88 34" />
+        <path d="M106 80 L94 80 L88 86" />
+      </g>
+      <g fill="#16A34A">
+        <circle cx="12" cy="40" r="3" />
+        <circle cx="12" cy="80" r="3" />
+        <circle cx="108" cy="40" r="3" />
+        <circle cx="108" cy="80" r="3" />
+      </g>
+      <polygon
+        points="60,12 102,36 102,84 60,108 18,84 18,36"
+        fill="url(#hexGrad)"
+        stroke="#14B8A6"
+        strokeWidth="2"
+      />
+      <text
+        x="60"
+        y="72"
+        textAnchor="middle"
+        fontFamily="system-ui, sans-serif"
+        fontWeight="800"
+        fontSize="32"
+        fill="#FFFFFF"
+        letterSpacing="1"
+      >
+        NTS
+      </text>
+    </svg>
+  );
+}
+
 function Cabecalho() {
   return (
     <header className="cabecalho" id="inicio">
       <div className="cabecalho-top">
-        <img
-          src={logoNts.url}
-          alt="Núcleo TADS Store — Tecnologia, ciência e inovação em um só núcleo"
-          className="logo-img"
-        />
+        <div className="logo-area">
+          <LogoNTS />
+          <div className="logo-text">
+            <h1 className="logo-title">Núcleo TADS Store</h1>
+            <p className="logo-tagline">Tecnologia, ciência e inovação em um só núcleo.</p>
+          </div>
+        </div>
         <MenuTopo itens={itensMenu} />
       </div>
 
@@ -76,7 +129,7 @@ function Cabecalho() {
               </div>
               <div className="product-mock-screen">
                 <div className="mock-brand">
-                  <img src={logoNts.url} alt="" />
+                  <LogoNTS />
                   <div className="mock-brand-text">
                     <strong>Núcleo TADS Store</strong>
                     <small>Vitrine acadêmica</small>
