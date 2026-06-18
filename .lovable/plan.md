@@ -1,76 +1,105 @@
-# Plano de reajustes
+# Plano — Ajustes finais Etapa 2
 
-Quatro frentes, dentro do escopo da Etapa 2 (sem rotas, sem login, sem carrinho).
+Quatro frentes, todas dentro do escopo da Etapa 2 (sem Spline, sem Router, sem libs novas, sem TS, sem Tailwind).
 
-## 1. Voltar a cara tech da loja (mais categorias)
+## 1. Reescrever copy do hero (alinhar com o que a vitrine entrega)
 
-A DummyJSON tem 4 categorias tech reais — vamos puxar todas as 4, não só smartphones:
+Hoje o hero promete "estuda, desenvolve e cria" + "Suporte por devs", mas a API entrega smartphones, notebooks, tablets e áudio. A copy não bate. Vou reescrever em `Cabecalho.jsx`:
 
-- `smartphones` (celulares)
-- `laptops` (computadores / notebooks)
-- `tablets` (iPad e similares)
-- `mobile-accessories` (acessórios — cabos, mouses Bluetooth, etc.)
+- **Badge**: `Vitrine de Produtos` → `Tecnologia em destaque`
+- **Título**: `Equipamentos inteligentes para quem estuda, desenvolve e cria` →
+  `Tecnologia premium para o seu **núcleo de produtividade**`
+- **Subtítulo**: substituir "estudantes, desenvolvedores e pesquisadores" por algo coerente com o catálogo real:
+  > `Smartphones, notebooks, tablets e acessórios selecionados para quem vive conectado a estudo, trabalho e criação.`
+- **Chips** (3 atuais): trocar por algo que reflete a vitrine real
+  - `Smartphones de ponta`
+  - `Notebooks para produtividade`
+  - `Áudio & acessórios`
+- Frase de apoio "Tecnologia, ciência e inovação em um só núcleo" — **mantida** (é a tagline da marca).
 
-`Vitrine.jsx` continua usando `Promise.all` nas 4 categorias, mas em vez de cortar em 12 produtos vai exibir **até 20**, distribuídos para garantir variedade (pegar até 5 de cada categoria, depois preencher). Assim o catálogo volta a ter notebook, tablet, acessório e celular juntos — visualmente igual à loja original da Etapa 1.
+## 2. Hero visual — efeito tipo Spline em CSS/SVG puro
 
-Observação honesta: a DummyJSON **não tem** categoria de "teclado mecânico", "headset gamer" ou "mouse gamer" como entidades separadas — só `mobile-accessories`. Esses tipos vão aparecer dentro dessa categoria quando existirem. Não dá para inventar categorias que a API não tem sem sair do escopo da Etapa 2 (que exige fetch real da API).
+Inspirado no `serafim/splite` do 21st.dev (orbe luminoso pulsante, brilho radial, partículas orbitando) — **recriado 100% em CSS** + SVG inline, sem dependências.
 
-## 2. Restaurar a identidade da logo original
+Em `Cabecalho.jsx` + `App.css`, evoluir o bloco `.hero-visual` atual (que já tem `ring`, `halo`, `hex`, `dots`):
 
-A logo gerada por IA será removida. Volta a **`LogoNTS` SVG inline** que era a identidade original da Etapa 1 (descrita no README): hexágono vetorial com gradientes lineares, circuitos decorativos, azul-marinho + teal + dourado champagne. Vantagens:
+- **Núcleo central**: substituir o quadradinho `product-mock` por um **orbe SVG** com gradiente radial azul-marinho → teal, com brilho interno e linhas de circuito vetoriais cruzando.
+- **Anéis orbitais**: 3 anéis elípticos animados (`@keyframes` de rotação lenta, 20s/30s/40s).
+- **Partículas**: 6–8 pontos pequenos orbitando em paths SVG (animação CSS `offset-path` ou `transform: rotate` nos containers).
+- **Glow**: filtro `drop-shadow` em camadas, paleta teal/azul/dourado.
+- **Performance**: tudo `will-change: transform`, animações em GPU, sem JS.
 
-- É a identidade original do projeto (preserva memória visual).
-- SVG inline = nítido em qualquer tamanho, sem fundo branco, sem CDN.
-- Já estava previsto na arquitetura do projeto.
+Resultado: visual "núcleo de energia tech" premium, similar ao Spline em peso visual, mas zero runtime 3D. Adaptado à paleta Clean Tech (azul-marinho `#0A2342`, teal `#14B8A6`, dourado `#C8A24A`, fundo claro).
 
-O `Cabecalho.jsx` passa a importar `LogoNTS` (novo componente em `src/components/LogoNTS.jsx`) no lugar do `<img src={logoNts.url}>`. O `.asset.json` da logo PNG fica órfão e pode ser removido depois.
+## 3. Categorias em português + FAQ sem "DummyJSON"
 
-## 3. Esconder as avaliações ruins
+### 3a. `Vitrine.jsx` — exibir nomes em PT no `<select>` e nos cards
 
-As notas da DummyJSON são baixas (2.x–3.x) e atrapalham. Em `ProdutoCard.jsx`:
+Criar um mapa simples (sem trocar a chave real usada no filtro):
 
-- **Remover** o bloco `card-avaliacao` (estrela + nota).
-- **Manter** apenas a regra condicional `produto.rating >= 4.5 → Selo "Produto destaque"` (raro, não polui). O selo "Disponível" (stock > 0) continua.
+```js
+const rotulos = {
+  "smartphones": "Smartphones",
+  "laptops": "Notebooks",
+  "tablets": "Tablets",
+  "mobile-accessories": "Áudio & Acessórios",
+};
+```
 
-Mantém o conceito de renderização condicional exigido pela Etapa 2, sem expor números feios.
+- `<select>` mostra `rotulos[cat]` mas o `value` continua sendo a chave da API (busca/filtro inalterados).
+- `ProdutoCard.jsx` exibe `rotulos[produto.category] || produto.category` no selo e na linha de categoria.
 
-## 4. Footer funcional + GitHub real
+### 3b. `FAQ.jsx` — reescrever perguntas sem mencionar "DummyJSON"
 
-### 4a. Links institucionais que existem
+Substituir as perguntas que vazam o nome da API. Nova lista (6 perguntas):
 
-Hoje `#sobre`, `#contato`, `#politicas`, `#faq` são âncoras mortas. Criar 3 seções novas no fim da página (antes do rodapé), simples e leves, dentro do `App.jsx`:
+1. **O que é a Núcleo TADS Store?** — Vitrine digital de tecnologia criada como projeto integrador do curso TADS do IFES.
+2. **Quais produtos vocês oferecem?** — Smartphones, notebooks, tablets e acessórios selecionados para estudo, trabalho e criação.
+3. **Como funciona a busca e o filtro?** — Busca filtra pelo nome em tempo real; filtro mostra apenas itens da categoria escolhida.
+4. **Os preços estão em Real?** — Sim, todos os valores são apresentados em Real brasileiro (BRL).
+5. **Como acompanhar o projeto?** — O código-fonte está disponível no GitHub (link no rodapé).
+6. **Posso usar este projeto como referência?** — Sim, sob licença MIT. Basta dar os créditos ao autor.
 
-- **`<SobreContato />`** — bloco único com duas colunas:
-  - **Sobre o Núcleo** — 2 parágrafos curtos sobre a loja (acadêmico TADS/IFES).
-  - **Contato** — e-mail, instituição, link "Fale com a gente" (mailto).
-- **`<FAQ />`** — 4–6 perguntas em `<details>`/`<summary>` nativos (sem dependência), respondendo: o que é a loja, prazo de entrega (didático), trocas, frete, suporte, garantia.
-- **`<Politicas />`** — bloco com 3 abas-acordeão também em `<details>`: Política de Privacidade, Política de Trocas, Termos de Uso — texto curto, claramente marcado como **projeto acadêmico**.
+Em `Politicas.jsx`: trocar a frase "Imagens e dados de produtos pertencem à API pública DummyJSON" por "Imagens e dados de produtos são de demonstração para fins acadêmicos".
 
-Âncoras: `#sobre`, `#contato`, `#faq`, `#politicas` passam a rolar para as seções reais. Visual segue a paleta Clean Tech já existente (cards brancos, hairlines, azul-marinho).
+## 4. Atualizar `README.md` para refletir o projeto atual
 
-### 4b. Redes sociais com links reais
+O README hoje descreve a Etapa 1 (6 produtos fixos). Atualizar:
 
-Em `Rodape.jsx`:
+- **Visão geral**: mencionar que o projeto evoluiu para Etapa 2 com integração de API.
+- **Stack**: adicionar `useState`, `useEffect`, `fetch` como conceitos novos.
+- **Arquitetura**: atualizar diagrama de componentes para incluir `LogoNTS`, `Diferenciais`, `MenuTopo`, `FiltroCategorias`, `SobreContato`, `FAQ`, `Politicas`.
+- **Estrutura de componentes**: atualizar a descrição da `Vitrine` (estado + fetch + filtros) e do `ProdutoCard` (campos da API).
+- **API de Produtos**: substituir a tabela dos 6 produtos fixos por uma seção descrevendo o consumo da DummyJSON (esse README é para o professor avaliar — aí sim é correto citar a API):
+  - Endpoint usado: `https://dummyjson.com/products/category/{categoria}`
+  - Categorias consumidas: smartphones, laptops, tablets, mobile-accessories
+  - Estratégia: `Promise.all` paralelo, até 5 por categoria, máx. 20 produtos
+- **Roadmap**: marcar Fase 2 como ✅ Concluída.
+- **Checklist da Etapa 2**: adicionar uma seção nova com todos os itens cumpridos (useState, useEffect, carregando, erro, busca, filtro, condicional baseada em rating/stock).
+- **Preview**: atualizar descrição para mencionar as seções Sobre/Contato, FAQ e Políticas.
 
-- **GitHub** → `https://github.com/matheusflorindo32/nucleo-storefront` (do README, autor: Matheus Florindo).
-- **LinkedIn** → `https://linkedin.com/in/matheusflorindo`.
-- **Instagram** → manter como `#` ou remover se você não tiver perfil (pergunto abaixo).
-
-Todos abrem em nova aba (`target="_blank" rel="noopener noreferrer"`).
-
-E-mail do rodapé `contato@nucleotads.store` vira `mailto:matheusdideusf@gmail.com` (do README) — ou outro que você prefira.
+Manter intactos: licença MIT, autor, links institucionais, contexto acadêmico.
 
 ---
 
-## Perguntas rápidas antes de eu construir
+## Arquivos afetados
 
-1. **Instagram do rodapé**: você tem um perfil pra linkar, ou removo o ícone?
-2. **E-mail de contato**: uso `matheusdideusf@gmail.com` (do README) ou outro?
-3. **Logo**: confirmo que devo restaurar a **SVG hexagonal original da Etapa 1** (descrita no README) — não a PNG gerada por IA, certo?
+- `src/components/Cabecalho.jsx` (copy + hero visual)
+- `src/components/Vitrine.jsx` (rótulos PT no select)
+- `src/components/ProdutoCard.jsx` (rótulos PT)
+- `src/components/FAQ.jsx` (reescrita)
+- `src/components/Politicas.jsx` (frase ajustada)
+- `src/App.css` (animações do orbe + ajustes do hero)
+- `README.md` (atualização completa Etapa 2)
 
-## Detalhes técnicos
+## Garantias
 
-- Arquivos afetados: `src/components/Vitrine.jsx`, `src/components/ProdutoCard.jsx`, `src/components/Cabecalho.jsx`, `src/components/Rodape.jsx`, `src/App.jsx`, `src/App.css`.
-- Arquivos novos: `src/components/LogoNTS.jsx`, `src/components/SobreContato.jsx`, `src/components/FAQ.jsx`, `src/components/Politicas.jsx`.
-- Sem novas dependências, sem Router, sem TS, sem Tailwind. CSS adicionado apenas em `App.css`.
-- Etapa 2 preservada: `useState`, `useEffect`, `fetch`, carregando, erro, busca, filtro, condicional.
+- Zero dependência nova (sem Spline, sem `@splinetool/*`, sem framer-motion, sem Three).
+- `useState`/`useEffect`/`fetch` da Etapa 2 permanecem intactos.
+- Busca, filtro, carregando, erro, renderização condicional — tudo preservado.
+- Paleta Clean Tech Premium mantida (fundo claro, azul-marinho, teal, dourado).
+- Identidade `LogoNTS` SVG inline mantida.
+
+## Inspiração
+
+Hero orbe: `serafim/splite` (21st.dev) — recriado em CSS/SVG puro. Padrão "central glowing orb + orbital rings" também presente em magicui e motion-primitives, traduzido para a paleta Clean Tech do projeto.
