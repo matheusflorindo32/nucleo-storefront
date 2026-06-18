@@ -38,7 +38,10 @@ body {
 
 /* ===== Cabeçalho ===== */
 .cabecalho {
-  background: transparent;
+  background:
+    radial-gradient(1200px 500px at 85% -10%, var(--glow-azul), transparent 60%),
+    radial-gradient(800px 400px at 0% 110%, var(--glow), transparent 60%),
+    linear-gradient(135deg, var(--bg-2) 0%, #ffffff 100%);
   position: relative;
 }
 
