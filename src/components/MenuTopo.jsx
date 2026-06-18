@@ -10,6 +10,22 @@ function MenuTopo({ itens }) {
         {itens.map((item) => {
           const ehAncora = item.href && item.href.startsWith("#");
 
+          // Itens com `to` (rotas reais como /sobre-o-projeto) → NavLink dedicado.
+          if (item.to) {
+            return (
+              <li key={item.label} className="menu-topo-item">
+                <NavLink
+                  to={item.to}
+                  className={({ isActive }) =>
+                    "menu-topo-link" + (isActive ? " ativo" : "")
+                  }
+                >
+                  {item.label}
+                </NavLink>
+              </li>
+            );
+          }
+
           // "Início" -> NavLink para "/", marca ativo automaticamente.
           if (!ehAncora || item.label === "Início") {
             return (
