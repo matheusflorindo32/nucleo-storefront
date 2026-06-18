@@ -11,7 +11,7 @@ const produtos = [
     freteGratis: true,
     destaque: "Mais vendido",
     imagem:
-      "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80",
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ const produtos = [
     freteGratis: true,
     destaque: "Alta precisão",
     imagem:
-      "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?auto=format&fit=crop&w=600&q=80",
   },
   {
     id: 3,
@@ -35,7 +35,7 @@ const produtos = [
     freteGratis: false,
     destaque: "Dev choice",
     imagem:
-      "https://images.unsplash.com/photo-1595225476474-87563907a212?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80",
   },
   {
     id: 4,
@@ -47,7 +47,7 @@ const produtos = [
     freteGratis: true,
     destaque: "Full HD",
     imagem:
-      "https://images.unsplash.com/photo-1546538915-a9e2c8d0a1f5?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=600&q=80",
   },
   {
     id: 5,
@@ -59,7 +59,7 @@ const produtos = [
     freteGratis: false,
     destaque: "Áudio limpo",
     imagem:
-      "https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1599669454699-248893623440?auto=format&fit=crop&w=600&q=80",
   },
   {
     id: 6,
@@ -71,7 +71,7 @@ const produtos = [
     freteGratis: true,
     destaque: "Home office",
     imagem:
-      "https://images.unsplash.com/photo-1587826080692-f439cd0b70da?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1611162616475-46b635cb6868?auto=format&fit=crop&w=600&q=80",
   },
 ];
 
