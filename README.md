@@ -243,6 +243,41 @@ $ open http://localhost:5173
 - Semântico: `<button>` com acessibilidade
 
 ### 7. `Rodape.jsx` — Footer
+
+---
+
+## 🚦 Etapa 2 — Semana 13 (Integração com API)
+
+A Etapa 2 substitui o array fixo de produtos por uma integração real com a API pública **DummyJSON**, mantendo toda a identidade visual e a estrutura de componentes da Etapa 1.
+
+### O que foi implementado
+
+- **Consumo de API** com `fetch` para `https://dummyjson.com/products?limit=12`
+- **`useState`** para gerenciar `produtos`, `carregando`, `erro`, `busca` e `categoria`
+- **`useEffect`** com array de dependências `[]` para carregar os produtos na montagem
+- **Estado de carregamento** — exibe `Carregando produtos...` enquanto a requisição está em andamento
+- **Tratamento de erro** com `try / catch / finally` e mensagem amigável
+- **Busca por nome** em tempo real, filtrando por `title`
+- **Filtro por categoria** via `<select>` controlado, gerado dinamicamente a partir dos produtos carregados
+- **Mensagem vazia** — `Nenhum produto encontrado` quando os filtros não retornam resultados
+- **`ProdutoCard` adaptado** aos campos da API (`title`, `price`, `thumbnail`, `category`)
+- **Renderização condicional** baseada em `rating >= 4.5` (Produto destaque) e `stock > 0` (Disponível)
+- **Preço formatado** em Real brasileiro com `toLocaleString("pt-BR", { style: "currency", currency: "BRL" })`
+
+### Conceitos novos demonstrados
+
+| Conceito | Onde foi aplicado |
+|----------|-------------------|
+| `useState` | `Vitrine.jsx` (5 estados) |
+| `useEffect` | `Vitrine.jsx` (carregamento inicial) |
+| `fetch` + `async/await` | `Vitrine.jsx` |
+| Estado de loading | `Vitrine.jsx` |
+| Tratamento de erro | `Vitrine.jsx` |
+| Input controlado | Campo de busca |
+| Select controlado | Filtro de categoria |
+| Lista filtrada | `produtosFiltrados` antes do `.map()` |
+
+
 - Branding, links, copyright
 - Identidade visual consistente
 
