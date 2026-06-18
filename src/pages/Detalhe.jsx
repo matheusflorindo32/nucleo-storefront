@@ -22,6 +22,78 @@ function Estrelas({ nota }) {
     </span>
   );
 }
+function baixarEspecificacoes(produto) {
+  const linhas = [
+    "NÚCLEO TADS STORE — FICHA TÉCNICA",
+    "===================================",
+    "",
+    `Produto:       ${produto.title}`,
+    produto.brand ? `Marca:         ${produto.brand}` : null,
+    `Categoria:     ${produto.category}`,
+    produto.sku ? `SKU:           ${produto.sku}` : null,
+    "",
+    "ESPECIFICAÇÕES",
+    "-----------------------------------",
+    produto.weight ? `Peso:          ${produto.weight} kg` : null,
+    produto.dimensions
+      ? `Dimensões:     ${produto.dimensions.width} × ${produto.dimensions.height} × ${produto.dimensions.depth} cm`
+      : null,
+    typeof produto.rating === "number"
+      ? `Avaliação:     ${produto.rating.toFixed(2)} / 5`
+      : null,
+    typeof produto.stock === "number" ? `Estoque:       ${produto.stock} un.` : null,
+    "",
+    "PREÇO",
+    "-----------------------------------",
+    `Valor:         ${produto.price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`,
+    produto.discountPercentage
+      ? `Desconto:      -${produto.discountPercentage.toFixed(0)}%`
+      : null,
+    "",
+    "POLÍTICAS",
+    "-----------------------------------",
+    produto.warrantyInformation ? `Garantia:      ${produto.warrantyInformation}` : null,
+    produto.shippingInformation ? `Envio:         ${produto.shippingInformation}` : null,
+    produto.returnPolicy ? `Trocas:        ${produto.returnPolicy}` : null,
+    "",
+    "DESCRIÇÃO",
+    "-----------------------------------",
+    produto.description || "—",
+    "",
+    "Fonte: API pública DummyJSON — https://dummyjson.com/products/" + produto.id,
+    `Gerado em: ${new Date().toLocaleString("pt-BR")}`,
+  ].filter(Boolean);
+
+  const blob = new Blob([linhas.join("\n")], { type: "text/plain;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `nts-${produto.id}-${produto.title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}.txt`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+async function compartilharProduto(produto) {
+  const url = window.location.href;
+  const dados = {
+    title: `${produto.title} — Núcleo TADS Store`,
+    text: `Confira "${produto.title}" na Núcleo TADS Store.`,
+    url,
+  };
+  try {
+    if (navigator.share) {
+      await navigator.share(dados);
+      return;
+    }
+    await navigator.clipboard.writeText(url);
+    alert("Link copiado para a área de transferência!");
+  } catch (_) {
+    // usuário cancelou ou navegador bloqueou — silencioso.
+  }
+}
+
 
 function Detalhe() {
   const { id } = useParams();
@@ -203,6 +275,37 @@ function Detalhe() {
               </span>
             )}
           </div>
+
+          <div className="detalhe-acoes">
+            <button
+              type="button"
+              className="detalhe-acao detalhe-acao--primaria"
+              onClick={() => baixarEspecificacoes(produto)}
+              aria-label="Baixar ficha técnica em TXT"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Baixar especificações
+            </button>
+            <button
+              type="button"
+              className="detalhe-acao"
+              onClick={() => compartilharProduto(produto)}
+              aria-label="Compartilhar este produto"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+              Compartilhar
+            </button>
+            <button
+              type="button"
+              className="detalhe-acao"
+              onClick={() => window.print()}
+              aria-label="Imprimir ficha do produto"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+              Imprimir
+            </button>
+          </div>
+
 
           {(produto.sku || produto.weight || produto.dimensions) && (
             <div className="detalhe-bloco">

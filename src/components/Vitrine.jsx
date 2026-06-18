@@ -19,14 +19,19 @@ function Vitrine() {
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState(null);
 
-  // Filtro/busca refletidos na URL (?busca=...&categoria=...)
+  // Filtro/busca refletidos na URL (?busca=...&categoria=...&ordenar=...)
   const [searchParams, setSearchParams] = useSearchParams();
   const busca = searchParams.get("busca") || "";
   const categoria = searchParams.get("categoria") || "Todas";
+  const ordenar = searchParams.get("ordenar") || "padrao";
 
   function atualizarParam(chave, valor) {
     const novo = new URLSearchParams(searchParams);
-    if (!valor || (chave === "categoria" && valor === "Todas")) {
+    if (
+      !valor ||
+      (chave === "categoria" && valor === "Todas") ||
+      (chave === "ordenar" && valor === "padrao")
+    ) {
       novo.delete(chave);
     } else {
       novo.set(chave, valor);
@@ -74,7 +79,7 @@ function Vitrine() {
 
   const categorias = ["Todas", ...new Set(produtos.map((p) => p.category))];
 
-  const produtosFiltrados = produtos.filter((p) => {
+  let produtosFiltrados = produtos.filter((p) => {
     const correspondeBusca = p.title
       .toLowerCase()
       .includes(busca.toLowerCase());
@@ -83,14 +88,22 @@ function Vitrine() {
     return correspondeBusca && correspondeCategoria;
   });
 
+  if (ordenar === "preco-asc") {
+    produtosFiltrados = [...produtosFiltrados].sort((a, b) => a.price - b.price);
+  } else if (ordenar === "preco-desc") {
+    produtosFiltrados = [...produtosFiltrados].sort((a, b) => b.price - a.price);
+  } else if (ordenar === "rating") {
+    produtosFiltrados = [...produtosFiltrados].sort((a, b) => b.rating - a.rating);
+  }
+
   return (
     <section className="vitrine" id="vitrine">
       <div className="vitrine-header">
         <span className="vitrine-eyebrow">Catálogo</span>
         <h2 className="vitrine-title">Vitrine de Produtos</h2>
         <p className="vitrine-sub">
-          Smartphones, notebooks, tablets e acessórios — busque pelo nome ou
-          filtre por categoria.
+          Smartphones, notebooks, tablets e acessórios — busque pelo nome,
+          filtre por categoria e ordene como preferir.
         </p>
       </div>
 
@@ -115,10 +128,32 @@ function Vitrine() {
             </option>
           ))}
         </select>
+        <select
+          className="vitrine-select"
+          value={ordenar}
+          onChange={(e) => atualizarParam("ordenar", e.target.value)}
+          aria-label="Ordenar produtos"
+        >
+          <option value="padrao">Ordem padrão</option>
+          <option value="preco-asc">Menor preço</option>
+          <option value="preco-desc">Maior preço</option>
+          <option value="rating">Melhor avaliados</option>
+        </select>
       </div>
 
       {carregando && (
-        <p className="vitrine-estado">Carregando produtos...</p>
+        <div className="vitrine-grid" aria-label="Carregando produtos">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <div key={i} className="card card--skeleton" aria-hidden="true">
+              <div className="skeleton skeleton--img" />
+              <div className="card-body">
+                <div className="skeleton skeleton--line skeleton--line-short" />
+                <div className="skeleton skeleton--line" />
+                <div className="skeleton skeleton--line skeleton--line-price" />
+              </div>
+            </div>
+          ))}
+        </div>
       )}
 
       {!carregando && erro && (
@@ -141,3 +176,4 @@ function Vitrine() {
 }
 
 export default Vitrine;
+
