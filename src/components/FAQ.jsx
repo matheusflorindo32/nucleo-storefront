@@ -1,23 +1,23 @@
 const perguntas = [
   {
     q: "O que é a Núcleo TADS Store?",
-    a: "É uma vitrine digital acadêmica desenvolvida como projeto integrador do curso TADS do IFES. Os produtos vêm de uma API pública (DummyJSON) e simulam um e-commerce real.",
+    a: "É uma vitrine digital de tecnologia criada como projeto integrador do curso de Tecnologia em Análise e Desenvolvimento de Sistemas (TADS) do IFES.",
   },
   {
-    q: "Os produtos estão realmente à venda?",
-    a: "Não. Este é um projeto educacional. Os produtos exibidos servem para demonstrar componentização, integração com API, busca e filtros em React.",
+    q: "Quais produtos vocês oferecem?",
+    a: "Smartphones, notebooks, tablets e acessórios de áudio — uma curadoria voltada para estudo, trabalho e criação.",
   },
   {
     q: "Como funciona a busca e o filtro?",
-    a: "A busca filtra os produtos pelo nome em tempo real. O filtro por categoria mostra apenas itens da categoria selecionada. Ambos operam sobre os dados carregados da API.",
+    a: "A busca filtra os produtos pelo nome em tempo real. O filtro por categoria mostra apenas os itens da categoria escolhida. Os dois recursos podem ser usados juntos.",
   },
   {
-    q: "De onde vêm os produtos exibidos?",
-    a: "Os produtos são obtidos via fetch da API pública DummyJSON, restritos às categorias de tecnologia (smartphones, laptops, tablets e acessórios).",
+    q: "Os preços estão em Real?",
+    a: "Sim, todos os valores são apresentados em Real brasileiro (BRL) e formatados no padrão nacional.",
   },
   {
-    q: "Como posso acompanhar o projeto?",
-    a: "O código-fonte está disponível no GitHub do autor. Os links estão no rodapé da página.",
+    q: "Como acompanhar o desenvolvimento do projeto?",
+    a: "O código-fonte está disponível publicamente no GitHub do autor. O link está no rodapé desta página.",
   },
   {
     q: "Posso usar este projeto como referência?",
@@ -32,7 +32,7 @@ function FAQ() {
         <span className="bloco-eyebrow">FAQ</span>
         <h2 className="bloco-titulo">Perguntas frequentes</h2>
         <p className="bloco-sub">
-          Tudo o que você precisa saber sobre o projeto e a vitrine.
+          Tudo o que você precisa saber sobre a Núcleo TADS Store.
         </p>
       </div>
 

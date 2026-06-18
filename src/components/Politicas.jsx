@@ -12,7 +12,7 @@ const politicas = [
   {
     titulo: "Termos de Uso",
     conteudo:
-      "O conteúdo deste site é disponibilizado para fins educacionais. O código-fonte está sob licença MIT e pode ser reutilizado mediante atribuição ao autor. Imagens e dados de produtos pertencem à API pública DummyJSON.",
+      "O conteúdo deste site é disponibilizado para fins educacionais. O código-fonte está sob licença MIT e pode ser reutilizado mediante atribuição ao autor. Imagens e dados de produtos são de demonstração para fins acadêmicos.",
   },
 ];
 

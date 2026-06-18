@@ -1,6 +1,18 @@
 import { useEffect, useState } from "react";
 import ProdutoCard from "./ProdutoCard.jsx";
 
+// Mapa de rótulos em português (chaves da API são preservadas para o filtro)
+const rotulosCategoria = {
+  smartphones: "Smartphones",
+  laptops: "Notebooks",
+  tablets: "Tablets",
+  "mobile-accessories": "Áudio & Acessórios",
+};
+
+function rotular(cat) {
+  return rotulosCategoria[cat] || cat;
+}
+
 function Vitrine() {
   const [produtos, setProdutos] = useState([]);
   const [carregando, setCarregando] = useState(true);
@@ -14,7 +26,6 @@ function Vitrine() {
         setCarregando(true);
         setErro(null);
 
-        // Categorias de tecnologia da DummyJSON — mantém a identidade da loja
         const categoriasTech = [
           "smartphones",
           "laptops",
@@ -31,7 +42,6 @@ function Vitrine() {
           )
         );
 
-        // Pega até 5 de cada categoria para garantir variedade
         const variados = respostas.flatMap((r) =>
           (r.products || []).slice(0, 5)
         );
@@ -65,7 +75,8 @@ function Vitrine() {
         <span className="vitrine-eyebrow">Catálogo</span>
         <h2 className="vitrine-title">Vitrine de Produtos</h2>
         <p className="vitrine-sub">
-          Produtos carregados em tempo real a partir da API DummyJSON.
+          Smartphones, notebooks, tablets e acessórios — busque pelo nome ou
+          filtre por categoria.
         </p>
       </div>
 
@@ -86,7 +97,7 @@ function Vitrine() {
         >
           {categorias.map((cat) => (
             <option key={cat} value={cat}>
-              {cat === "Todas" ? "Todas as categorias" : cat}
+              {cat === "Todas" ? "Todas as categorias" : rotular(cat)}
             </option>
           ))}
         </select>

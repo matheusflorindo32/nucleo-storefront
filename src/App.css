@@ -1050,3 +1050,96 @@ body {
   .bloco-info, .bloco-faq, .bloco-politicas { padding: 48px 16px; }
   .bloco-titulo { font-size: 24px; }
 }
+
+/* ===== Orbe central (hero) — inspirado em serafim/splite, CSS+SVG puro ===== */
+.orb {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 320px;
+  height: 320px;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+}
+.orb-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 20px 50px rgba(20, 184, 166, 0.35))
+          drop-shadow(0 8px 20px rgba(10, 35, 66, 0.25));
+  animation: orbFloat 7s ease-in-out infinite;
+}
+.orb-circuit {
+  animation: orbSpin 22s linear infinite;
+  transform-origin: 160px 160px;
+}
+.orb-nodes circle {
+  animation: orbPulse 2.4s ease-in-out infinite;
+}
+.orb-nodes circle:nth-child(2) { animation-delay: 0.6s; }
+.orb-nodes circle:nth-child(3) { animation-delay: 1.2s; }
+.orb-nodes circle:nth-child(4) { animation-delay: 1.8s; }
+
+@keyframes orbFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+@keyframes orbSpin {
+  to { transform: rotate(360deg); }
+}
+@keyframes orbPulse {
+  0%, 100% { opacity: 1; r: 3.2; }
+  50%      { opacity: 0.4; r: 5; }
+}
+
+/* Partículas orbitando em volta do orbe */
+.orb-particle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin: -4px 0 0 -4px;
+  pointer-events: none;
+}
+.orb-particle::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--agua);
+  box-shadow: 0 0 12px var(--agua), 0 0 24px var(--agua);
+}
+.orb-particle.p1 { animation: orbit 9s linear infinite; }
+.orb-particle.p2 { animation: orbit 13s linear infinite reverse; animation-delay: -2s; }
+.orb-particle.p3 { animation: orbit 16s linear infinite; animation-delay: -5s; }
+.orb-particle.p4 { animation: orbit 11s linear infinite reverse; animation-delay: -8s; }
+.orb-particle.p5 { animation: orbit 18s linear infinite; animation-delay: -3s; }
+.orb-particle.p6 { animation: orbit 14s linear infinite reverse; animation-delay: -6s; }
+.orb-particle.p3::before { background: var(--dourado); box-shadow: 0 0 12px var(--dourado), 0 0 24px var(--dourado); }
+.orb-particle.p4::before { background: #7DD3FC; box-shadow: 0 0 12px #7DD3FC, 0 0 24px #7DD3FC; }
+.orb-particle.p5::before { background: var(--dourado); box-shadow: 0 0 10px var(--dourado); }
+
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(180px) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(180px) rotate(-360deg); }
+}
+
+/* Esconder o antigo mock no caso de cache de classe */
+.product-mock { display: none !important; }
+
+@media (max-width: 980px) {
+  .orb { width: 260px; height: 260px; }
+  @keyframes orbit {
+    from { transform: rotate(0deg) translateX(140px) rotate(0deg); }
+    to   { transform: rotate(360deg) translateX(140px) rotate(-360deg); }
+  }
+}
+@media (max-width: 640px) {
+  .orb { width: 220px; height: 220px; }
+  @keyframes orbit {
+    from { transform: rotate(0deg) translateX(115px) rotate(0deg); }
+    to   { transform: rotate(360deg) translateX(115px) rotate(-360deg); }
+  }
+}
