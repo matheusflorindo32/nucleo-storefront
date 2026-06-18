@@ -1,18 +1,40 @@
-# Plano — Ajustes do cabeçalho
+## Plano — Preencher o card do hero (mockup de janela)
 
-## 1. `src/components/Cabecalho.jsx`
-- Reduzir o `.cabecalho-top`: logo menor para tirar o excesso de espaço branco acima do hero.
-- Substituir o badge "Clean Tech · Vitrine Acadêmica" por algo mais discreto e profissional: **"Vitrine de Produtos"**.
-- Remover totalmente o bloco `<ul className="hero-chips">` (React + Vite, Componentes reutilizáveis, Clean Tech) — não aparecerá mais nada disso na home.
+Hoje o card à direita do hero (`.product-mock`) tem só barrinhas cinzas genéricas. Vou transformá-lo em uma mini "vitrine" visual coerente com a marca, sem mexer em lógica nem violar nenhuma regra da Semana 12.
 
-## 2. `src/App.css`
-- `.cabecalho-top`: reduzir padding vertical (de 20px para 10px) para enxugar a faixa branca.
-- `.logo-img`: reduzir `max-width` de 420px para 280px (e ajustar responsivo).
-- `.hero-content`: diminuir padding superior (de 72px para 48px) para subir o conteúdo.
-- Remover regras `.hero-chips` e `.hero-chip` (sem uso após remoção).
+### O que vai aparecer dentro do card
 
-## 3. `package.json`
-- Adicionar script `"build:dev": "vite build --mode development"` para resolver o erro de build `Script not found "build:dev"`.
+Topo (barra da "janela") — mantém os 3 pontinhos (vermelho/amarelo/verde) já existentes.
 
-## Não muda
-Nenhuma lógica, nenhum componente novo, nada das próximas semanas. Continua React + Vite + JS puro, sem useState/useEffect/API/Router.
+Conteúdo do card (puro HTML + CSS, estático):
+1. **Selo NTS** no topo — o emblema hexagonal da logo (mesmo PNG `logo-nts-clean`) em tamanho pequeno + texto curto "Núcleo TADS Store" ao lado. Reforça a marca dentro do mock.
+2. **Mini "produto em destaque"** — um bloco com:
+   - Ícone (emoji `💻` ou `⚙️`) num quadrado com gradiente azul→teal
+   - Nome fake: "Kit Dev Starter"
+   - Linha de "preço" estilizada: `R$ 0,00` (apenas visual, sem lógica)
+   - Uma tag verde "Em destaque" (puro CSS, não é o componente `Selo` — é decorativo do hero)
+3. **3 mini-thumbs** embaixo (quadradinhos com gradientes diferentes: azul-marinho, teal, dourado) simulando outros produtos da vitrine.
+
+Tudo isso é **decorativo, estático, dentro do `Cabecalho.jsx`** — não é uma vitrine funcional, não usa `.map`, não duplica a Vitrine real abaixo.
+
+### Arquivos alterados
+
+**`src/components/Cabecalho.jsx`**
+- Dentro de `.product-mock-screen`, substituir as 3 `.mock-line` + 1 `.mock-block` por:
+  - `<div class="mock-brand">` com `<img>` da logo (mesmo asset) + texto
+  - `<div class="mock-featured">` com ícone, título, preço, tag
+  - `<div class="mock-thumbs">` com 3 `<span>` coloridos
+
+**`src/App.css`**
+- Remover/aposentar regras `.mock-line` e `.mock-block` (ou manter sem uso).
+- Adicionar regras novas: `.mock-brand`, `.mock-brand img`, `.mock-featured`, `.mock-featured-icon`, `.mock-featured-info`, `.mock-price`, `.mock-tag`, `.mock-thumbs`, `.mock-thumb` (com 3 variações de gradiente usando a paleta já definida: azul-marinho `#0A2342`, teal `#14B8A6`, dourado `#C8A24A`).
+- Ajustar `.product-mock-screen` para `display: flex; flex-direction: column; gap` adequado.
+
+### O que NÃO muda
+
+- Logo no cabeçalho **continua** onde está (usuário disse "ou até a logo se achar que fica melhor" — vou **manter** no header e **também** colocar uma versão pequena dentro do card como selo de marca; assim não tira nada do que já está aprovado).
+- Nada de `useState`, `useEffect`, API, Router, login, Spline, Framer Motion, Tailwind, TypeScript.
+- Vitrine real, ProdutoCard, Selo, Botao, Layout, children, `.map()` — **intactos**.
+- Sem componente novo: tudo dentro do `Cabecalho.jsx` existente, só HTML + CSS.
+
+Quer que eu siga com esse plano?
