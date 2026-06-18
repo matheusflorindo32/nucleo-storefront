@@ -1,4 +1,4 @@
-import logoNts from "../assets/logo-nts-clean.png.asset.json";
+import logoNts from "../assets/logo-nts.jpg.asset.json";
 import MenuTopo from "./MenuTopo.jsx";
 
 const itensMenu = [
