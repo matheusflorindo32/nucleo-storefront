@@ -172,17 +172,24 @@ npm run dev
 | **Formatação BRL** | `toLocaleString("pt-BR", { style: "currency", currency: "BRL" })` |
 | **CSS próprio** | `App.css` — paleta Clean Tech Premium |
 
-### Checklist Etapa 1
+### Checklist final da Etapa 1 (entregue)
 
-- [x] Projeto criado com React + Vite
-- [x] Componentes reutilizáveis (Layout, Cabecalho, Vitrine, ProdutoCard, Botao, Selo, Rodape)
-- [x] Layout com `props.children`
-- [x] Cabeçalho com identidade visual (logo SVG, hero, chips)
-- [x] Vitrine de produtos com grid responsivo
-- [x] Cards reutilizáveis com props dinâmicas
-- [x] Lista renderizada com `.map()` + `key`
-- [x] Renderização condicional (selos por categoria, destaque, disponível)
-- [x] CSS próprio com identidade Clean Tech Premium
+- [x] Projeto criado com **React 18 + Vite 5** em JavaScript puro (JSX), sem TypeScript
+- [x] Estrutura de pastas organizada em `src/components/`
+- [x] Componente `Layout.jsx` usando **`props.children`** como wrapper composicional
+- [x] `Cabecalho.jsx` com identidade visual da marca (logo SVG, hero, chips de categoria)
+- [x] `LogoNTS.jsx` — logo 100% SVG inline (hexágono + circuitos + wordmark "NTS")
+- [x] `MenuTopo.jsx` com navegação por âncoras (`#vitrine`, `#sobre`, `#contato`, `#faq`, `#politicas`)
+- [x] `Diferenciais.jsx` apresentando os pilares da loja
+- [x] `Vitrine.jsx` com grid responsivo de produtos
+- [x] `ProdutoCard.jsx` recebendo dados via **props**
+- [x] `Botao.jsx` e `Selo.jsx` como componentes atômicos reutilizáveis
+- [x] `SobreContato.jsx`, `FAQ.jsx`, `Politicas.jsx` e `Rodape.jsx` com conteúdo institucional real
+- [x] Lista renderizada com **`.map()` + `key` única** (sem warnings no console)
+- [x] **Renderização condicional** de selos (categoria, destaque por nota, disponível em estoque)
+- [x] Formatação de preço em **BRL** com `toLocaleString("pt-BR", { currency: "BRL" })`
+- [x] **CSS próprio** em `App.css` com paleta Clean Tech Premium (sem Tailwind, sem libs UI)
+- [x] Links reais do autor no rodapé (GitHub, LinkedIn, e-mail)
 
 ---
 
@@ -232,19 +239,27 @@ setProdutos(variados.slice(0, 20));
 
 Até 5 produtos de cada uma das 4 categorias, totalizando até 20 itens distribuídos de forma equilibrada.
 
-### Checklist Etapa 2
+### Checklist final da Etapa 2 (entregue)
 
-- [x] `npm run dev` roda sem erros
-- [x] Loja carrega produtos reais da DummyJSON
-- [x] Aparece "Carregando produtos..." antes dos dados chegarem
-- [x] Mensagem amigável em caso de erro de rede
-- [x] `ProdutoCard` exibe `title`, `price`, `thumbnail` e `category`
-- [x] Busca filtra os produtos em tempo real pelo título
-- [x] `<select>` filtra por categoria (rótulos em português)
-- [x] "Nenhum produto encontrado" quando aplicável
-- [x] Sem aviso de `key` no console
-- [x] Sem rotas, login, carrinho ou outras funcionalidades de etapas futuras
-- [x] Identidade visual da Etapa 1 preservada
+**Estado atual do projeto — exatamente o que está em produção:**
+
+- [x] `npm install` e `npm run dev` rodam sem erros nem warnings
+- [x] `Vitrine.jsx` consome a **DummyJSON** via `fetch` + `Promise.all` na montagem
+- [x] **`useEffect([])`** dispara o carregamento uma única vez ao montar
+- [x] **`useState`** controla 5 estados: `produtos`, `carregando`, `erro`, `busca`, `categoria`
+- [x] Mensagem **"Carregando produtos..."** exibida enquanto `carregando === true`
+- [x] **`try / catch / finally`** com mensagem amigável em caso de falha de rede
+- [x] `ProdutoCard` exibe `title`, `price`, `thumbnail`, `category` e `rating` da API
+- [x] **Input de busca** filtra produtos por título em tempo real (case-insensitive)
+- [x] **`<select>` de categoria** filtra por `smartphones`, `laptops`, `tablets`, `mobile-accessories`
+- [x] Rótulos das categorias **traduzidos para português** na UI (chaves da API preservadas)
+- [x] Mensagem **"Nenhum produto encontrado"** quando os filtros não retornam resultados
+- [x] Selos condicionais: **"Destaque"** quando `rating >= 4.5`, **"Indisponível"** quando `stock === 0`
+- [x] Até **20 produtos** distribuídos igualmente entre as 4 categorias técnicas
+- [x] Identidade visual da Etapa 1 **preservada integralmente** (logo, paleta, tipografia)
+- [x] Hero com **orbe SVG animado** em CSS puro (sem Spline, sem Three.js, sem libs 3D)
+- [x] Conteúdo institucional sem menções públicas a "DummyJSON" (linguagem de loja real)
+- [x] Sem warnings de `key` ou de hooks no console
 
 ---
 
@@ -281,23 +296,34 @@ Footer com links institucionais e redes sociais reais (GitHub, LinkedIn, e-mail)
 
 ## Roadmap
 
-### Fase 1 — Componentização (Etapa 1) ✅
+### Fase 1 — Componentização (Etapa 1) ✅ entregue na Semana 12
 - Setup React + Vite
 - Componentes reutilizáveis
 - Lista + renderização condicional
-- CSS próprio
+- CSS próprio com identidade Clean Tech Premium
 
-### Fase 2 — Integração com API (Etapa 2) ✅
+### Fase 2 — Integração com API (Etapa 2) ✅ entregue na Semana 13
 - `useState` e `useEffect`
-- Consumo da DummyJSON
-- Carregamento e tratamento de erro
-- Busca e filtro
+- Consumo da DummyJSON com `Promise.all`
+- Estados de carregamento, erro e vazio
+- Busca em tempo real e filtro por categoria
 
-### Fase 3 — Próximas etapas (não implementado neste escopo)
-- React Router (página de detalhe)
-- Autenticação
-- Carrinho de compras
-- Painel administrativo
+### Fora do escopo — o que NÃO será implementado nas próximas semanas
+
+Os itens abaixo estão fora do recorte das Etapas 1 e 2 e **não serão entregues** neste projeto acadêmico. Ficam registrados apenas como evolução possível em um cenário de produto real:
+
+- [ ] **React Router** e páginas de detalhe de produto (`/produto/:id`)
+- [ ] **Autenticação** de usuários (login, cadastro, recuperação de senha)
+- [ ] **Carrinho de compras** com persistência (localStorage ou backend)
+- [ ] **Checkout** e integração com gateway de pagamento (Stripe, Mercado Pago, etc.)
+- [ ] **Painel administrativo** para CRUD de produtos
+- [ ] **Backend próprio** ou banco de dados (Supabase, Firebase, etc.)
+- [ ] **Favoritos**, avaliações de usuários ou comentários
+- [ ] **Internacionalização** (i18n) — o projeto permanece somente em pt-BR
+- [ ] **Testes automatizados** (Vitest, Testing Library, Cypress)
+- [ ] **PWA**, push notifications ou modo offline
+- [ ] **Animações 3D** (Spline, Three.js, R3F) — vetado pelo escopo da disciplina
+- [ ] **Bibliotecas de UI** (Tailwind, Material UI, Chakra) — vetadas pelo escopo da disciplina
 
 ---
 
