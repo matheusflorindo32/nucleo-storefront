@@ -14,13 +14,20 @@ function NaoEncontrado() {
     document.title = "Página não encontrada — Núcleo TADS Store";
 
     async function carregarSugestoes() {
+      const categorias = ["smartphones", "laptops", "tablets"];
       try {
-        const r = await fetch(
-          "https://dummyjson.com/products?limit=3&select=id,title,thumbnail,category,price"
+        const respostas = await Promise.all(
+          categorias.map((cat) =>
+            fetch(
+              `https://dummyjson.com/products/category/${cat}?limit=1&select=id,title,thumbnail,category,price`
+            ).then((r) => (r.ok ? r.json() : null))
+          )
         );
-        if (!r.ok) return;
-        const dados = await r.json();
-        setSugeridos(dados.products || []);
+        const itens = respostas
+          .filter(Boolean)
+          .map((d) => d.products?.[0])
+          .filter(Boolean);
+        if (itens.length) setSugeridos(itens);
       } catch (_) {
         // se falhar, a página continua funcional com os atalhos de categoria
       }
