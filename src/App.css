@@ -38,32 +38,27 @@ body {
 
 /* ===== Cabeçalho ===== */
 .cabecalho {
-  background: var(--surface);
-  border-bottom: 1px solid var(--borda);
+  background: transparent;
   position: relative;
-}
-.cabecalho::after {
-  content: "";
-  display: block;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--dourado), transparent);
 }
 
 .cabecalho-top {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 10px 24px;
+  padding: 16px 24px 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
-.logo-area { display: flex; align-items: center; justify-content: flex-start; }
-
 .logo-img {
-  max-width: 280px;
+  max-width: 320px;
   width: 100%;
   height: auto;
   display: block;
   filter: drop-shadow(0 6px 14px var(--glow));
 }
+
 
 /* ===== Hero ===== */
 .hero {
