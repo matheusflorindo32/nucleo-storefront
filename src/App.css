@@ -554,6 +554,10 @@ body {
 .rodape-divider { color: var(--dourado); }
 
 /* ===== Responsivo ===== */
+@media (max-width: 960px) {
+  .vitrine-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
 @media (max-width: 900px) {
   .hero-content {
     grid-template-columns: 1fr;
@@ -565,6 +569,10 @@ body {
   .product-mock { width: 240px; }
 }
 
+@media (max-width: 600px) {
+  .vitrine-grid { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 540px) {
   .logo-img { max-width: 280px; }
   .hero-content { padding: 40px 18px; }
@@ -573,5 +581,5 @@ body {
   .float-card { padding: 8px 10px; }
   .float-card small { display: none; }
   .vitrine { padding: 40px 18px; }
-  .hero-chips { gap: 6px; }
 }
+
