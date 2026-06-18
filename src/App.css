@@ -1832,3 +1832,325 @@ body {
   border-color: var(--agua);
   transform: translateY(-1px);
 }
+
+/* ============================================================
+   Etapa 3 — Polimento final: ações da PDP, skeleton da vitrine,
+   sugestões reais na 404, página Sobre o projeto, @media print
+   ============================================================ */
+
+/* --- Ações da página de detalhe (download / compartilhar / imprimir) --- */
+.detalhe-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0 8px;
+}
+
+.detalhe-acao {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 18px;
+  border-radius: 999px;
+  border: 1.5px solid var(--bg-3, #E2E8F0);
+  background: #fff;
+  color: var(--navy, #0A2342);
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: inherit;
+}
+
+.detalhe-acao:hover {
+  border-color: var(--agua, #14B8A6);
+  color: var(--agua, #14B8A6);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(20, 184, 166, 0.15);
+}
+
+.detalhe-acao--primaria {
+  background: linear-gradient(135deg, var(--navy, #0A2342) 0%, #1E5AA8 100%);
+  color: #fff;
+  border-color: transparent;
+}
+
+.detalhe-acao--primaria:hover {
+  color: #fff;
+  background: linear-gradient(135deg, var(--agua, #14B8A6) 0%, #16A34A 100%);
+  box-shadow: 0 8px 20px rgba(20, 184, 166, 0.35);
+}
+
+.detalhe-acao svg { flex-shrink: 0; }
+
+/* --- Skeleton no card da vitrine --- */
+.card--skeleton {
+  pointer-events: none;
+  background: #fff;
+}
+
+.card--skeleton .skeleton--img {
+  height: 200px;
+  border-radius: 14px;
+  margin: 14px;
+}
+
+.card--skeleton .card-body {
+  padding: 0 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.skeleton--line-price {
+  height: 22px;
+  width: 60%;
+  margin-top: 6px;
+}
+
+/* --- Sugestões reais na página 404 --- */
+.nao-encontrado-destaques {
+  margin: 32px auto 24px;
+  max-width: 760px;
+  text-align: left;
+}
+
+.nao-encontrado-destaques-titulo {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--agua, #14B8A6);
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.nao-encontrado-destaques-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.nao-encontrado-destaque {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px solid var(--bg-3, #E2E8F0);
+  background: #fff;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.18s ease;
+}
+
+.nao-encontrado-destaque:hover {
+  border-color: var(--agua, #14B8A6);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(10, 35, 66, 0.08);
+}
+
+.nao-encontrado-destaque img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: var(--bg-2, #F1F5F9);
+  flex-shrink: 0;
+}
+
+.nao-encontrado-destaque strong {
+  display: block;
+  font-size: 0.88rem;
+  color: var(--navy, #0A2342);
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+
+.nao-encontrado-destaque span {
+  font-size: 0.82rem;
+  color: var(--agua, #14B8A6);
+  font-weight: 700;
+}
+
+/* --- Página Sobre o Projeto --- */
+.sobre-projeto {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+.sobre-projeto-header {
+  max-width: 760px;
+  margin: 24px 0 40px;
+}
+
+.sobre-projeto-eyebrow {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--agua, #14B8A6);
+  margin-bottom: 14px;
+}
+
+.sobre-projeto-titulo {
+  font-size: clamp(1.9rem, 3.6vw, 2.8rem);
+  line-height: 1.15;
+  color: var(--navy, #0A2342);
+  margin: 0 0 16px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.sobre-projeto-sub {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--ink-2, #475569);
+  margin: 0;
+}
+
+.sobre-projeto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+  margin-bottom: 40px;
+}
+
+.sobre-card {
+  position: relative;
+  padding: 28px 24px 24px;
+  background: #fff;
+  border-radius: 18px;
+  border: 1px solid var(--bg-3, #E2E8F0);
+  border-top: 3px solid var(--verde, #16A34A);
+  transition: all 0.2s ease;
+}
+
+.sobre-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 32px rgba(10, 35, 66, 0.08);
+  border-top-color: var(--agua, #14B8A6);
+}
+
+.sobre-card-num {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--bg-3, #CBD5E1);
+  letter-spacing: -0.02em;
+}
+
+.sobre-card h2 {
+  font-size: 1.1rem;
+  color: var(--navy, #0A2342);
+  margin: 4px 0 10px;
+  font-weight: 700;
+}
+
+.sobre-card p {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--ink-2, #475569);
+  margin: 0;
+}
+
+.sobre-card code {
+  background: var(--bg-2, #F1F5F9);
+  color: var(--navy, #0A2342);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.85em;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+.sobre-projeto-bloco {
+  margin-top: 24px;
+  padding: 28px;
+  background: linear-gradient(135deg, var(--navy, #0A2342) 0%, #143764 100%);
+  border-radius: 18px;
+  color: #fff;
+}
+
+.sobre-projeto-bloco-titulo {
+  font-size: 1.2rem;
+  margin: 0 0 16px;
+  color: #fff;
+}
+
+.sobre-projeto-lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 10px 24px;
+}
+
+.sobre-projeto-lista li {
+  position: relative;
+  padding-left: 22px;
+  color: #CBD5E1;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.sobre-projeto-lista li::before {
+  content: "›";
+  position: absolute;
+  left: 0;
+  color: var(--agua, #14B8A6);
+  font-weight: 700;
+  font-size: 1.1rem;
+  line-height: 1;
+  top: 2px;
+}
+
+.sobre-projeto-lista code {
+  background: rgba(20, 184, 166, 0.18);
+  color: #7DD3FC;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.85em;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+.sobre-projeto-credito {
+  margin-top: 32px;
+  font-size: 0.88rem;
+  color: var(--ink-2, #475569);
+  text-align: center;
+}
+
+/* --- Print: ficha técnica enxuta --- */
+@media print {
+  .cabecalho,
+  .menu-topo,
+  .rodape,
+  .detalhe-voltar,
+  .detalhe-breadcrumb,
+  .detalhe-acoes,
+  .detalhe-thumbs {
+    display: none !important;
+  }
+  .detalhe-page,
+  .app-main {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  .detalhe-grid {
+    grid-template-columns: 280px 1fr !important;
+    gap: 24px !important;
+  }
+  .detalhe-imagem-principal img {
+    max-height: 260px !important;
+  }
+  a { color: #000 !important; text-decoration: none !important; }
+}
