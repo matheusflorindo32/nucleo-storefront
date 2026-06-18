@@ -13,12 +13,26 @@ function Vitrine() {
       try {
         setCarregando(true);
         setErro(null);
-        const resposta = await fetch("https://dummyjson.com/products?limit=12");
-        if (!resposta.ok) {
-          throw new Error("Falha na requisição");
-        }
-        const dados = await resposta.json();
-        setProdutos(dados.products || []);
+
+        // Categorias de tecnologia da DummyJSON — mantém a identidade da loja
+        const categoriasTech = [
+          "smartphones",
+          "laptops",
+          "tablets",
+          "mobile-accessories",
+        ];
+
+        const respostas = await Promise.all(
+          categoriasTech.map((cat) =>
+            fetch(`https://dummyjson.com/products/category/${cat}`).then((r) => {
+              if (!r.ok) throw new Error("Falha na requisição");
+              return r.json();
+            })
+          )
+        );
+
+        const todos = respostas.flatMap((r) => r.products || []);
+        setProdutos(todos.slice(0, 12));
       } catch (e) {
         setErro(
           "Não foi possível carregar os produtos. Tente novamente mais tarde."
