@@ -15,15 +15,73 @@ function Cabecalho() {
 
       <section className="hero">
         <div className="hero-content">
-          <span className="hero-badge">Vitrine acadêmica · Clean Tech</span>
-          <h2 className="hero-title">
-            Equipamentos para quem{" "}
-            <span className="hero-accent">estuda, desenvolve e cria</span>.
-          </h2>
-          <p className="hero-sub">
-            Produtos inteligentes para quem estuda, desenvolve e transforma
-            ideias em sistemas.
-          </p>
+          <div className="hero-left">
+            <span className="hero-badge">Clean Tech · Vitrine acadêmica</span>
+
+            <h1 className="hero-title">
+              Equipamentos inteligentes para quem{" "}
+              <span className="hero-accent">estuda, desenvolve e cria</span>.
+            </h1>
+
+            <p className="hero-sub">
+              Produtos selecionados para estudantes, desenvolvedores e
+              pesquisadores que transformam ideias em sistemas.
+            </p>
+
+            <p className="hero-apoio">
+              Tecnologia, ciência e inovação em um só núcleo.
+            </p>
+
+            <ul className="hero-chips">
+              <li className="hero-chip">React + Vite</li>
+              <li className="hero-chip">Componentes reutilizáveis</li>
+              <li className="hero-chip">Clean Tech</li>
+            </ul>
+          </div>
+
+          <div className="hero-visual" aria-hidden="true">
+            <div className="ring ring-1" />
+            <div className="ring ring-2" />
+            <div className="ring ring-3" />
+            <div className="halo" />
+
+            <div className="hex" />
+
+            <div className="dot dot-1" />
+            <div className="dot dot-2" />
+            <div className="dot dot-3" />
+            <div className="dot dot-4" />
+
+            <div className="product-mock">
+              <div className="product-mock-bar">
+                <span />
+                <span />
+                <span />
+              </div>
+              <div className="product-mock-screen">
+                <div className="mock-line w-60" />
+                <div className="mock-line w-40" />
+                <div className="mock-line w-80" />
+                <div className="mock-block" />
+              </div>
+            </div>
+
+            <div className="float-card float-card-1">
+              <span className="float-icon">⚡</span>
+              <div>
+                <strong>Performance</strong>
+                <small>Pronto para devs</small>
+              </div>
+            </div>
+
+            <div className="float-card float-card-2">
+              <span className="float-icon">🧪</span>
+              <div>
+                <strong>Ciência</strong>
+                <small>Curadoria técnica</small>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </header>
