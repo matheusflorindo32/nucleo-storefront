@@ -1,4 +1,4 @@
-import logoNts from "../assets/logo-nts-transparent.png.asset.json";
+import logoNts from "../assets/logo-nts-clean.png.asset.json";
 
 function Cabecalho() {
   return (
