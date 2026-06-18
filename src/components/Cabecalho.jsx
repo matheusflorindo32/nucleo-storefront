@@ -1,16 +1,31 @@
 import logoNts from "../assets/logo-nts-clean.png.asset.json";
+import MenuTopo from "./MenuTopo.jsx";
+
+const itensMenu = [
+  { label: "Início", href: "#inicio", ativo: true },
+  { label: "Vitrine", href: "#vitrine" },
+  { label: "Categorias", href: "#categorias" },
+  { label: "Sobre", href: "#sobre" },
+  { label: "Contato", href: "#contato" },
+];
+
+const chipsHero = [
+  { id: 1, texto: "Curadoria técnica" },
+  { id: 2, texto: "Frete grátis Brasil" },
+  { id: 3, texto: "Suporte por devs" },
+];
 
 function Cabecalho() {
   return (
-    <header className="cabecalho">
+    <header className="cabecalho" id="inicio">
       <div className="cabecalho-top">
         <img
           src={logoNts.url}
           alt="Núcleo TADS Store — Tecnologia, ciência e inovação em um só núcleo"
           className="logo-img"
         />
+        <MenuTopo itens={itensMenu} />
       </div>
-
 
       <section className="hero">
         <div className="hero-content">
@@ -26,6 +41,14 @@ function Cabecalho() {
               Produtos selecionados para estudantes, desenvolvedores e
               pesquisadores que transformam ideias em sistemas.
             </p>
+
+            <ul className="hero-chips" aria-label="Diferenciais">
+              {chipsHero.map((chip) => (
+                <li key={chip.id} className="hero-chip">
+                  <span aria-hidden="true">✓</span> {chip.texto}
+                </li>
+              ))}
+            </ul>
 
             <p className="hero-apoio">
               Tecnologia, ciência e inovação em um só núcleo.

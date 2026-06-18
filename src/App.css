@@ -48,10 +48,12 @@ body {
 .cabecalho-top {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 16px 24px 0;
+  padding: 18px 24px 0;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
 }
 
 .logo-img {
@@ -596,6 +598,288 @@ body {
 
 .rodape-divider { color: var(--dourado); }
 
+/* ===== MenuTopo ===== */
+.menu-topo { display: flex; }
+.menu-topo-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--borda);
+  border-radius: 999px;
+  padding: 6px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 6px 18px rgba(10, 35, 66, 0.06);
+}
+.menu-topo-link {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 999px;
+  color: var(--texto-2);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.menu-topo-link:hover { color: var(--marinho); background: rgba(20, 184, 166, 0.08); }
+.menu-topo-link.ativo {
+  background: linear-gradient(135deg, var(--azul-tech), var(--agua));
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(30, 90, 168, 0.28);
+}
+
+/* ===== Hero chips ===== */
+.hero-chips {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.hero-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  border: 1px solid var(--borda);
+  color: var(--marinho);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(10, 35, 66, 0.05);
+}
+.hero-chip span { color: var(--verde); font-weight: 800; }
+
+/* ===== Vitrine extras ===== */
+.vitrine-eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--azul-tech);
+  margin-bottom: 8px;
+}
+
+/* ===== Filtro categorias ===== */
+.filtro-categorias {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 8px 0 32px;
+}
+.filtro-chip {
+  font-family: inherit;
+  cursor: pointer;
+  border: 1px solid var(--borda);
+  background: #fff;
+  color: var(--texto-2);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+.filtro-chip:hover { color: var(--marinho); border-color: var(--agua); }
+.filtro-chip.ativo {
+  background: var(--marinho);
+  color: #fff;
+  border-color: var(--marinho);
+  box-shadow: 0 6px 14px rgba(10, 35, 66, 0.18);
+}
+
+/* ===== Card extras ===== */
+.card-avaliacao {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--dourado);
+}
+.card-avaliacao small {
+  color: var(--texto-2);
+  font-weight: 500;
+  font-size: 0.7rem;
+}
+.card-preco-bloco { display: flex; flex-direction: column; gap: 2px; }
+.card-parcelas {
+  font-size: 0.72rem;
+  color: var(--texto-2);
+  font-weight: 500;
+}
+
+/* ===== Diferenciais ===== */
+.diferenciais {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 56px 24px 0;
+}
+.diferenciais-header { text-align: center; margin-bottom: 32px; }
+.diferenciais-eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--agua);
+  margin-bottom: 8px;
+}
+.diferenciais-titulo {
+  margin: 0;
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  color: var(--marinho);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+.diferenciais-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 18px;
+}
+.diferencial-card {
+  background: var(--surface);
+  border: 1px solid var(--borda);
+  border-radius: 18px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 6px 16px rgba(10, 35, 66, 0.05);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.diferencial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 36px rgba(10, 35, 66, 0.1);
+}
+.diferencial-icone {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--azul-tech), var(--agua));
+  color: #fff;
+  box-shadow: 0 8px 18px -8px rgba(30, 90, 168, 0.6);
+}
+.diferencial-titulo {
+  margin: 4px 0 0;
+  font-size: 1rem;
+  color: var(--marinho);
+  font-weight: 700;
+}
+.diferencial-texto {
+  margin: 0;
+  color: var(--texto-2);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+/* ===== Rodapé profissional ===== */
+.rodape {
+  background: linear-gradient(180deg, #0a2342 0%, #061a33 100%);
+  color: #cbd5e1;
+  margin-top: 64px;
+}
+.rodape-grid {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 48px 24px 28px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 40px;
+}
+.rodape-col { display: flex; flex-direction: column; gap: 10px; }
+.rodape-marca {
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: #fff;
+  letter-spacing: 0.4px;
+}
+.rodape-tagline {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  max-width: 320px;
+}
+.rodape-selo {
+  align-self: flex-start;
+  margin-top: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--dourado);
+  border: 1px solid rgba(200, 162, 74, 0.4);
+  padding: 5px 10px;
+  border-radius: 999px;
+}
+.rodape-titulo {
+  margin: 0 0 4px;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: #fff;
+}
+.rodape-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.rodape-links a {
+  color: #cbd5e1;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+.rodape-links a:hover { color: var(--agua); }
+.rodape-redes { display: flex; gap: 10px; margin-top: 4px; }
+.rodape-rede {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.2s ease;
+}
+.rodape-rede:hover {
+  background: linear-gradient(135deg, var(--azul-tech), var(--agua));
+  border-color: transparent;
+  transform: translateY(-2px);
+}
+.rodape-mini {
+  margin: 10px 0 0;
+  font-size: 0.82rem;
+  color: #94a3b8;
+}
+.rodape-bar {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 0.78rem;
+  color: #94a3b8;
+}
+.rodape-credito { color: var(--dourado); font-weight: 600; }
+
 /* ===== Responsivo ===== */
 @media (max-width: 900px) {
   .hero-content {
@@ -606,6 +890,8 @@ body {
   }
   .hero-visual { height: 360px; max-width: 420px; margin: 0 auto; }
   .product-mock { width: 240px; }
+  .cabecalho-top { justify-content: center; }
+  .rodape-grid { grid-template-columns: 1fr; gap: 28px; }
 }
 
 @media (max-width: 540px) {
@@ -617,4 +903,6 @@ body {
   .float-card small { display: none; }
   .vitrine { padding: 40px 18px; }
   .hero-chips { gap: 6px; }
+  .diferenciais { padding: 40px 18px 0; }
+  .menu-topo-link { padding: 6px 12px; font-size: 0.82rem; }
 }
