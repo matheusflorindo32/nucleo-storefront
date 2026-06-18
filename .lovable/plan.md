@@ -1,105 +1,94 @@
-# Plano — Ajustes finais Etapa 2
+## Etapa 3 — Semana 14: SPA com React Router
 
-Quatro frentes, todas dentro do escopo da Etapa 2 (sem Spline, sem Router, sem libs novas, sem TS, sem Tailwind).
+Evolução do projeto atual da Núcleo TADS Store para uma SPA com navegação entre vitrine, detalhe de produto e página 404. Tudo da Etapa 2 (fetch DummyJSON, useState, useEffect, loading, erro, busca, filtro) é preservado.
 
-## 1. Reescrever copy do hero (alinhar com o que a vitrine entrega)
+### Escopo (somente isto)
 
-Hoje o hero promete "estuda, desenvolve e cria" + "Suporte por devs", mas a API entrega smartphones, notebooks, tablets e áudio. A copy não bate. Vou reescrever em `Cabecalho.jsx`:
+1. Instalar `react-router-dom` e envolver `<App />` com `<BrowserRouter>` em `main.jsx`.
+2. Criar `src/pages/` com `Home.jsx`, `Detalhe.jsx`, `NaoEncontrado.jsx`.
+3. Definir rotas em `App.jsx`, com `Layout` envolvendo todas as páginas.
+4. Adaptar `ProdutoCard.jsx` para navegar via `<Link to="/produto/:id">`.
+5. Atualizar CSS (`App.css`) só para acomodar página de detalhe e 404 — mantendo Clean Tech Premium.
+6. Atualizar `README.md` com a seção da Etapa 3.
 
-- **Badge**: `Vitrine de Produtos` → `Tecnologia em destaque`
-- **Título**: `Equipamentos inteligentes para quem estuda, desenvolve e cria` →
-  `Tecnologia premium para o seu **núcleo de produtividade**`
-- **Subtítulo**: substituir "estudantes, desenvolvedores e pesquisadores" por algo coerente com o catálogo real:
-  > `Smartphones, notebooks, tablets e acessórios selecionados para quem vive conectado a estudo, trabalho e criação.`
-- **Chips** (3 atuais): trocar por algo que reflete a vitrine real
-  - `Smartphones de ponta`
-  - `Notebooks para produtividade`
-  - `Áudio & acessórios`
-- Frase de apoio "Tecnologia, ciência e inovação em um só núcleo" — **mantida** (é a tagline da marca).
+### Fora do escopo (não será feito)
 
-## 2. Hero visual — efeito tipo Spline em CSS/SVG puro
-
-Inspirado no `serafim/splite` do 21st.dev (orbe luminoso pulsante, brilho radial, partículas orbitando) — **recriado 100% em CSS** + SVG inline, sem dependências.
-
-Em `Cabecalho.jsx` + `App.css`, evoluir o bloco `.hero-visual` atual (que já tem `ring`, `halo`, `hex`, `dots`):
-
-- **Núcleo central**: substituir o quadradinho `product-mock` por um **orbe SVG** com gradiente radial azul-marinho → teal, com brilho interno e linhas de circuito vetoriais cruzando.
-- **Anéis orbitais**: 3 anéis elípticos animados (`@keyframes` de rotação lenta, 20s/30s/40s).
-- **Partículas**: 6–8 pontos pequenos orbitando em paths SVG (animação CSS `offset-path` ou `transform: rotate` nos containers).
-- **Glow**: filtro `drop-shadow` em camadas, paleta teal/azul/dourado.
-- **Performance**: tudo `will-change: transform`, animações em GPU, sem JS.
-
-Resultado: visual "núcleo de energia tech" premium, similar ao Spline em peso visual, mas zero runtime 3D. Adaptado à paleta Clean Tech (azul-marinho `#0A2342`, teal `#14B8A6`, dourado `#C8A24A`, fundo claro).
-
-## 3. Categorias em português + FAQ sem "DummyJSON"
-
-### 3a. `Vitrine.jsx` — exibir nomes em PT no `<select>` e nos cards
-
-Criar um mapa simples (sem trocar a chave real usada no filtro):
-
-```js
-const rotulos = {
-  "smartphones": "Smartphones",
-  "laptops": "Notebooks",
-  "tablets": "Tablets",
-  "mobile-accessories": "Áudio & Acessórios",
-};
-```
-
-- `<select>` mostra `rotulos[cat]` mas o `value` continua sendo a chave da API (busca/filtro inalterados).
-- `ProdutoCard.jsx` exibe `rotulos[produto.category] || produto.category` no selo e na linha de categoria.
-
-### 3b. `FAQ.jsx` — reescrever perguntas sem mencionar "DummyJSON"
-
-Substituir as perguntas que vazam o nome da API. Nova lista (6 perguntas):
-
-1. **O que é a Núcleo TADS Store?** — Vitrine digital de tecnologia criada como projeto integrador do curso TADS do IFES.
-2. **Quais produtos vocês oferecem?** — Smartphones, notebooks, tablets e acessórios selecionados para estudo, trabalho e criação.
-3. **Como funciona a busca e o filtro?** — Busca filtra pelo nome em tempo real; filtro mostra apenas itens da categoria escolhida.
-4. **Os preços estão em Real?** — Sim, todos os valores são apresentados em Real brasileiro (BRL).
-5. **Como acompanhar o projeto?** — O código-fonte está disponível no GitHub (link no rodapé).
-6. **Posso usar este projeto como referência?** — Sim, sob licença MIT. Basta dar os créditos ao autor.
-
-Em `Politicas.jsx`: trocar a frase "Imagens e dados de produtos pertencem à API pública DummyJSON" por "Imagens e dados de produtos são de demonstração para fins acadêmicos".
-
-## 4. Atualizar `README.md` para refletir o projeto atual
-
-O README hoje descreve a Etapa 1 (6 produtos fixos). Atualizar:
-
-- **Visão geral**: mencionar que o projeto evoluiu para Etapa 2 com integração de API.
-- **Stack**: adicionar `useState`, `useEffect`, `fetch` como conceitos novos.
-- **Arquitetura**: atualizar diagrama de componentes para incluir `LogoNTS`, `Diferenciais`, `MenuTopo`, `FiltroCategorias`, `SobreContato`, `FAQ`, `Politicas`.
-- **Estrutura de componentes**: atualizar a descrição da `Vitrine` (estado + fetch + filtros) e do `ProdutoCard` (campos da API).
-- **API de Produtos**: substituir a tabela dos 6 produtos fixos por uma seção descrevendo o consumo da DummyJSON (esse README é para o professor avaliar — aí sim é correto citar a API):
-  - Endpoint usado: `https://dummyjson.com/products/category/{categoria}`
-  - Categorias consumidas: smartphones, laptops, tablets, mobile-accessories
-  - Estratégia: `Promise.all` paralelo, até 5 por categoria, máx. 20 produtos
-- **Roadmap**: marcar Fase 2 como ✅ Concluída.
-- **Checklist da Etapa 2**: adicionar uma seção nova com todos os itens cumpridos (useState, useEffect, carregando, erro, busca, filtro, condicional baseada em rating/stock).
-- **Preview**: atualizar descrição para mencionar as seções Sobre/Contato, FAQ e Políticas.
-
-Manter intactos: licença MIT, autor, links institucionais, contexto acadêmico.
+Login, auth, rota protegida, Minha Conta, carrinho, checkout, deploy, Next.js, TypeScript, Tailwind, backend.
 
 ---
 
-## Arquivos afetados
+### Mudanças por arquivo
 
-- `src/components/Cabecalho.jsx` (copy + hero visual)
-- `src/components/Vitrine.jsx` (rótulos PT no select)
-- `src/components/ProdutoCard.jsx` (rótulos PT)
-- `src/components/FAQ.jsx` (reescrita)
-- `src/components/Politicas.jsx` (frase ajustada)
-- `src/App.css` (animações do orbe + ajustes do hero)
-- `README.md` (atualização completa Etapa 2)
+**`package.json`** — adicionar `react-router-dom`.
 
-## Garantias
+**`src/main.jsx`**
+```jsx
+import { BrowserRouter } from "react-router-dom";
+// ...
+<BrowserRouter><App /></BrowserRouter>
+```
 
-- Zero dependência nova (sem Spline, sem `@splinetool/*`, sem framer-motion, sem Three).
-- `useState`/`useEffect`/`fetch` da Etapa 2 permanecem intactos.
-- Busca, filtro, carregando, erro, renderização condicional — tudo preservado.
-- Paleta Clean Tech Premium mantida (fundo claro, azul-marinho, teal, dourado).
-- Identidade `LogoNTS` SVG inline mantida.
+**`src/App.jsx`** — substituir composição atual por rotas. O `Layout` continua envolvendo tudo para preservar `Cabecalho` e `Rodape` em todas as telas.
+```jsx
+<Layout>
+  <Routes>
+    <Route path="/" element={<Home />} />
+    <Route path="/produto/:id" element={<Detalhe />} />
+    <Route path="*" element={<NaoEncontrado />} />
+  </Routes>
+</Layout>
+```
+A Home preserva a ordem visual atual: `Diferenciais`, `Vitrine`, `Newsletter`, `Leads`, `SobreContato`, `FAQ`, `Politicas`. Nas páginas Detalhe e 404, só aparece o conteúdo da página + header/footer (sem newsletter/FAQ/etc).
 
-## Inspiração
+**`src/pages/Home.jsx`** — renderiza a composição atual da página inicial (mesmas seções de hoje). Mantém âncoras `#vitrine`, `#sobre`, etc.
 
-Hero orbe: `serafim/splite` (21st.dev) — recriado em CSS/SVG puro. Padrão "central glowing orb + orbital rings" também presente em magicui e motion-primitives, traduzido para a paleta Clean Tech do projeto.
+**`src/pages/Detalhe.jsx`** — nova página:
+- `useParams()` para ler `id`.
+- `useState` para `produto`, `carregando`, `erro`.
+- `useEffect(() => { ... }, [id])` chamando `https://dummyjson.com/products/${id}`.
+- Estados: "Carregando produto..." / "Não foi possível carregar os detalhes do produto." / conteúdo.
+- Renderiza: imagem principal + galeria simples (thumbnails clicáveis que trocam a imagem principal via state local), `title`, `brand`, `category` (em pt), `rating`, `stock`, `price` em BRL, `discountPercentage`, `description`.
+- `<Link to="/">← Voltar para a loja</Link>`.
+- Mantém a mesma lógica de tradução de categoria já usada nos componentes (`smartphones → Smartphones`, etc.).
+
+**`src/pages/NaoEncontrado.jsx`** — página 404 amigável:
+- Título: "Página não encontrada"
+- Texto: "O endereço acessado não existe ou foi movido."
+- `<Link to="/">Voltar para a loja</Link>`
+
+**`src/components/ProdutoCard.jsx`** — remover o modal (`ModalProduto`) e substituir o clique por `<Link to={\`/produto/${produto.id}\`}>`. O card inteiro (ou ao menos imagem + botão "Ver produto") vira link. Sem `<a href>`, sem `onClick` de modal. O badge de "📷 N" pode ficar (informa quantas imagens há no detalhe). Arquivos `ModalProduto.jsx` permanecem no projeto mas deixam de ser importados — ou podem ser removidos para manter limpo (decisão: **remover** `ModalProduto.jsx` para o código ficar fácil de explicar ao professor).
+
+**`src/App.css`** — adicionar estilos novos, sem alterar a paleta:
+- `.detalhe-page` (layout 2 colunas: galeria + infos)
+- `.detalhe-imagem-principal`, `.detalhe-galeria`, `.detalhe-thumb`, `.detalhe-thumb--ativa`
+- `.detalhe-infos`, `.detalhe-titulo`, `.detalhe-preco`, `.detalhe-desconto`, `.detalhe-meta`
+- `.detalhe-voltar` (link estilo "← Voltar para a loja")
+- `.nao-encontrado` (centralizado, com CTA de voltar)
+- Responsivo: galeria empilha em mobile.
+
+Remover do CSS apenas o que era exclusivo do modal (`.modal-*`) já que o componente sai.
+
+**`README.md`** — adicionar a seção **Etapa 3 — SPA com React Router (Semana 14)** com:
+- O que foi entregue (router instalado, `BrowserRouter`, rotas `/`, `/produto/:id`, `*`, navegação por `<Link>`, `useParams`, fetch por id, layout preservado).
+- Atualizar a árvore de pastas para incluir `src/pages/`.
+- Checklist final da Etapa 3 espelhando o do enunciado.
+- Atualizar o Roadmap marcando Fase 3 ✅ e mantendo a lista "Fora do escopo" (login, carrinho, checkout etc. continuam fora).
+
+---
+
+### Inspiração de design (referência, não cópia)
+
+Para a página de **Detalhe**, a direção visual segue padrões de PDPs (product detail pages) modernas vistas em componentes do 21st.dev: layout split (galeria à esquerda, infos à direita), thumbnails verticais/horizontais com borda ativa, badge de desconto discreto, hierarquia tipográfica forte no preço, botão de "Voltar" como link sutil com seta. Tudo traduzido para a paleta Clean Tech Premium já existente (azul-marinho `#0A2342`, verde `#16A34A`, dourado discreto, fundo claro, cards brancos). Sem tema escuro, sem libs de UI.
+
+---
+
+### Checklist de validação ao final
+
+- `npm install` e `npm run dev` sem erros.
+- `/` mostra vitrine completa com busca, filtro e API funcionando.
+- Clicar em um card vai para `/produto/:id` sem reload.
+- `/produto/1`, `/produto/2`, etc. carregam o produto correto via `useParams` + `useEffect([id])`.
+- Estados de carregando e erro aparecem na página de detalhe.
+- URL inválida (ex.: `/qualquercoisa`) mostra a página 404 com link de volta.
+- `Cabecalho` e `Rodape` aparecem em Home, Detalhe e 404.
+- Sem login, sem auth, sem rota protegida, sem carrinho, sem checkout.

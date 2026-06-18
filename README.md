@@ -98,9 +98,15 @@ nucleo-storefront/
 │   │   ├── SobreContato.jsx     # Seção Sobre + Contato (#sobre, #contato)
 │   │   ├── FAQ.jsx              # Perguntas frequentes (#faq)
 │   │   ├── Politicas.jsx        # Privacidade, trocas, termos (#politicas)
+│   │   ├── Newsletter.jsx       # Seção visual de newsletter (acadêmico)
+│   │   ├── Leads.jsx            # Captura de leads visual (acadêmico)
 │   │   └── Rodape.jsx           # Footer com GitHub, LinkedIn, e-mail
-│   ├── App.jsx                  # Composição da página
-│   ├── main.jsx                 # Entry React 18
+│   ├── pages/                   # Páginas da SPA (Etapa 3)
+│   │   ├── Home.jsx             # Rota /  — vitrine + seções institucionais
+│   │   ├── Detalhe.jsx          # Rota /produto/:id — fetch por id + galeria
+│   │   └── NaoEncontrado.jsx    # Rota * — página 404
+│   ├── App.jsx                  # Configuração de rotas (React Router)
+│   ├── main.jsx                 # Entry React 18 + BrowserRouter
 │   └── App.css                  # Design system + animações
 ├── index.html
 ├── package.json
@@ -263,6 +269,56 @@ Até 5 produtos de cada uma das 4 categorias, totalizando até 20 itens distribu
 
 ---
 
+## Etapa 3 — SPA com React Router
+
+**Semana 14.** Transformação da aplicação em uma SPA real, com navegação entre a vitrine, a página de detalhe de cada produto e uma página 404 — tudo sem recarregar a página.
+
+### O que foi implementado
+
+- **`react-router-dom`** instalado e configurado
+- **`<BrowserRouter>`** envolvendo o `<App />` em `src/main.jsx`
+- **`Routes` / `Route`** definidos em `src/App.jsx`, com o `Layout` envolvendo todas as páginas (cabeçalho e rodapé persistem em toda a SPA)
+- Pasta **`src/pages/`** com:
+  - `Home.jsx` — rota `/`, renderiza a vitrine já existente (busca, filtro, fetch da DummyJSON preservados)
+  - `Detalhe.jsx` — rota `/produto/:id`, busca o produto específico via `https://dummyjson.com/products/${id}`
+  - `NaoEncontrado.jsx` — rota `*`, página 404 amigável
+- **`useParams()`** lê o `id` da URL na página de detalhe
+- **`useEffect(() => { ... }, [id])`** recarrega o produto sempre que o id muda
+- Estados de **carregando** (`"Carregando produto..."`) e **erro** (`"Não foi possível carregar os detalhes do produto."`) também na página de detalhe
+- **Galeria simples** com imagem principal + thumbnails clicáveis (estado local `imagemAtiva`)
+- `ProdutoCard.jsx` agora usa **`<Link to={\`/produto/${produto.id}\`}>`** (sem `<a href>`)
+- Link **"← Voltar para a loja"** na página de detalhe e na 404
+- A rota `*` é a **última**, garantindo que só URLs realmente inexistentes caem no 404
+
+### Rotas
+
+| Rota | Componente | Descrição |
+|------|------------|-----------|
+| `/` | `Home` | Vitrine + seções institucionais |
+| `/produto/:id` | `Detalhe` | Página de detalhe do produto (fetch por id) |
+| `*` | `NaoEncontrado` | Página 404 |
+
+### Checklist final da Etapa 3 (entregue)
+
+- [x] `npm install` e `npm run dev` rodam sem erros
+- [x] `react-router-dom` instalado como dependência
+- [x] `<BrowserRouter>` envolve o `<App />` em `main.jsx`
+- [x] Rota `/` mostra a vitrine com **busca e filtro** funcionando (Etapa 2 preservada)
+- [x] Clicar em um card abre `/produto/:id` **sem recarregar a página**
+- [x] `Detalhe.jsx` usa **`useParams()`** para ler o `id`
+- [x] `useEffect` do detalhe depende de **`[id]`** e refaz o fetch ao trocar de produto
+- [x] Página de detalhe exibe `title`, `description`, `price` (BRL), `thumbnail`, `images` (galeria), `category`, `brand`, `rating`, `stock` e `discountPercentage`
+- [x] Estado **"Carregando produto..."** enquanto a API responde
+- [x] Mensagem amigável de erro em caso de falha de rede
+- [x] Link **"← Voltar para a loja"** com `<Link to="/">`
+- [x] URL inexistente (ex.: `/qualquercoisa`) cai na página **404 amigável**
+- [x] `Cabecalho` e `Rodape` aparecem em **todas** as páginas (Home, Detalhe, 404)
+- [x] Identidade visual Clean Tech Premium preservada (fundo claro, cards brancos, azul-marinho, verde tecnológico, dourado discreto)
+- [x] **Não** foi implementado login, autenticação, rota protegida, carrinho, checkout, backend ou deploy
+- [x] Código em **JavaScript puro (JSX)**, sem TypeScript, sem Tailwind, sem libs de UI
+
+---
+
 ## Estrutura de componentes
 
 ### `Layout.jsx` — Wrapper composicional
@@ -308,12 +364,19 @@ Footer com links institucionais e redes sociais reais (GitHub, LinkedIn, e-mail)
 - Estados de carregamento, erro e vazio
 - Busca em tempo real e filtro por categoria
 
+### Fase 3 — SPA com React Router (Etapa 3) ✅ entregue na Semana 14
+- `react-router-dom` + `BrowserRouter`
+- Rotas `/`, `/produto/:id` e `*` (404)
+- Navegação por `<Link>` sem reload
+- `useParams` + `useEffect([id])` para buscar o produto pelo id
+- Layout (cabeçalho + rodapé) preservado em todas as páginas
+
 ### Fora do escopo — o que NÃO será implementado nas próximas semanas
 
-Os itens abaixo estão fora do recorte das Etapas 1 e 2 e **não serão entregues** neste projeto acadêmico. Ficam registrados apenas como evolução possível em um cenário de produto real:
+Os itens abaixo estão fora do recorte das Etapas 1, 2 e 3 e **não serão entregues** neste projeto acadêmico. Ficam registrados apenas como evolução possível em um cenário de produto real:
 
-- [ ] **React Router** e páginas de detalhe de produto (`/produto/:id`)
 - [ ] **Autenticação** de usuários (login, cadastro, recuperação de senha)
+- [ ] **Rotas protegidas** e área "Minha Conta" funcional
 - [ ] **Carrinho de compras** com persistência (localStorage ou backend)
 - [ ] **Checkout** e integração com gateway de pagamento (Stripe, Mercado Pago, etc.)
 - [ ] **Painel administrativo** para CRUD de produtos
@@ -322,6 +385,7 @@ Os itens abaixo estão fora do recorte das Etapas 1 e 2 e **não serão entregue
 - [ ] **Internacionalização** (i18n) — o projeto permanece somente em pt-BR
 - [ ] **Testes automatizados** (Vitest, Testing Library, Cypress)
 - [ ] **PWA**, push notifications ou modo offline
+- [ ] **Deploy** em produção (fora do escopo da Etapa 3)
 - [ ] **Animações 3D** (Spline, Three.js, R3F) — vetado pelo escopo da disciplina
 - [ ] **Bibliotecas de UI** (Tailwind, Material UI, Chakra) — vetadas pelo escopo da disciplina
 
