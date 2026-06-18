@@ -1,468 +1,411 @@
-# Núcleo TADS Store
+# Núcleo TADS Store — Projeto Integrador IFES/TADS
 
 <div align="center">
-  <img src="./logo-nts.jpg" alt="Núcleo TADS Store" width="480" />
-  <br /><br />
+  <strong>Núcleo TADS Store</strong>
+  <br />
+  <em>Tecnologia, ciência e inovação em um só núcleo.</em>
+  <br />
+  <br />
 
   [![React](https://img.shields.io/badge/React-18.3-61DAFB?logo=react&logoColor=white)](https://react.dev)
   [![Vite](https://img.shields.io/badge/Vite-5.4-646CFF?logo=vite&logoColor=white)](https://vitejs.dev)
   [![License](https://img.shields.io/badge/License-MIT-0A2342)](LICENSE)
-  [![Website](https://img.shields.io/badge/Website-nucleotatico.com.br-0A2342?logo=google-chrome)](https://www.nucleotatico.com)
   <br />
   <strong>Atividade Acadêmica — IFES · Tecnologia em Análise e Desenvolvimento de Sistemas (TADS)</strong>
   <br />
-  <em>Vitrine digital de e-commerce com componentização avançada em React 18</em>
+  <em>Projeto integrador de componentização e consumo de API em React</em>
 </div>
 
 ---
 
-## 📋 Índice
+## Índice
 
-- [Contexto Acadêmico](#-contexto-acadêmico)
-- [Visão Geral](#-visão-geral)
-- [Demonstração](#-demonstração)
-- [Arquitetura](#-arquitetura)
-- [Stack Tecnológico](#-stack-tecnológico)
-- [Catálogo de Produtos](#-catálogo-de-produtos)
-- [Requisitos da Atividade](#-requisitos-da-atividade)
-- [Componentes](#-componentes)
-- [Instalação](#-instalação)
-- [API de Produtos](#-api-de-produtos)
-- [Design System](#-design-system)
-- [Roadmap](#-roadmap)
-- [Licença](#-licença)
-- [Autor](#-autor)
+- [Contexto acadêmico](#contexto-academico)
+- [Visão geral](#visao-geral)
+- [Stack tecnológico](#stack-tecnologico)
+- [Arquitetura](#arquitetura)
+- [Como rodar](#como-rodar)
+- [Etapa 1 — Componentização](#etapa-1--componentizacao)
+- [Etapa 2 — Integração com API](#etapa-2--integracao-com-api)
+- [Estrutura de componentes](#estrutura-de-componentes)
+- [Roadmap](#roadmap)
+- [Licença](#licenca)
+- [Autor](#autor)
 
 ---
 
-## 🎓 Contexto Acadêmico
+## Contexto acadêmico
 
 | Campo | Informação |
 |-------|------------|
 | **Instituição** | Instituto Federal do Espírito Santo (IFES) |
 | **Curso** | Tecnologia em Análise e Desenvolvimento de Sistemas (TADS) |
 | **Disciplina** | Desenvolvimento Web Front-end |
-| **Atividade** | Semana 12 / Etapa 1 — Projeto Integrador |
-| **Tema** | Componentização em React |
-| **Período** | 2024/2025 |
+| **Etapas entregues** | Semana 12 (Etapa 1) e Semana 13 (Etapa 2) |
+| **Tema** | Componentização e consumo de API em React |
 
 ---
 
-## 🎯 Visão Geral
+## Visão geral
 
-O **Núcleo TADS Store** é uma vitrine de e-commerce completa desenvolvida como projeto integrador da disciplina de Desenvolvimento Web Front-end do IFES/TADS. O projeto demonstra a aplicação prática de conceitos fundamentais e avançados de React:
+A **Núcleo TADS Store** é uma vitrine digital de tecnologia desenvolvida como projeto integrador. O catálogo é composto por produtos reais consumidos da API pública **DummyJSON**, com foco em smartphones, notebooks, tablets e acessórios de áudio.
 
-- **Componentização** — arquitetura modular com 10 componentes reutilizáveis
-- **Composição** — `props.children` para layouts flexíveis e aninhados
-- **Props** — passagem de dados tipados entre componentes pai-filho
-- **Renderização de listas** — `.map()` com `key` para reconciliação eficiente
-- **Renderização condicional** — exibição dinâmica de selos, parcelas e avaliações
-- **Acessibilidade** — semântica HTML5, ARIA labels, roles e atributos
-- **Design System** — identidade visual NTS com paleta institucional
+O projeto demonstra, na prática, conceitos fundamentais de React:
 
-Construído com React 18 e Vite, o projeto simula uma loja virtual completa com 12 produtos curados, filtro de categorias, diferenciais institucionais, navegação superior e rodapé profissional.
-
----
-
-## 🖥️ Demonstração
-
-```bash
-# Clone o repositório
-$ git clone https://github.com/matheusflorindo32/nucleo-storefront.git
-$ cd nucleo-storefront
-
-# Instale as dependências
-$ npm install
-
-# Inicie o servidor de desenvolvimento
-$ npm run dev
-
-# Acesse http://localhost:5173
-```
-
-### Preview da interface
-
-> **Hero Section** — Cabeçalho com navegação, mockup visual 3D e proposta de valor  
-> **Diferenciais** — 4 cards de autoridade técnica com ícones e descrições  
-> **Vitrine de Produtos** — Grid com 12 cards, filtro de categorias e contador  
-> **Rodapé** — Links institucionais, redes sociais e crédito acadêmico
+- Componentização e composição
+- Props e `props.children`
+- Renderização de listas com `.map()` e `key`
+- Renderização condicional
+- Estado local com `useState`
+- Efeitos colaterais com `useEffect`
+- Requisições HTTP com `fetch`
+- Tratamento de carregamento e erro
+- Busca em tempo real e filtro por categoria
 
 ---
 
-## 🏗️ Arquitetura
+## Stack tecnológico
+
+| Camada | Tecnologia | Propósito |
+|--------|------------|-----------|
+| **Framework UI** | React 18 | Biblioteca declarativa para interfaces |
+| **Bundler** | Vite 5 | Build rápido e HMR |
+| **Linguagem** | JavaScript (JSX) | Conforme exigência da disciplina |
+| **Styling** | CSS3 próprio | Sem frameworks, identidade visual customizada |
+| **API de dados** | [DummyJSON](https://dummyjson.com) | Catálogo de produtos de demonstração |
+| **Ícones / Logo** | SVG inline | Logo `LogoNTS` vetorial, sem dependências |
+
+**Sem TypeScript, sem Tailwind, sem React Router, sem libs de animação 3D** — em conformidade com o escopo da atividade.
+
+---
+
+## Arquitetura
 
 ```
 nucleo-storefront/
 ├── src/
-│   ├── assets/                  # Assets estáticos (logos, imagens)
-│   ├── components/              # Componentes reutilizáveis
-│   │   ├── Cabecalho.jsx        # Header + Hero + Navegação + Mockup visual
-│   │   ├── MenuTopo.jsx         # Navegação principal (5 links)
-│   │   ├── Layout.jsx           # Wrapper composicional (header/main/footer)
-│   │   ├── Diferenciais.jsx     # 4 cards de valor (curadoria, frete, garantia, suporte)
-│   │   ├── Vitrine.jsx          # Grid de produtos + filtro de categorias + contador
-│   │   ├── FiltroCategorias.jsx # Chips de filtro (role="tablist", ARIA)
-│   │   ├── ProdutoCard.jsx      # Card individual (imagem, selos, preço, parcelas, avaliação)
-│   │   ├── Botao.jsx            # CTA primário
-│   │   ├── Selo.jsx             # Badge/tag componente atômico
-│   │   └── Rodape.jsx           # Footer institucional + redes sociais + copyright
-│   ├── App.jsx                  # Root composition (Layout → Diferenciais → Vitrine)
-│   ├── main.jsx                 # Entry point (React 18 createRoot)
-│   └── App.css                  # Design system completo (900+ linhas)
+│   ├── components/
+│   │   ├── Layout.jsx           # Wrapper composicional (children)
+│   │   ├── Cabecalho.jsx        # Header + Hero + orbe SVG animado
+│   │   ├── LogoNTS.jsx          # Logo SVG inline (hexágono + wordmark)
+│   │   ├── MenuTopo.jsx         # Navegação superior
+│   │   ├── Diferenciais.jsx     # Bloco "por que comprar aqui"
+│   │   ├── Vitrine.jsx          # Catálogo: fetch + estados + filtros
+│   │   ├── FiltroCategorias.jsx # Chips de categoria (legado Etapa 1)
+│   │   ├── ProdutoCard.jsx      # Card individual de produto
+│   │   ├── Botao.jsx            # CTA reutilizável
+│   │   ├── Selo.jsx             # Badge / tag
+│   │   ├── SobreContato.jsx     # Seção Sobre + Contato (#sobre, #contato)
+│   │   ├── FAQ.jsx              # Perguntas frequentes (#faq)
+│   │   ├── Politicas.jsx        # Privacidade, trocas, termos (#politicas)
+│   │   ├── Newsletter.jsx       # Seção visual de newsletter (acadêmico)
+│   │   ├── Leads.jsx            # Captura de leads visual (acadêmico)
+│   │   └── Rodape.jsx           # Footer com GitHub, LinkedIn, e-mail
+│   ├── pages/                   # Páginas da SPA (Etapa 3)
+│   │   ├── Home.jsx             # Rota /  — vitrine + seções institucionais
+│   │   ├── Detalhe.jsx          # Rota /produto/:id — fetch por id + galeria
+│   │   └── NaoEncontrado.jsx    # Rota * — página 404
+│   ├── App.jsx                  # Configuração de rotas (React Router)
+│   ├── main.jsx                 # Entry React 18 + BrowserRouter
+│   └── App.css                  # Design system + animações
 ├── index.html
 ├── package.json
-├── vite.config.js
-└── README.md
+└── vite.config.js
 ```
 
-### Diagrama de Composição
+### Composição
 
 ```
 App
-└── Layout (props.children)
-    ├── Cabecalho
-    │   ├── MenuTopo (navegação com 5 links)
-    │   └── Hero (badge, headline, chips, mockup visual 3D)
-    ├── Diferenciais (4 cards de valor)
+└── Layout (children)
+    ├── Cabecalho (LogoNTS + MenuTopo + Hero com orbe)
+    ├── Diferenciais
     ├── Vitrine
-    │   ├── FiltroCategorias (chips de filtro ARIA)
-    │   └── ProdutoCard × 12
-    │       ├── Selo (destaque)
-    │       ├── Selo (frete grátis — condicional)
-    │       └── Botao (CTA)
+    │   └── ProdutoCard × N
+    │       ├── Selo (categoria, destaque, disponível)
+    │       └── Botao
+    ├── SobreContato
+    ├── FAQ
+    ├── Politicas
     └── Rodape
-        ├── Marca + tagline
-        ├── Links institucionais
-        ├── Redes sociais (Instagram, LinkedIn, GitHub)
-        └── Copyright + crédito acadêmico
 ```
 
 ---
 
-## 🛠️ Stack Tecnológico
-
-| Camada | Tecnologia | Versão | Propósito |
-|--------|------------|--------|-----------|
-| **Framework UI** | React | 18.3.1 | Biblioteca declarativa para interfaces |
-| **Bundler** | Vite | 5.4.10 | Build ultra-rápido, HMR instantâneo |
-| **Runtime** | Node.js | 18+ | Ambiente de execução |
-| **Styling** | CSS3 puro | — | Design system customizado, zero dependências |
-| **Ícones/Assets** | SVG inline + PNG | — | Logo institucional, ícones de redes sociais |
-| **Imagens** | Unsplash CDN | — | Assets de produto (placeholder) |
-| **Package Manager** | npm | 9+ | Gerenciamento de dependências |
-
-### Decisões arquiteturais
-
-- **Sem CSS frameworks** → Controle total sobre identidade visual NTS, zero bloat
-- **Sem bibliotecas de UI** → Todos os componentes são hand-crafted, demonstrando domínio técnico
-- **SVG inline** → Logo e ícones responsivos, animáveis, sem requests externos
-- **Array fixo de produtos** → Simulação de backend para demonstração de `map()`, `key` e filtro
-- **Props drilling didático** → Pronto para evolução para Context API, Zustand ou Redux
-- **Acessibilidade nativa** → Sem bibliotecas externas, ARIA implementado manualmente
-
----
-
-## 📦 Catálogo de Produtos
-
-A vitrine conta com **12 produtos** distribuídos em **8 categorias**:
-
-| ID | Produto | Categoria | Preço | Parcelas | Frete Grátis | Avaliação | Destaque |
-|----|---------|-----------|-------|----------|--------------|-----------|----------|
-| 1 | Notebook Núcleo Pro | Computadores | R$ 4.599,90 | 12x R$ 383,32 | ✅ | 4.9 | Mais vendido |
-| 2 | Mouse Apex Precision | Periféricos | R$ 189,90 | 4x R$ 47,47 | ✅ | 4.7 | Alta precisão |
-| 3 | Teclado TADS Mechanical | Periféricos | R$ 349,90 | 6x R$ 58,32 | ❌ | 4.8 | Dev choice |
-| 4 | Monitor Científico View 24 | Monitores | R$ 899,90 | 10x R$ 89,99 | ✅ | 4.6 | Full HD |
-| 5 | Headset Tropa Comms | Áudio | R$ 279,90 | 5x R$ 55,98 | ❌ | 4.5 | Áudio limpo |
-| 6 | Webcam Aula Pro HD | Imagem | R$ 219,90 | 4x R$ 54,97 | ✅ | 4.4 | Home office |
-| 7 | SSD NVMe Núcleo 1TB | Armazenamento | R$ 559,00 | 10x R$ 55,90 | ✅ | 4.9 | Ultra rápido |
-| 8 | Cadeira Ergo Code | Ergonomia | R$ 1.499,00 | 12x R$ 124,92 | ✅ | 4.7 | Conforto pro |
-| 9 | Mesa Digitalizadora Studio | Imagem | R$ 829,90 | 10x R$ 82,99 | ❌ | 4.6 | Criativos |
-| 10 | Hub USB-C 8 em 1 | Acessórios | R$ 299,00 | 5x R$ 59,80 | ✅ | 4.5 | Setup pro |
-| 11 | Livro Clean Architecture | Livros técnicos | R$ 159,90 | 3x R$ 53,30 | ❌ | 4.9 | Essencial |
-| 12 | Roteador Wi-Fi 6 Mesh | Redes | R$ 1.199,00 | 10x R$ 119,90 | ✅ | 4.6 | Wi-Fi 6 |
-
-**Categorias disponíveis:** Todos, Computadores, Periféricos, Monitores, Áudio, Imagem, Armazenamento, Ergonomia, Acessórios, Livros técnicos, Redes.
-
----
-
-## ✅ Requisitos da Atividade
-
-### Checklist de entrega — Semana 12 / Etapa 1
-
-- [x] **Projeto criado com React + Vite**
-- [x] **Componentes reutilizáveis** — 10 componentes modulares e independentes
-- [x] **Layout com `props.children`** — Layout composicional flexível
-- [x] **Cabeçalho com identidade visual** — SVG logo, gradientes, tagline, mockup 3D
-- [x] **Navegação principal** — MenuTopo com 5 links e estado ativo
-- [x] **Vitrine de produtos** — Grid com 12 produtos curados
-- [x] **Filtro de categorias** — Chips interativos com ARIA (`role="tablist"`)
-- [x] **Cards reutilizáveis** — ProdutoCard com props dinâmicas
-- [x] **Props** — Passagem de dados entre componentes (titulo, produto, itens, categorias)
-- [x] **Composição** — Layout envolvendo children, Diferenciais e Vitrine
-- [x] **Array fixo de produtos** — 12 itens com dados completos
-- [x] **Renderização com `.map()`** — Lista dinâmica de produtos, menu, chips, diferenciais
-- [x] **Uso de `key`** — Chave única para reconciliação eficiente em todas as listas
-- [x] **Renderização condicional** — Selo de frete grátis, parcelas, avaliação
-- [x] **CSS próprio** — Design system completo (900+ linhas), identidade visual NTS
-- [x] **Acessibilidade** — ARIA labels, roles, semântica HTML5, atributos `aria-*`
-- [x] **Diferenciais institucionais** — 4 cards de valor com ícones e descrições
-- [x] **Rodapé profissional** — Links, redes sociais, email, copyright
-
-### Conceitos demonstrados
-
-| Conceito | Onde foi aplicado | Código exemplo |
-|----------|-------------------|----------------|
-| **Componentização** | 10 arquivos `.jsx` | `Cabecalho`, `Vitrine`, `ProdutoCard`, `Diferenciais` |
-| **Props** | `Cabecalho`, `ProdutoCard`, `Botao`, `Selo`, `MenuTopo`, `Diferenciais` | `<Cabecalho titulo="Núcleo TADS Store" />` |
-| **Children** | `Layout.jsx` | `<Layout>{children}</Layout>` |
-| **Lista + key** | `Vitrine.jsx`, `MenuTopo.jsx`, `Diferenciais.jsx` | `produtos.map(p => <ProdutoCard key={p.id} ... />)` |
-| **Condicional** | `ProdutoCard.jsx` | `{produto.freteGratis && <Selo ... />}` |
-| **Formatação** | `ProdutoCard.jsx` | `preco.toLocaleString("pt-BR", {currency: "BRL"})` |
-| **ARIA** | `FiltroCategorias.jsx`, `MenuTopo.jsx` | `role="tablist"`, `aria-selected`, `aria-label` |
-
----
-
-## 🧩 Componentes
-
-### 1. `Cabecalho.jsx` — Header + Hero + Navegação
-- **MenuTopo** → Navegação principal com 5 links (Início, Vitrine, Categorias, Sobre, Contato)
-- **Hero Section** → Badge "Vitrine de Produtos", headline com accent, subtítulo
-- **Chips** → 3 diferenciais rápidos (Curadoria técnica, Frete grátis Brasil, Suporte por devs)
-- **Mockup Visual 3D** → Animação CSS com anéis, hexágonos, dots e card flutuante de produto
-- **Props:** `titulo` (string) — título customizável
-
-### 2. `MenuTopo.jsx` — Navegação Principal
-- **Props:** `itens` (array de `{label, href, ativo}`)
-- **Acessibilidade:** `aria-label="Navegação principal"`, lista semântica `<ul>`
-- **Estado ativo:** Classe CSS condicional para link ativo
-
-### 3. `Layout.jsx` — Wrapper Composicional
-- Recebe `children` via props
-- Estrutura semântica: `<header>`, `<main>`, `<footer>`
-- Permite troca de conteúdo sem alterar a estrutura da página
-
-### 4. `Diferenciais.jsx` — Cards de Valor
-- **Props:** `itens` (array de `{id, icone, titulo, texto}`)
-- **Padrão:** 4 diferenciais (Curadoria técnica, Frete grátis, Garantia estendida, Suporte por devs)
-- **Acessibilidade:** `aria-labelledby="diferenciais-titulo"`
-- **Renderização:** `.map()` com `key={item.id}`
-
-### 5. `Vitrine.jsx` — Grid de Produtos + Filtro
-- **Array fixo:** 12 produtos com dados completos (id, nome, preco, parcelas, avaliacao, categoria, descricao, freteGratis, destaque, imagem)
-- **FiltroCategorias:** Chips interativos com `role="tablist"` e `aria-selected`
-- **Contador:** `{produtos.length} produtos disponíveis`
-- **Renderização:** `.map()` com `key={produto.id}`
-- **CSS Grid:** `repeat(auto-fill, minmax(260px, 1fr))` responsivo
-
-### 6. `FiltroCategorias.jsx` — Filtro de Categorias
-- **Props:** `categorias` (array), `ativa` (string)
-- **Acessibilidade:** `role="tablist"`, `role="tab"`, `aria-selected`, `aria-label="Categorias"`
-- **Interatividade:** Estado visual ativo/inativo via classe CSS
-
-### 7. `ProdutoCard.jsx` — Card Individual
-- **Props:** `produto` (object)
-- **Imagem:** Com moldura circular, halo glow e selo de destaque
-- **Avaliação:** Estrelas com `aria-label` (ex: "Avaliação 4.9")
-- **Selos:** Destaque, frete grátis (condicional), categoria
-- **Preço:** `toLocaleString("pt-BR", {style: "currency", currency: "BRL"})`
-- **Parcelas:** Renderização condicional
-- **CTA:** `<Botao texto="Ver produto" />`
-
-### 8. `Selo.jsx` — Badge/Tag Atômico
-- **Props:** `texto` (string), `cor` (string hex)
-- Componente atômico, reutilizado em múltiplos contextos (destaque, frete grátis, categoria)
-- Estilo: pill arredondada, cor configurável via prop
-
-### 9. `Botao.jsx` — Call-to-Action
-- **Props:** `texto` (string), `onClick` opcional
-- Estados visuais: hover, focus, active
-- Semântico: `<button>` com acessibilidade nativa
-
-### 10. `Rodape.jsx` — Footer Institucional
-- **Marca:** Nome, tagline, selo "Curadoria acadêmica TADS"
-- **Links:** 5 links institucionais (Sobre, Vitrine, Contato, Políticas, FAQ)
-- **Redes sociais:** Instagram, LinkedIn, GitHub (ícones SVG inline)
-- **Contato:** `contato@nucleotads.store`
-- **Copyright:** `© 2026 Núcleo TADS Store · Todos os direitos reservados.`
-- **Crédito:** `Desenvolvido por Matheus Florindo de Deus — Projeto acadêmico TADS`
-
----
-
-## 🚀 Instalação
+## Como rodar
 
 ### Pré-requisitos
 
-- [Node.js](https://nodejs.org/) 18.x ou superior
-- [npm](https://www.npmjs.com/) 9.x ou superior
+- Node.js 18+
+- npm 9+
 
 ### Passo a passo
 
 ```bash
-# 1. Clone o repositório
-$ git clone https://github.com/matheusflorindo32/nucleo-storefront.git
-$ cd nucleo-storefront
+# 1. Instale as dependências
+npm install
 
-# 2. Instale as dependências
-$ npm install
+# 2. Inicie o servidor de desenvolvimento
+npm run dev
 
-# 3. Inicie o servidor de desenvolvimento
-$ npm run dev
-
-# 4. Abra no navegador
-$ open http://localhost:5173
+# 3. Acesse no navegador
+# http://localhost:5173
 ```
 
-### Scripts disponíveis
+### Scripts
 
 | Script | Comando | Descrição |
 |--------|---------|-----------|
 | **Dev** | `npm run dev` | Servidor de desenvolvimento com HMR |
-| **Build** | `npm run build` | Build otimizado para produção (`dist/`) |
+| **Build** | `npm run build` | Build de produção em `dist/` |
 | **Preview** | `npm run preview` | Preview da build de produção |
 
 ---
 
-## 📦 API de Produtos
+## Etapa 1 — Componentização
 
-Atualmente o catálogo é um array fixo. Futuramente será substituído por uma API RESTful.
+**Semana 12.** Fundação da loja com componentes reutilizáveis e dados estáticos.
 
-### Estrutura do produto
+### Conceitos demonstrados
 
-```typescript
-interface Product {
-  id: number;           // Identificador único
-  nome: string;         // Nome do produto
-  preco: number;        // Preço em BRL
-  parcelas: string;     // Texto de parcelamento (ex: "12x R$ 383,32")
-  avaliacao: number;    // Nota de 0.0 a 5.0
-  categoria: string;    // Categoria (Computadores, Periféricos, etc.)
-  descricao: string;    // Descrição curta
-  freteGratis: boolean; // Flag de frete grátis
-  destaque: string;     // Badge de destaque
-  imagem: string;       // URL da imagem (Unsplash CDN)
-}
+| Conceito | Onde foi aplicado |
+|----------|-------------------|
+| **Componentização** | Todos os arquivos `.jsx` |
+| **Props** | `ProdutoCard`, `Botao`, `Selo`, `MenuTopo` |
+| **Children** | `Layout.jsx` (`<Layout>{children}</Layout>`) |
+| **Lista + key** | `Vitrine.jsx` (`produtos.map(p => <ProdutoCard key={p.id} ... />)`) |
+| **Renderização condicional** | `ProdutoCard.jsx` (selos condicionais) |
+| **Formatação BRL** | `toLocaleString("pt-BR", { style: "currency", currency: "BRL" })` |
+| **CSS próprio** | `App.css` — paleta Clean Tech Premium |
+
+### Checklist final da Etapa 1 (entregue)
+
+- [x] Projeto criado com **React 18 + Vite 5** em JavaScript puro (JSX), sem TypeScript
+- [x] Estrutura de pastas organizada em `src/components/`
+- [x] Componente `Layout.jsx` usando **`props.children`** como wrapper composicional
+- [x] `Cabecalho.jsx` com identidade visual da marca (logo SVG, hero, chips de categoria)
+- [x] `LogoNTS.jsx` — logo 100% SVG inline (hexágono + circuitos + wordmark "NTS")
+- [x] `MenuTopo.jsx` com navegação por âncoras (`#vitrine`, `#sobre`, `#contato`, `#faq`, `#politicas`)
+- [x] `Diferenciais.jsx` apresentando os pilares da loja
+- [x] `Vitrine.jsx` com grid responsivo de produtos
+- [x] `ProdutoCard.jsx` recebendo dados via **props**
+- [x] `Botao.jsx` e `Selo.jsx` como componentes atômicos reutilizáveis
+- [x] `SobreContato.jsx`, `FAQ.jsx`, `Politicas.jsx` e `Rodape.jsx` com conteúdo institucional real
+- [x] Lista renderizada com **`.map()` + `key` única** (sem warnings no console)
+- [x] **Renderização condicional** de selos (categoria, destaque por nota, disponível em estoque)
+- [x] Formatação de preço em **BRL** com `toLocaleString("pt-BR", { currency: "BRL" })`
+- [x] **CSS próprio** em `App.css` com paleta Clean Tech Premium (sem Tailwind, sem libs UI)
+- [x] Links reais do autor no rodapé (GitHub, LinkedIn, e-mail)
+
+---
+
+## Etapa 2 — Integração com API
+
+**Semana 13.** Substituição do array fixo por dados reais da DummyJSON, com estados e filtros.
+
+### O que foi implementado
+
+- **Consumo de API** com `fetch` em paralelo (`Promise.all`)
+- **`useState`** gerenciando 5 estados em `Vitrine.jsx`:
+  `produtos`, `carregando`, `erro`, `busca`, `categoria`
+- **`useEffect`** com `[]` para carregamento na montagem do componente
+- **Estado de carregamento** — `"Carregando produtos..."`
+- **Tratamento de erro** com `try / catch / finally` e mensagem amigável
+- **Busca por nome** em tempo real, controlada pelo input
+- **Filtro por categoria** via `<select>` controlado
+- **Mensagem vazia** — `"Nenhum produto encontrado"` quando os filtros não retornam resultados
+- **`ProdutoCard` adaptado** aos campos da API: `title`, `price`, `thumbnail`, `category`
+- **Renderização condicional** baseada em `rating >= 4.5` e `stock > 0`
+- **Rótulos em português** para as categorias retornadas em inglês pela API
+
+### API de Produtos
+
+Endpoint base: `https://dummyjson.com/products/category/{categoria}`
+
+Categorias consumidas (apenas tecnologia):
+
+| Categoria (API) | Rótulo exibido |
+|-----------------|----------------|
+| `smartphones` | Smartphones |
+| `laptops` | Notebooks |
+| `tablets` | Tablets |
+| `mobile-accessories` | Áudio & Acessórios |
+
+**Estratégia de carregamento:**
+
+```js
+const respostas = await Promise.all(
+  categoriasTech.map((cat) =>
+    fetch(`https://dummyjson.com/products/category/${cat}`).then(r => r.json())
+  )
+);
+const variados = respostas.flatMap(r => (r.products || []).slice(0, 5));
+setProdutos(variados.slice(0, 20));
 ```
 
----
+Até 5 produtos de cada uma das 4 categorias, totalizando até 20 itens distribuídos de forma equilibrada.
 
-## 🎨 Design System
+### Checklist final da Etapa 2 (entregue)
 
-### Paleta de cores NTS
+**Estado atual do projeto — exatamente o que está em produção:**
 
-| Token | Valor | Uso |
-|-------|-------|-----|
-| **Azul-marinho** | `#0A2342` | Títulos, selos, texto principal |
-| **Azul-tecnologia** | `#1E5AA8` | Botões primários, links |
-| **Verde-água** | `#14B8A6` | Destaques, selos de categoria |
-| **Verde-sucesso** | `#16A34A` | Frete grátis, confirmações |
-| **Dourado** | `#C8A24A` | Acentos, bordas, detalhes premium |
-| **Fundo** | `#F8FAFC` | Background principal |
-| **Fundo-secundário** | `#EEF6F8` | Seções alternadas |
-| **Card** | `#FFFFFF` | Cards com sombra suave |
-
-### Tipografia
-
-- **Fonte:** `system-ui, -apple-system, sans-serif`
-- **Títulos:** Azul-marinho `#0A2342`, peso 700-800
-- **Body:** Cinza `#334155`, peso 400, line-height 1.6
-- **Labels:** Cinza claro `#64748B`, peso 500, uppercase
-
-### Espaçamento
-
-- **Border-radius cards:** 16px
-- **Border-radius selos:** 999px (pill)
-- **Sombra cards:** `0 4px 24px rgba(10,35,66,0.08)`
-- **Grid vitrine:** `repeat(auto-fill, minmax(260px, 1fr))`, gap 24px
-- **Container:** `max-width: 1200px`, padding responsivo
-
-### Animações
-
-- **Card hover:** `translateY(-4px)` + sombra intensificada (sensação 3D com CSS puro)
-- **Botão hover:** Elevação + escurecimento de cor
-- **Mockup hero:** Anéis rotativos, halo pulsante, dots flutuantes (CSS animations)
-- **Transições:** `transition: all 0.25s ease`
+- [x] `npm install` e `npm run dev` rodam sem erros nem warnings
+- [x] `Vitrine.jsx` consome a **DummyJSON** via `fetch` + `Promise.all` na montagem
+- [x] **`useEffect([])`** dispara o carregamento uma única vez ao montar
+- [x] **`useState`** controla 5 estados: `produtos`, `carregando`, `erro`, `busca`, `categoria`
+- [x] Mensagem **"Carregando produtos..."** exibida enquanto `carregando === true`
+- [x] **`try / catch / finally`** com mensagem amigável em caso de falha de rede
+- [x] `ProdutoCard` exibe `title`, `price`, `thumbnail`, `category` e `rating` da API
+- [x] **Input de busca** filtra produtos por título em tempo real (case-insensitive)
+- [x] **`<select>` de categoria** filtra por `smartphones`, `laptops`, `tablets`, `mobile-accessories`
+- [x] Rótulos das categorias **traduzidos para português** na UI (chaves da API preservadas)
+- [x] Mensagem **"Nenhum produto encontrado"** quando os filtros não retornam resultados
+- [x] Selos condicionais: **"Destaque"** quando `rating >= 4.5`, **"Indisponível"** quando `stock === 0`
+- [x] Até **20 produtos** distribuídos igualmente entre as 4 categorias técnicas
+- [x] Identidade visual da Etapa 1 **preservada integralmente** (logo, paleta, tipografia)
+- [x] Hero com **orbe SVG animado** em CSS puro (sem Spline, sem Three.js, sem libs 3D)
+- [x] Conteúdo institucional sem menções públicas a "DummyJSON" (linguagem de loja real)
+- [x] Sem warnings de `key` ou de hooks no console
 
 ---
 
-## 🗺️ Roadmap
+## Etapa 3 — SPA com React Router
 
-### Fase 1 — Fundação (✅ Concluída)
-- [x] Setup React + Vite
-- [x] 10 componentes reutilizáveis
-- [x] Layout com composição
-- [x] Renderização de lista com `.map()` e `key`
-- [x] Renderização condicional (selos, parcelas, avaliação)
-- [x] CSS próprio com design system NTS
-- [x] Acessibilidade ARIA
-- [x] 12 produtos, 8 categorias, filtro
-- [x] Hero com mockup visual 3D
-- [x] Diferenciais institucionais
-- [x] Rodapé profissional com redes sociais
+**Semana 14.** Transformação da aplicação em uma SPA real, com navegação entre a vitrine, a página de detalhe de cada produto e uma página 404 — tudo sem recarregar a página.
 
-### Fase 2 — Interatividade (📋 Planejada)
-- [ ] Estado global (Context API ou Zustand)
-- [ ] Carrinho de compras
-- [ ] Contador de itens no header
-- [ ] Filtros funcionais (JavaScript, não apenas visual)
-- [ ] Busca em tempo real
-- [ ] Ordenação por preço, avaliação, destaque
+### O que foi implementado
 
-### Fase 3 — Escalabilidade (📋 Planejada)
-- [ ] React Router (SPA navigation)
-- [ ] Página de detalhe do produto
-- [ ] Backend API (Node.js + Express)
-- [ ] Banco de dados (MongoDB/PostgreSQL)
-- [ ] Autenticação (JWT)
-- [ ] Painel administrativo
+- **`react-router-dom`** instalado e configurado
+- **`<BrowserRouter>`** envolvendo o `<App />` em `src/main.jsx`
+- **`Routes` / `Route`** definidos em `src/App.jsx`, com o `Layout` envolvendo todas as páginas (cabeçalho e rodapé persistem em toda a SPA)
+- Pasta **`src/pages/`** com:
+  - `Home.jsx` — rota `/`, renderiza a vitrine já existente (busca, filtro, fetch da DummyJSON preservados)
+  - `Detalhe.jsx` — rota `/produto/:id`, busca o produto específico via `https://dummyjson.com/products/${id}`
+  - `NaoEncontrado.jsx` — rota `*`, página 404 amigável
+- **`useParams()`** lê o `id` da URL na página de detalhe
+- **`useEffect(() => { ... }, [id])`** recarrega o produto sempre que o id muda
+- Estados de **carregando** (`"Carregando produto..."`) e **erro** (`"Não foi possível carregar os detalhes do produto."`) também na página de detalhe
+- **Galeria simples** com imagem principal + thumbnails clicáveis (estado local `imagemAtiva`)
+- `ProdutoCard.jsx` agora usa **`<Link to={\`/produto/${produto.id}\`}>`** (sem `<a href>`)
+- Link **"← Voltar para a loja"** na página de detalhe e na 404
+- A rota `*` é a **última**, garantindo que só URLs realmente inexistentes caem no 404
 
-### Fase 4 — Produção (📋 Planejada)
-- [ ] Testes unitários (Vitest + React Testing Library)
-- [ ] Testes E2E (Playwright)
-- [ ] CI/CD (GitHub Actions)
-- [ ] Deploy (Vercel/Netlify)
-- [ ] Analytics (Plausible/Google Analytics)
-- [ ] SEO otimizado (SSR ou SSG)
+### Rotas
 
----
+| Rota | Componente | Descrição |
+|------|------------|-----------|
+| `/` | `Home` | Vitrine + seções institucionais |
+| `/produto/:id` | `Detalhe` | Página de detalhe do produto (fetch por id) |
+| `*` | `NaoEncontrado` | Página 404 |
 
-## 📝 Documentação e Revisão
+### Checklist final da Etapa 3 (entregue)
 
-Este README foi revisado e aprimorado com assistência de IA (Kimi Claw) para garantir clareza técnica, padronização acadêmica e apresentação profissional. O conteúdo original, arquitetura e código do projeto foram desenvolvidos pelo autor.
-
----
-
-## 📄 Licença
-
-Este projeto está licenciado sob a **MIT License** — veja o arquivo [LICENSE](LICENSE) para detalhes.
-
-```
-MIT License
-
-Copyright (c) 2024-2025 Matheus Florindo de Deus
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-```
+- [x] `npm install` e `npm run dev` rodam sem erros
+- [x] `react-router-dom` instalado como dependência
+- [x] `<BrowserRouter>` envolve o `<App />` em `main.jsx`
+- [x] Rota `/` mostra a vitrine com **busca e filtro** funcionando (Etapa 2 preservada)
+- [x] Clicar em um card abre `/produto/:id` **sem recarregar a página**
+- [x] `Detalhe.jsx` usa **`useParams()`** para ler o `id`
+- [x] `useEffect` do detalhe depende de **`[id]`** e refaz o fetch ao trocar de produto
+- [x] Página de detalhe exibe `title`, `description`, `price` (BRL), `thumbnail`, `images` (galeria), `category`, `brand`, `rating`, `stock` e `discountPercentage`
+- [x] Estado **"Carregando produto..."** enquanto a API responde
+- [x] Mensagem amigável de erro em caso de falha de rede
+- [x] Link **"← Voltar para a loja"** com `<Link to="/">`
+- [x] URL inexistente (ex.: `/qualquercoisa`) cai na página **404 amigável**
+- [x] `Cabecalho` e `Rodape` aparecem em **todas** as páginas (Home, Detalhe, 404)
+- [x] Identidade visual Clean Tech Premium preservada (fundo claro, cards brancos, azul-marinho, verde tecnológico, dourado discreto)
+- [x] **Não** foi implementado login, autenticação, rota protegida, carrinho, checkout, backend ou deploy
+- [x] Código em **JavaScript puro (JSX)**, sem TypeScript, sem Tailwind, sem libs de UI
 
 ---
 
-## 👤 Autor
+## Estrutura de componentes
+
+### `Layout.jsx` — Wrapper composicional
+Recebe `children` e estrutura semântica da página.
+
+### `Cabecalho.jsx` — Header + Hero
+Logo SVG, menu de navegação, hero com copy comercial e **orbe central animado** (SVG + CSS puro, sem dependências 3D).
+
+### `LogoNTS.jsx` — Logo
+SVG inline com hexágono + circuitos + wordmark "NTS", usando a paleta da marca.
+
+### `Vitrine.jsx` — Catálogo (Etapa 2)
+Estado + `useEffect` para fetch da API, busca, filtro por categoria, mensagens de carregamento/erro/vazio.
+
+### `ProdutoCard.jsx` — Card de produto
+Recebe `produto` por props. Exibe `thumbnail`, `title`, `category` (em português), `price` (BRL) e selos condicionais.
+
+### `Selo.jsx` — Badge
+Componente atômico com `texto` e `cor` por props.
+
+### `Botao.jsx` — CTA
+Componente reutilizável de chamada para ação.
+
+### `SobreContato.jsx`, `FAQ.jsx`, `Politicas.jsx`
+Seções institucionais com âncoras funcionais (`#sobre`, `#contato`, `#faq`, `#politicas`).
+
+### `Rodape.jsx`
+Footer com links institucionais e redes sociais reais (GitHub, LinkedIn, e-mail).
+
+---
+
+## Roadmap
+
+### Fase 1 — Componentização (Etapa 1) ✅ entregue na Semana 12
+- Setup React + Vite
+- Componentes reutilizáveis
+- Lista + renderização condicional
+- CSS próprio com identidade Clean Tech Premium
+
+### Fase 2 — Integração com API (Etapa 2) ✅ entregue na Semana 13
+- `useState` e `useEffect`
+- Consumo da DummyJSON com `Promise.all`
+- Estados de carregamento, erro e vazio
+- Busca em tempo real e filtro por categoria
+
+### Fase 3 — SPA com React Router (Etapa 3) ✅ entregue na Semana 14
+- `react-router-dom` + `BrowserRouter`
+- Rotas `/`, `/produto/:id` e `*` (404)
+- Navegação por `<Link>` sem reload
+- `useParams` + `useEffect([id])` para buscar o produto pelo id
+- Layout (cabeçalho + rodapé) preservado em todas as páginas
+
+### Fora do escopo — o que NÃO será implementado nas próximas semanas
+
+Os itens abaixo estão fora do recorte das Etapas 1, 2 e 3 e **não serão entregues** neste projeto acadêmico. Ficam registrados apenas como evolução possível em um cenário de produto real:
+
+- [ ] **Autenticação** de usuários (login, cadastro, recuperação de senha)
+- [ ] **Rotas protegidas** e área "Minha Conta" funcional
+- [ ] **Carrinho de compras** com persistência (localStorage ou backend)
+- [ ] **Checkout** e integração com gateway de pagamento (Stripe, Mercado Pago, etc.)
+- [ ] **Painel administrativo** para CRUD de produtos
+- [ ] **Backend próprio** ou banco de dados (Supabase, Firebase, etc.)
+- [ ] **Favoritos**, avaliações de usuários ou comentários
+- [ ] **Internacionalização** (i18n) — o projeto permanece somente em pt-BR
+- [ ] **Testes automatizados** (Vitest, Testing Library, Cypress)
+- [ ] **PWA**, push notifications ou modo offline
+- [ ] **Deploy** em produção (fora do escopo da Etapa 3)
+- [ ] **Animações 3D** (Spline, Three.js, R3F) — vetado pelo escopo da disciplina
+- [ ] **Bibliotecas de UI** (Tailwind, Material UI, Chakra) — vetadas pelo escopo da disciplina
+
+---
+
+## Licença
+
+Este projeto está licenciado sob a **MIT License** — veja o arquivo [LICENSE](LICENSE).
+
+---
+
+## Autor
 
 **Matheus Florindo de Deus**
 
 - **Curso:** TADS — IFES
-- **Website:** [www.nucleotatico.com](https://www.nucleotatico.com)
 - **GitHub:** [@matheusflorindo32](https://github.com/matheusflorindo32)
-- **Email:** [matheusdideusf@gmail.com](mailto:matheusdideusf@gmail.com)
 - **LinkedIn:** [Matheus Florindo](https://linkedin.com/in/matheusflorindo)
+- **E-mail:** [matheusdideusf@gmail.com](mailto:matheusdideusf@gmail.com)
 
 <div align="center">
-  <sub>🎖️ <strong>NTS</strong> — Núcleo TADS Store · Atividade Acadêmica IFES/TADS · React 18 + Vite</sub>
+  <sub><strong>NTS</strong> — Núcleo TADS Store · Projeto acadêmico IFES/TADS · React 18 + Vite</sub>
 </div>

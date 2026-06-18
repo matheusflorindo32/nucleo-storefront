@@ -1,101 +1,46 @@
+import LogoNTS from "./LogoNTS.jsx";
 import MenuTopo from "./MenuTopo.jsx";
 
 const itensMenu = [
   { label: "Início", href: "#inicio", ativo: true },
   { label: "Vitrine", href: "#vitrine" },
-  { label: "Categorias", href: "#categorias" },
   { label: "Sobre", href: "#sobre" },
+  { label: "FAQ", href: "#faq" },
   { label: "Contato", href: "#contato" },
+  { label: "Projeto", to: "/sobre-o-projeto" },
 ];
 
 const chipsHero = [
-  { id: 1, texto: "Curadoria técnica" },
-  { id: 2, texto: "Frete grátis Brasil" },
-  { id: 3, texto: "Suporte por devs" },
+  { id: 1, texto: "Smartphones de ponta" },
+  { id: 2, texto: "Notebooks para produtividade" },
+  { id: 3, texto: "Áudio & acessórios" },
 ];
 
-function LogoNTS() {
-  return (
-    <svg
-      className="logo-svg"
-      viewBox="0 0 120 120"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-label="Logo Núcleo TADS Store"
-    >
-      <defs>
-        <linearGradient id="hexGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#0A2342" />
-          <stop offset="100%" stopColor="#1E5AA8" />
-        </linearGradient>
-        <linearGradient id="circuitGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#C8A24A" />
-          <stop offset="100%" stopColor="#16A34A" />
-        </linearGradient>
-      </defs>
-      <g stroke="url(#circuitGrad)" strokeWidth="2" fill="none" strokeLinecap="round">
-        <path d="M14 40 L26 40 L32 34" />
-        <path d="M14 80 L26 80 L32 86" />
-        <path d="M106 40 L94 40 L88 34" />
-        <path d="M106 80 L94 80 L88 86" />
-      </g>
-      <g fill="#16A34A">
-        <circle cx="12" cy="40" r="3" />
-        <circle cx="12" cy="80" r="3" />
-        <circle cx="108" cy="40" r="3" />
-        <circle cx="108" cy="80" r="3" />
-      </g>
-      <polygon
-        points="60,12 102,36 102,84 60,108 18,84 18,36"
-        fill="url(#hexGrad)"
-        stroke="#14B8A6"
-        strokeWidth="2"
-      />
-      <text
-        x="60"
-        y="72"
-        textAnchor="middle"
-        fontFamily="system-ui, sans-serif"
-        fontWeight="800"
-        fontSize="32"
-        fill="#FFFFFF"
-        letterSpacing="1"
-      >
-        NTS
-      </text>
-    </svg>
-  );
-}
-
-function Cabecalho() {
+function Cabecalho({ mostrarHero = false }) {
   return (
     <header className="cabecalho" id="inicio">
       <div className="cabecalho-top">
-        <div className="logo-area">
-          <LogoNTS />
-          <div className="logo-text">
-            <h1 className="logo-title">Núcleo TADS Store</h1>
-            <p className="logo-tagline">Tecnologia, ciência e inovação em um só núcleo.</p>
-          </div>
-        </div>
+        <LogoNTS className="logo-img" />
         <MenuTopo itens={itensMenu} />
       </div>
 
+      {mostrarHero && (
       <section className="hero">
         <div className="hero-content">
           <div className="hero-left">
-            <span className="hero-badge">Vitrine de Produtos</span>
+            <span className="hero-badge">Tecnologia em destaque</span>
 
             <h1 className="hero-title">
-              Equipamentos inteligentes para quem{" "}
-              <span className="hero-accent">estuda, desenvolve e cria</span>.
+              Tecnologia premium para o seu{" "}
+              <span className="hero-accent">núcleo de produtividade</span>.
             </h1>
 
             <p className="hero-sub">
-              Produtos selecionados para estudantes, desenvolvedores e
-              pesquisadores que transformam ideias em sistemas.
+              Smartphones, notebooks, tablets e acessórios selecionados para
+              quem vive conectado a estudo, trabalho e criação.
             </p>
 
-            <ul className="hero-chips" aria-label="Diferenciais">
+            <ul className="hero-chips" aria-label="Destaques da loja">
               {chipsHero.map((chip) => (
                 <li key={chip.id} className="hero-chip">
                   <span aria-hidden="true">✓</span> {chip.texto}
@@ -114,63 +59,124 @@ function Cabecalho() {
             <div className="ring ring-3" />
             <div className="halo" />
 
-            <div className="hex" />
-
             <div className="dot dot-1" />
             <div className="dot dot-2" />
             <div className="dot dot-3" />
             <div className="dot dot-4" />
 
-            <div className="product-mock">
-              <div className="product-mock-bar">
-                <span />
-                <span />
-                <span />
-              </div>
-              <div className="product-mock-screen">
-                <div className="mock-brand">
-                  <LogoNTS />
-                  <div className="mock-brand-text">
-                    <strong>Núcleo TADS Store</strong>
-                    <small>Vitrine acadêmica</small>
-                  </div>
-                </div>
+            {/* Núcleo central — orbe tech em SVG puro (inspirado em serafim/splite, sem dependências) */}
+            <div className="orb">
+              <svg
+                className="orb-svg"
+                viewBox="0 0 320 320"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <defs>
+                  <radialGradient id="orbCore" cx="50%" cy="40%" r="60%">
+                    <stop offset="0%" stopColor="#7DD3FC" stopOpacity="1" />
+                    <stop offset="35%" stopColor="#14B8A6" stopOpacity="0.95" />
+                    <stop offset="75%" stopColor="#1E5AA8" stopOpacity="0.9" />
+                    <stop offset="100%" stopColor="#0A2342" stopOpacity="1" />
+                  </radialGradient>
+                  <radialGradient id="orbGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stopColor="#14B8A6" stopOpacity="0.6" />
+                    <stop offset="100%" stopColor="#14B8A6" stopOpacity="0" />
+                  </radialGradient>
+                  <linearGradient id="orbCircuit" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stopColor="#7DD3FC" stopOpacity="0.9" />
+                    <stop offset="100%" stopColor="#C8A24A" stopOpacity="0.7" />
+                  </linearGradient>
+                </defs>
 
-                <div className="mock-featured">
-                  <div className="mock-featured-icon">💻</div>
-                  <div className="mock-featured-info">
-                    <strong>Kit Dev Starter</strong>
-                    <span className="mock-price">Curadoria técnica</span>
-                  </div>
-                  <span className="mock-tag">Destaque</span>
-                </div>
+                {/* glow externo */}
+                <circle cx="160" cy="160" r="155" fill="url(#orbGlow)" />
 
-                <div className="mock-thumbs">
-                  <span className="mock-thumb t1" />
-                  <span className="mock-thumb t2" />
-                  <span className="mock-thumb t3" />
-                </div>
-              </div>
+                {/* esfera */}
+                <circle
+                  cx="160"
+                  cy="160"
+                  r="110"
+                  fill="url(#orbCore)"
+                  stroke="#14B8A6"
+                  strokeOpacity="0.45"
+                  strokeWidth="1.5"
+                />
+
+                {/* highlight superior */}
+                <ellipse
+                  cx="135"
+                  cy="115"
+                  rx="55"
+                  ry="32"
+                  fill="#FFFFFF"
+                  fillOpacity="0.18"
+                />
+
+                {/* trilhas de circuito (animadas por CSS) */}
+                <g
+                  className="orb-circuit"
+                  fill="none"
+                  stroke="url(#orbCircuit)"
+                  strokeWidth="1.2"
+                  strokeLinecap="round"
+                >
+                  <path d="M70 160 Q160 60 250 160" strokeOpacity="0.55" />
+                  <path d="M70 160 Q160 260 250 160" strokeOpacity="0.45" />
+                  <path d="M160 50 Q260 160 160 270" strokeOpacity="0.4" />
+                  <path d="M160 50 Q60 160 160 270" strokeOpacity="0.35" />
+                </g>
+
+                {/* pontos de conexão */}
+                <g className="orb-nodes">
+                  <circle cx="70" cy="160" r="3.2" fill="#7DD3FC" />
+                  <circle cx="250" cy="160" r="3.2" fill="#C8A24A" />
+                  <circle cx="160" cy="50" r="3.2" fill="#14B8A6" />
+                  <circle cx="160" cy="270" r="3.2" fill="#7DD3FC" />
+                </g>
+
+                {/* logo central — letra N */}
+                <text
+                  x="160"
+                  y="178"
+                  textAnchor="middle"
+                  fontFamily="system-ui, -apple-system, Segoe UI, Roboto, sans-serif"
+                  fontWeight="900"
+                  fontSize="72"
+                  fill="#FFFFFF"
+                  fillOpacity="0.95"
+                >
+                  N
+                </text>
+              </svg>
+
+              {/* partículas orbitando (CSS) */}
+              <span className="orb-particle p1" />
+              <span className="orb-particle p2" />
+              <span className="orb-particle p3" />
+              <span className="orb-particle p4" />
+              <span className="orb-particle p5" />
+              <span className="orb-particle p6" />
             </div>
 
             <div className="float-card float-card-1">
-              <span className="float-icon">⚡</span>
+              <span className="float-icon">📱</span>
               <div>
-                <strong>Performance</strong>
-                <small>Pronto para devs</small>
+                <strong>Mobilidade</strong>
+                <small>Smartphones premium</small>
               </div>
             </div>
 
             <div className="float-card float-card-2">
-              <span className="float-icon">🧪</span>
+              <span className="float-icon">💻</span>
               <div>
-                <strong>Ciência</strong>
-                <small>Curadoria técnica</small>
+                <strong>Produtividade</strong>
+                <small>Notebooks e tablets</small>
               </div>
             </div>
           </div>
         </div>
       </section>
+      )}
     </header>
   );
 }
