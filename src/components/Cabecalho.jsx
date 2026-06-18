@@ -1,12 +1,13 @@
 import LogoNTS from "./LogoNTS.jsx";
 import MenuTopo from "./MenuTopo.jsx";
+import AcaoAuth from "./AcaoAuth.jsx";
 
 const itensMenu = [
   { label: "Início", href: "#inicio", ativo: true },
   { label: "Vitrine", href: "#vitrine" },
   { label: "Sobre", href: "#sobre" },
   { label: "FAQ", href: "#faq" },
-  { label: "Contato", href: "#contato" },
+  { label: "Minha conta", to: "/minha-conta" },
   { label: "Projeto", to: "/sobre-o-projeto" },
 ];
 
@@ -22,6 +23,7 @@ function Cabecalho({ mostrarHero = false }) {
       <div className="cabecalho-top">
         <LogoNTS className="logo-img" />
         <MenuTopo itens={itensMenu} />
+        <AcaoAuth />
       </div>
 
       {mostrarHero && (
