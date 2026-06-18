@@ -7,6 +7,7 @@ const itensMenu = [
   { label: "Sobre", href: "#sobre" },
   { label: "FAQ", href: "#faq" },
   { label: "Contato", href: "#contato" },
+  { label: "Projeto", to: "/sobre-o-projeto" },
 ];
 
 const chipsHero = [
@@ -15,7 +16,7 @@ const chipsHero = [
   { id: 3, texto: "Áudio & acessórios" },
 ];
 
-function Cabecalho() {
+function Cabecalho({ mostrarHero = false }) {
   return (
     <header className="cabecalho" id="inicio">
       <div className="cabecalho-top">
@@ -23,6 +24,7 @@ function Cabecalho() {
         <MenuTopo itens={itensMenu} />
       </div>
 
+      {mostrarHero && (
       <section className="hero">
         <div className="hero-content">
           <div className="hero-left">
@@ -174,6 +176,7 @@ function Cabecalho() {
           </div>
         </div>
       </section>
+      )}
     </header>
   );
 }
