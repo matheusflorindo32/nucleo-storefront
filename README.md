@@ -1,6 +1,8 @@
 # Núcleo Storefront — Atividade Acadêmica IFES/TADS
 
 <div align="center">
+  <img src="./logo-nts.jpg" alt="Núcleo TADS Store" width="520" />
+  <br />
   <br />
 
   [![React](https://img.shields.io/badge/React-18.3-61DAFB?logo=react&logoColor=white)](https://react.dev)
