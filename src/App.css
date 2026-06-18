@@ -65,18 +65,14 @@ body {
 
 /* ===== Hero ===== */
 .hero {
-  background:
-    radial-gradient(1200px 500px at 85% -10%, var(--glow-azul), transparent 60%),
-    radial-gradient(800px 400px at 0% 110%, var(--glow), transparent 60%),
-    linear-gradient(135deg, var(--bg-2) 0%, #ffffff 100%);
-  border-top: 1px solid var(--borda);
+  background: transparent;
   overflow: hidden;
 }
 
 .hero-content {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 48px 24px 72px;
+  padding: 16px 24px 64px;
   display: grid;
   grid-template-columns: 1.1fr 1fr;
   gap: 56px;
