@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Botao from "./Botao.jsx";
 import Selo from "./Selo.jsx";
+import { formatarPreco } from "../utils/formatadores.js";
 
 const rotulosCategoria = {
   smartphones: "Smartphones",
@@ -14,10 +15,7 @@ function rotular(cat) {
 }
 
 function ProdutoCard({ produto }) {
-  const precoFormatado = produto.price.toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  });
+  const precoFormatado = formatarPreco(produto.price);
   const categoriaPt = rotular(produto.category);
   const qtdImagens = (produto.images && produto.images.length) || 1;
   const linkProduto = `/produto/${produto.id}`;
