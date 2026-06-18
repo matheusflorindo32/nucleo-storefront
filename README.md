@@ -8,6 +8,7 @@
   [![React](https://img.shields.io/badge/React-18.3-61DAFB?logo=react&logoColor=white)](https://react.dev)
   [![Vite](https://img.shields.io/badge/Vite-5.4-646CFF?logo=vite&logoColor=white)](https://vitejs.dev)
   [![License](https://img.shields.io/badge/License-MIT-0A2342)](LICENSE)
+  [![Website](https://img.shields.io/badge/Website-nucleotatico.com.br-0A2342?logo=google-chrome)](https://www.nucleotatico.com)
   <br />
   <strong>Atividade Acadêmica — IFES · Tecnologia em Análise e Desenvolvimento de Sistemas (TADS)</strong>
   <br />
@@ -341,6 +342,7 @@ copies or substantial portions of the Software.
 **Matheus Florindo de Deus**
 
 - **Curso:** TADS — IFES
+- **Website:** [www.nucleotatico.com](https://www.nucleotatico.com)
 - **GitHub:** [@matheusflorindo32](https://github.com/matheusflorindo32)
 - **Email:** [matheusdideusf@gmail.com](mailto:matheusdideusf@gmail.com)
 - **LinkedIn:** [Matheus Florindo](https://linkedin.com/in/matheusflorindo)
