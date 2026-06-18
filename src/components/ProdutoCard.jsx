@@ -10,12 +10,21 @@ function ProdutoCard({ produto }) {
   return (
     <article className="card">
       <div className="card-image-wrap">
-        <div className="card-image-halo" />
-        <img className="card-image" src={produto.imagem} alt={produto.nome} />
+        <span className="card-ring" aria-hidden="true" />
+        <span className="card-image-halo" aria-hidden="true" />
+        <div className="card-image-frame">
+          <img
+            className="card-image"
+            src={produto.imagem}
+            alt={produto.nome}
+            loading="lazy"
+          />
+        </div>
         <div className="card-selo-destaque">
           <Selo texto={produto.destaque} cor="#0A2342" />
         </div>
       </div>
+
 
       <div className="card-body">
         <span className="card-categoria">{produto.categoria}</span>

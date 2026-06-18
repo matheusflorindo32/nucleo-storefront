@@ -315,7 +315,7 @@ body {
 
 .vitrine-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 28px;
 }
 
@@ -323,33 +323,45 @@ body {
 .card {
   background: var(--surface);
   border: 1px solid var(--borda);
-  border-radius: 20px;
+  border-radius: 22px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   box-shadow:
-    0 1px 0 #fff inset,
-    0 6px 18px rgba(10, 35, 66, 0.06);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+    0 1px 0 #ffffff inset,
+    0 8px 22px rgba(10, 35, 66, 0.06);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
 }
 .card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-8px);
+  border-color: rgba(20, 184, 166, 0.35);
   box-shadow:
-    0 1px 0 #fff inset,
-    0 22px 44px rgba(10, 35, 66, 0.14),
+    0 1px 0 #ffffff inset,
+    0 28px 52px rgba(10, 35, 66, 0.16),
     0 0 0 1px var(--glow);
 }
 
 .card-image-wrap {
   position: relative;
   background:
-    radial-gradient(circle at 50% 50%, #ffffff, #eaf4f7);
-  padding: 28px;
+    radial-gradient(circle at 50% 40%, #ffffff 0%, #eaf4f7 80%);
+  padding: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 220px;
+  height: 240px;
   border-bottom: 1px solid var(--borda);
+  overflow: hidden;
+}
+
+.card-ring {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 1px dashed rgba(30, 90, 168, 0.2);
+  animation: spin 40s linear infinite;
+  pointer-events: none;
 }
 
 .card-image-halo {
@@ -363,60 +375,82 @@ body {
     var(--glow-azul) 55%,
     transparent 75%
   );
-  filter: blur(4px);
+  filter: blur(6px);
+  pointer-events: none;
+}
+
+.card-image-frame {
+  position: relative;
+  z-index: 1;
+  width: 86%;
+  height: 88%;
+  border-radius: 18px;
+  background: linear-gradient(160deg, #ffffff, #f1f8fb);
+  border: 1px solid var(--borda);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  box-shadow:
+    inset 0 1px 0 #ffffff,
+    0 14px 28px rgba(10, 35, 66, 0.14);
+  transform: perspective(800px) rotateX(3deg);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.card:hover .card-image-frame {
+  transform: perspective(800px) rotateX(0deg) translateY(-3px);
+  box-shadow:
+    inset 0 1px 0 #ffffff,
+    0 20px 36px rgba(10, 35, 66, 0.2);
 }
 
 .card-image {
-  position: relative;
-  max-width: 82%;
+  max-width: 100%;
   max-height: 100%;
+  width: auto;
+  height: auto;
   object-fit: contain;
-  border-radius: 14px;
-  z-index: 1;
-  box-shadow: 0 14px 30px rgba(10, 35, 66, 0.18);
-  transform: perspective(700px) rotateX(3deg);
-  transition: transform 0.3s ease;
-}
-.card:hover .card-image {
-  transform: perspective(700px) rotateX(0deg) translateY(-2px);
+  display: block;
 }
 
 .card-selo-destaque {
   position: absolute;
-  top: 12px;
-  left: 12px;
-  z-index: 2;
+  top: 14px;
+  left: 14px;
+  z-index: 3;
 }
 
 .card-body {
-  padding: 20px;
+  padding: 22px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   flex: 1;
 }
 
 .card-categoria {
   font-size: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 0.9px;
+  letter-spacing: 1px;
   color: var(--azul-tech);
   font-weight: 700;
 }
 
 .card-nome {
   margin: 0;
-  font-size: 1.08rem;
+  font-size: 1.15rem;
   color: var(--marinho);
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: -0.01em;
+  line-height: 1.25;
 }
 
 .card-descricao {
   margin: 0;
   color: var(--texto-2);
-  font-size: 0.88rem;
-  line-height: 1.5;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  min-height: 56px;
   flex: 1;
 }
 
@@ -424,12 +458,12 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-top: 6px;
+  margin-top: 4px;
 }
 
 .card-footer {
-  margin-top: 14px;
-  padding-top: 14px;
+  margin-top: 16px;
+  padding-top: 16px;
   border-top: 1px dashed var(--borda);
   display: flex;
   align-items: center;
@@ -440,8 +474,10 @@ body {
 .card-preco {
   color: var(--marinho);
   font-weight: 800;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
+  letter-spacing: -0.01em;
 }
+
 
 /* ===== Selo ===== */
 .selo {
