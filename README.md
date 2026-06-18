@@ -98,9 +98,15 @@ nucleo-storefront/
 │   │   ├── SobreContato.jsx     # Seção Sobre + Contato (#sobre, #contato)
 │   │   ├── FAQ.jsx              # Perguntas frequentes (#faq)
 │   │   ├── Politicas.jsx        # Privacidade, trocas, termos (#politicas)
+│   │   ├── Newsletter.jsx       # Seção visual de newsletter (acadêmico)
+│   │   ├── Leads.jsx            # Captura de leads visual (acadêmico)
 │   │   └── Rodape.jsx           # Footer com GitHub, LinkedIn, e-mail
-│   ├── App.jsx                  # Composição da página
-│   ├── main.jsx                 # Entry React 18
+│   ├── pages/                   # Páginas da SPA (Etapa 3)
+│   │   ├── Home.jsx             # Rota /  — vitrine + seções institucionais
+│   │   ├── Detalhe.jsx          # Rota /produto/:id — fetch por id + galeria
+│   │   └── NaoEncontrado.jsx    # Rota * — página 404
+│   ├── App.jsx                  # Configuração de rotas (React Router)
+│   ├── main.jsx                 # Entry React 18 + BrowserRouter
 │   └── App.css                  # Design system + animações
 ├── index.html
 ├── package.json
