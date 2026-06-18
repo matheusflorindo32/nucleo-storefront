@@ -64,7 +64,7 @@ function Cabecalho() {
                   <div className="mock-featured-icon">💻</div>
                   <div className="mock-featured-info">
                     <strong>Kit Dev Starter</strong>
-                    <span className="mock-price">a partir de R$ 0,00</span>
+                    <span className="mock-price">Curadoria técnica</span>
                   </div>
                   <span className="mock-tag">Destaque</span>
                 </div>
