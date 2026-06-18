@@ -1,11 +1,23 @@
 import Botao from "./Botao.jsx";
 import Selo from "./Selo.jsx";
 
+const rotulosCategoria = {
+  smartphones: "Smartphones",
+  laptops: "Notebooks",
+  tablets: "Tablets",
+  "mobile-accessories": "Áudio & Acessórios",
+};
+
+function rotular(cat) {
+  return rotulosCategoria[cat] || cat;
+}
+
 function ProdutoCard({ produto }) {
   const precoFormatado = produto.price.toLocaleString("pt-BR", {
     style: "currency",
     currency: "BRL",
   });
+  const categoriaPt = rotular(produto.category);
 
   return (
     <article className="card">
@@ -17,12 +29,12 @@ function ProdutoCard({ produto }) {
           alt={produto.title}
         />
         <div className="card-selo-destaque">
-          <Selo texto={produto.category} cor="#0A2342" />
+          <Selo texto={categoriaPt} cor="#0A2342" />
         </div>
       </div>
 
       <div className="card-body">
-        <span className="card-categoria">{produto.category}</span>
+        <span className="card-categoria">{categoriaPt}</span>
         <h3 className="card-nome">{produto.title}</h3>
 
         {produto.description && (
