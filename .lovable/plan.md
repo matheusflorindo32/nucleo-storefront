@@ -1,40 +1,88 @@
-## Plano — Preencher o card do hero (mockup de janela)
+## Plano — Fortalecer a Núcleo TADS Store sem sair do escopo da atividade
 
-Hoje o card à direita do hero (`.product-mock`) tem só barrinhas cinzas genéricas. Vou transformá-lo em uma mini "vitrine" visual coerente com a marca, sem mexer em lógica nem violar nenhuma regra da Semana 12.
+Objetivo: deixar o projeto visivelmente superior ao do colega — densidade de vitrine, navegação, identidade — **sem** romper nenhuma das regras da Semana 12 (componentes React + props + `.map()` em lista, sem `useState`, sem Router, sem backend, sem libs externas, sem TypeScript/Tailwind). Tudo continua em JSX puro + CSS já existente no `App.css`, com componentização limpa.
 
-### O que vai aparecer dentro do card
+Inspirações de linguagem visual (referência, **não** cópia de código): padrões de product card, glow hero e bento de e-commerce do 21st.dev (autores como beratberkay, dhiluxui, dhileepkumargm, thanh).
 
-Topo (barra da "janela") — mantém os 3 pontinhos (vermelho/amarelo/verde) já existentes.
+---
 
-Conteúdo do card (puro HTML + CSS, estático):
-1. **Selo NTS** no topo — o emblema hexagonal da logo (mesmo PNG `logo-nts-clean`) em tamanho pequeno + texto curto "Núcleo TADS Store" ao lado. Reforça a marca dentro do mock.
-2. **Mini "produto em destaque"** — um bloco com:
-   - Ícone (emoji `💻` ou `⚙️`) num quadrado com gradiente azul→teal
-   - Nome fake: "Kit Dev Starter"
-   - Linha de "preço" estilizada: `R$ 0,00` (apenas visual, sem lógica)
-   - Uma tag verde "Em destaque" (puro CSS, não é o componente `Selo` — é decorativo do hero)
-3. **3 mini-thumbs** embaixo (quadradinhos com gradientes diferentes: azul-marinho, teal, dourado) simulando outros produtos da vitrine.
+### 1. Barra de navegação no cabeçalho (componente novo `MenuTopo`)
 
-Tudo isso é **decorativo, estático, dentro do `Cabecalho.jsx`** — não é uma vitrine funcional, não usa `.map`, não duplica a Vitrine real abaixo.
+Componente puro de apresentação, recebe links por **prop** (array) e renderiza com `.map()` — reforça os conceitos da atividade.
 
-### Arquivos alterados
+- `src/components/MenuTopo.jsx` — recebe `props.itens = [{ label, href, ativo }]`
+- Renderiza ao lado da logo no `Cabecalho.jsx`
+- Itens: Início · Vitrine · Categorias · Sobre · Contato
+- Estilo: hairline inferior, item ativo com sublinhado dourado, hover suave (CSS)
 
-**`src/components/Cabecalho.jsx`**
-- Dentro de `.product-mock-screen`, substituir as 3 `.mock-line` + 1 `.mock-block` por:
-  - `<div class="mock-brand">` com `<img>` da logo (mesmo asset) + texto
-  - `<div class="mock-featured">` com ícone, título, preço, tag
-  - `<div class="mock-thumbs">` com 3 `<span>` coloridos
+### 2. Vitrine mais densa e crível (continua dentro de `Vitrine.jsx`)
 
-**`src/App.css`**
-- Remover/aposentar regras `.mock-line` e `.mock-block` (ou manter sem uso).
-- Adicionar regras novas: `.mock-brand`, `.mock-brand img`, `.mock-featured`, `.mock-featured-icon`, `.mock-featured-info`, `.mock-price`, `.mock-tag`, `.mock-thumbs`, `.mock-thumb` (com 3 variações de gradiente usando a paleta já definida: azul-marinho `#0A2342`, teal `#14B8A6`, dourado `#C8A24A`).
-- Ajustar `.product-mock-screen` para `display: flex; flex-direction: column; gap` adequado.
+- Dobrar o catálogo: de 6 para **10–12 produtos reais** (notebooks, periféricos, áudio, imagem, acessórios dev, livros técnicos), preços variados e coerentes, descrições curtas autorais.
+- Adicionar 2 props novas opcionais ao `ProdutoCard`: `parcelas` (ex.: "10x R$ 89,90") e `avaliacao` (ex.: 4.8 ⭐) — exibidas só quando vierem na prop, mostrando uso condicional de props.
+- Manter `Selo` e `Botao` como já estão (não quebrar nada).
 
-### O que NÃO muda
+### 3. Filtro visual de categorias (sem `useState`, 100% apresentação)
 
-- Logo no cabeçalho **continua** onde está (usuário disse "ou até a logo se achar que fica melhor" — vou **manter** no header e **também** colocar uma versão pequena dentro do card como selo de marca; assim não tira nada do que já está aprovado).
-- Nada de `useState`, `useEffect`, API, Router, login, Spline, Framer Motion, Tailwind, TypeScript.
-- Vitrine real, ProdutoCard, Selo, Botao, Layout, children, `.map()` — **intactos**.
-- Sem componente novo: tudo dentro do `Cabecalho.jsx` existente, só HTML + CSS.
+Componente `FiltroCategorias.jsx` que recebe `props.categorias = []` e renderiza chips com `.map()`. Decorativo (não filtra de fato, pois `useState` está fora do escopo da semana) — funciona como "tabs" visuais acima da vitrine, igual aos sites de referência. Marca uma como ativa via prop `ativa`.
 
-Quer que eu siga com esse plano?
+### 4. Seção "Por que comprar no Núcleo TADS" (novo componente `Diferenciais`)
+
+3–4 cards horizontais com ícone + título + descrição, renderizados com `.map()` sobre uma lista de objetos passada por prop. Reforça autoridade ("Curadoria técnica", "Frete grátis acima de X", "Garantia estendida", "Suporte por devs").
+
+### 5. Rodapé profissional (refatorar `Rodape.jsx`)
+
+Atualmente é uma linha só. Vira um rodapé em 3 colunas (puro CSS grid):
+- Coluna 1: marca + tagline + selo "Tecnologia, ciência e inovação"
+- Coluna 2: links institucionais (Sobre, Contato, FAQ, Políticas) — array + `.map()`
+- Coluna 3: redes (Instagram, LinkedIn, GitHub) — ícones SVG inline
+- Barra inferior: copyright + curso/instituição
+
+### 6. Polimento do hero existente
+
+- Manter mockup 3D animado (já é nosso diferencial).
+- Adicionar 3 "chips de confiança" abaixo do subtítulo (`✓ Curadoria técnica` · `✓ Frete grátis` · `✓ Suporte dev`) — array + `.map()`.
+- Ajustar contraste do título em telas claras.
+
+### 7. SEO e meta básicos (no `index.html`)
+
+- `<title>` descritivo (<60 chars), `<meta description>` (<160), Open Graph com a logo, favicon. Tudo estático, sem libs.
+
+---
+
+### Arquivos afetados
+
+**Novos:**
+- `src/components/MenuTopo.jsx`
+- `src/components/FiltroCategorias.jsx`
+- `src/components/Diferenciais.jsx`
+
+**Editados:**
+- `src/components/Cabecalho.jsx` — inclui `<MenuTopo itens={...} />`
+- `src/components/Vitrine.jsx` — mais produtos + render do filtro
+- `src/components/ProdutoCard.jsx` — props opcionais `parcelas` e `avaliacao`
+- `src/components/Rodape.jsx` — rodapé em 3 colunas
+- `src/App.jsx` — inclui `<Diferenciais />` entre hero e vitrine
+- `src/App.css` — estilos novos (menu, chips, filtro, diferenciais, rodapé)
+- `index.html` — título, meta description, OG
+
+### Regras da atividade — checklist
+
+- [x] Componentes React funcionais com **props**
+- [x] Renderização de listas com `.map()` e `key`
+- [x] Composição/`children` (Layout, Cabecalho, Rodape continuam)
+- [x] CSS próprio em `App.css` (sem Tailwind)
+- [x] **Sem** `useState`, `useEffect`, Router, fetch, backend
+- [x] **Sem** libs externas novas (sem Motion, sem Three, sem shadcn)
+- [x] JSX puro (sem TypeScript)
+
+### Ordem de execução sugerida
+
+1. MenuTopo + chips do hero (impacto visual imediato no topo)
+2. Vitrine expandida + props novas no ProdutoCard
+3. FiltroCategorias acima da grid
+4. Diferenciais entre hero e vitrine
+5. Rodapé profissional
+6. SEO no index.html
+7. Tirar 3 prints finais para entrega
+
+Posso seguir com tudo? Se preferir, executo por etapas e mostro print após cada uma.
