@@ -1,17 +1,16 @@
-import logoNts from "../assets/logo-nts.png.asset.json";
+import logoNts from "../assets/logo-nts-transparent.png.asset.json";
 
 function Cabecalho() {
   return (
     <header className="cabecalho">
       <div className="cabecalho-top">
-        <div className="logo-area">
-          <img
-            src={logoNts.url}
-            alt="Núcleo TADS Store — Tecnologia, ciência e inovação em um só núcleo"
-            className="logo-img"
-          />
-        </div>
+        <img
+          src={logoNts.url}
+          alt="Núcleo TADS Store — Tecnologia, ciência e inovação em um só núcleo"
+          className="logo-img"
+        />
       </div>
+
 
       <section className="hero">
         <div className="hero-content">
