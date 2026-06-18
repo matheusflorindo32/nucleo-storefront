@@ -16,7 +16,7 @@ function Cabecalho() {
       <section className="hero">
         <div className="hero-content">
           <div className="hero-left">
-            <span className="hero-badge">Clean Tech · Vitrine acadêmica</span>
+            <span className="hero-badge">Vitrine de Produtos</span>
 
             <h1 className="hero-title">
               Equipamentos inteligentes para quem{" "}
@@ -31,12 +31,6 @@ function Cabecalho() {
             <p className="hero-apoio">
               Tecnologia, ciência e inovação em um só núcleo.
             </p>
-
-            <ul className="hero-chips">
-              <li className="hero-chip">React + Vite</li>
-              <li className="hero-chip">Componentes reutilizáveis</li>
-              <li className="hero-chip">Clean Tech</li>
-            </ul>
           </div>
 
           <div className="hero-visual" aria-hidden="true">

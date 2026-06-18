@@ -52,13 +52,13 @@ body {
 .cabecalho-top {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 20px 24px;
+  padding: 10px 24px;
 }
 
 .logo-area { display: flex; align-items: center; justify-content: flex-start; }
 
 .logo-img {
-  max-width: 420px;
+  max-width: 280px;
   width: 100%;
   height: auto;
   display: block;
@@ -78,7 +78,7 @@ body {
 .hero-content {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 72px 24px 88px;
+  padding: 48px 24px 72px;
   display: grid;
   grid-template-columns: 1.1fr 1fr;
   gap: 56px;
@@ -134,24 +134,6 @@ body {
   font-weight: 600;
 }
 
-.hero-chips {
-  list-style: none;
-  padding: 0;
-  margin: 12px 0 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.hero-chip {
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid var(--borda);
-  color: var(--marinho);
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-size: 0.78rem;
-  font-weight: 600;
-  backdrop-filter: blur(6px);
-}
 
 /* ===== Hero visual (composição 3D em CSS) ===== */
 .hero-visual {
