@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import ProdutoCard from "./ProdutoCard.jsx";
 
 // Mapa de rótulos em português (chaves da API são preservadas para o filtro)
@@ -17,8 +18,21 @@ function Vitrine() {
   const [produtos, setProdutos] = useState([]);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState(null);
-  const [busca, setBusca] = useState("");
-  const [categoria, setCategoria] = useState("Todas");
+
+  // Filtro/busca refletidos na URL (?busca=...&categoria=...)
+  const [searchParams, setSearchParams] = useSearchParams();
+  const busca = searchParams.get("busca") || "";
+  const categoria = searchParams.get("categoria") || "Todas";
+
+  function atualizarParam(chave, valor) {
+    const novo = new URLSearchParams(searchParams);
+    if (!valor || (chave === "categoria" && valor === "Todas")) {
+      novo.delete(chave);
+    } else {
+      novo.set(chave, valor);
+    }
+    setSearchParams(novo, { replace: true });
+  }
 
   useEffect(() => {
     async function carregarProdutos() {
@@ -86,13 +100,13 @@ function Vitrine() {
           className="vitrine-busca"
           placeholder="Buscar produtos pelo nome..."
           value={busca}
-          onChange={(e) => setBusca(e.target.value)}
+          onChange={(e) => atualizarParam("busca", e.target.value)}
           aria-label="Buscar produtos"
         />
         <select
           className="vitrine-select"
           value={categoria}
-          onChange={(e) => setCategoria(e.target.value)}
+          onChange={(e) => atualizarParam("categoria", e.target.value)}
           aria-label="Filtrar por categoria"
         >
           {categorias.map((cat) => (
