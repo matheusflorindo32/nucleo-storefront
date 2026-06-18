@@ -17,7 +17,16 @@ function ModalProduto({ produto, aoFechar }) {
 
   const [indice, setIndice] = useState(0);
 
-  // Fecha com tecla ESC + trava o scroll do body
+  // Trava o scroll do body apenas enquanto o modal está montado
+  useEffect(() => {
+    const overflowAnterior = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = overflowAnterior || "";
+    };
+  }, []);
+
+  // Atalhos de teclado (ESC + setas)
   useEffect(() => {
     function aoApertarTecla(e) {
       if (e.key === "Escape") aoFechar();
@@ -25,14 +34,10 @@ function ModalProduto({ produto, aoFechar }) {
       if (e.key === "ArrowLeft") voltar();
     }
     document.addEventListener("keydown", aoApertarTecla);
-    const overflowAnterior = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", aoApertarTecla);
-      document.body.style.overflow = overflowAnterior;
-    };
+    return () => document.removeEventListener("keydown", aoApertarTecla);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [imagens.length]);
+
 
   function avancar() {
     setIndice((i) => (i + 1) % imagens.length);
