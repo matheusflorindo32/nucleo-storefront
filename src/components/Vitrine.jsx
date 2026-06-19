@@ -1,29 +1,23 @@
-import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import ProdutoCard from "./ProdutoCard.jsx";
-
-// Mapa de rótulos em português (chaves da API são preservadas para o filtro)
-const rotulosCategoria = {
-  smartphones: "Smartphones",
-  laptops: "Notebooks",
-  tablets: "Tablets",
-  "mobile-accessories": "Áudio & Acessórios",
-};
-
-function rotular(cat) {
-  return rotulosCategoria[cat] || cat;
-}
+import SkeletonProduto from "./SkeletonProduto.jsx";
+import MensagemErro from "./MensagemErro.jsx";
+import EstadoVazio from "./EstadoVazio.jsx";
+import { useProdutos } from "../hooks/useProdutos.js";
+import { useCategorias } from "../hooks/useCategorias.js";
 
 function Vitrine() {
-  const [produtos, setProdutos] = useState([]);
-  const [carregando, setCarregando] = useState(true);
-  const [erro, setErro] = useState(null);
+  const { produtos, carregando, erro, recarregar } = useProdutos();
+  const { categorias, rotular } = useCategorias();
 
-  // Filtro/busca refletidos na URL (?busca=...&categoria=...&ordenar=...)
+  // Filtros refletidos na URL (?busca=...&categoria=...&ordenar=...)
   const [searchParams, setSearchParams] = useSearchParams();
   const busca = searchParams.get("busca") || "";
   const categoria = searchParams.get("categoria") || "Todas";
   const ordenar = searchParams.get("ordenar") || "padrao";
+
+  const filtrosAtivos =
+    busca !== "" || categoria !== "Todas" || ordenar !== "padrao";
 
   function atualizarParam(chave, valor) {
     const novo = new URLSearchParams(searchParams);
@@ -39,45 +33,9 @@ function Vitrine() {
     setSearchParams(novo, { replace: true });
   }
 
-  useEffect(() => {
-    async function carregarProdutos() {
-      try {
-        setCarregando(true);
-        setErro(null);
-
-        const categoriasTech = [
-          "smartphones",
-          "laptops",
-          "tablets",
-          "mobile-accessories",
-        ];
-
-        const respostas = await Promise.all(
-          categoriasTech.map((cat) =>
-            fetch(`https://dummyjson.com/products/category/${cat}`).then((r) => {
-              if (!r.ok) throw new Error("Falha na requisição");
-              return r.json();
-            })
-          )
-        );
-
-        const variados = respostas.flatMap((r) =>
-          (r.products || []).slice(0, 5)
-        );
-        setProdutos(variados.slice(0, 20));
-      } catch (e) {
-        setErro(
-          "Não foi possível carregar os produtos. Tente novamente mais tarde."
-        );
-      } finally {
-        setCarregando(false);
-      }
-    }
-
-    carregarProdutos();
-  }, []);
-
-  const categorias = ["Todas", ...new Set(produtos.map((p) => p.category))];
+  function limparFiltros() {
+    setSearchParams(new URLSearchParams(), { replace: true });
+  }
 
   let produtosFiltrados = produtos.filter((p) => {
     const correspondeBusca = p.title
@@ -122,9 +80,10 @@ function Vitrine() {
           onChange={(e) => atualizarParam("categoria", e.target.value)}
           aria-label="Filtrar por categoria"
         >
+          <option value="Todas">Todas as categorias</option>
           {categorias.map((cat) => (
-            <option key={cat} value={cat}>
-              {cat === "Todas" ? "Todas as categorias" : rotular(cat)}
+            <option key={cat.id} value={cat.id}>
+              {cat.label}
             </option>
           ))}
         </select>
@@ -141,27 +100,59 @@ function Vitrine() {
         </select>
       </div>
 
+      {!carregando && !erro && (
+        <div className="vitrine-contador" aria-live="polite">
+          <span>
+            <strong>{produtosFiltrados.length}</strong>{" "}
+            {produtosFiltrados.length === 1
+              ? "produto encontrado"
+              : "produtos encontrados"}
+            {categoria !== "Todas" && (
+              <> em <strong>{rotular(categoria)}</strong></>
+            )}
+            {busca && (
+              <> para “<strong>{busca}</strong>”</>
+            )}
+          </span>
+          {filtrosAtivos && (
+            <button
+              type="button"
+              className="vitrine-limpar"
+              onClick={limparFiltros}
+            >
+              Limpar filtros
+            </button>
+          )}
+        </div>
+      )}
+
       {carregando && (
         <div className="vitrine-grid" aria-label="Carregando produtos">
           {Array.from({ length: 8 }).map((_, i) => (
-            <div key={i} className="card card--skeleton" aria-hidden="true">
-              <div className="skeleton skeleton--img" />
-              <div className="card-body">
-                <div className="skeleton skeleton--line skeleton--line-short" />
-                <div className="skeleton skeleton--line" />
-                <div className="skeleton skeleton--line skeleton--line-price" />
-              </div>
-            </div>
+            <SkeletonProduto key={i} />
           ))}
         </div>
       )}
 
       {!carregando && erro && (
-        <p className="vitrine-estado vitrine-erro">{erro}</p>
+        <MensagemErro mensagem={erro} onTentarNovamente={recarregar} />
       )}
 
       {!carregando && !erro && produtosFiltrados.length === 0 && (
-        <p className="vitrine-estado">Nenhum produto encontrado.</p>
+        <EstadoVazio
+          titulo="Nenhum produto encontrado"
+          descricao="Tente ajustar a busca, escolher outra categoria ou limpar os filtros."
+        >
+          {filtrosAtivos && (
+            <button
+              type="button"
+              className="botao botao-primario"
+              onClick={limparFiltros}
+            >
+              Limpar filtros
+            </button>
+          )}
+        </EstadoVazio>
       )}
 
       {!carregando && !erro && produtosFiltrados.length > 0 && (
@@ -176,4 +167,3 @@ function Vitrine() {
 }
 
 export default Vitrine;
-

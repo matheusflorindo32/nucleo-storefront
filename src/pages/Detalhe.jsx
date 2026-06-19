@@ -1,18 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import Selo from "../components/Selo.jsx";
+import MensagemErro from "../components/MensagemErro.jsx";
+import EstadoVazio from "../components/EstadoVazio.jsx";
 import { formatarPreco } from "../utils/formatadores.js";
-
-const rotulosCategoria = {
-  smartphones: "Smartphones",
-  laptops: "Notebooks",
-  tablets: "Tablets",
-  "mobile-accessories": "Áudio & Acessórios",
-};
-
-function rotular(cat) {
-  return rotulosCategoria[cat] || cat;
-}
+import { useProdutoDetalhe } from "../hooks/useProdutoDetalhe.js";
+import { rotularCategoria as rotular } from "../services/api.js";
 
 function Estrelas({ nota }) {
   const cheias = Math.round(nota || 0);
@@ -98,36 +91,29 @@ async function compartilharProduto(produto) {
 
 function Detalhe() {
   const { id } = useParams();
-  const [produto, setProduto] = useState(null);
-  const [carregando, setCarregando] = useState(true);
-  const [erro, setErro] = useState(null);
+  const { produto, carregando, erro, naoEncontrado, recarregar } =
+    useProdutoDetalhe(id);
   const [imagemAtiva, setImagemAtiva] = useState(0);
-  const [tentativa, setTentativa] = useState(0);
+  const [avisoCarrinho, setAvisoCarrinho] = useState(false);
 
   useEffect(() => {
-    async function carregar() {
-      try {
-        setCarregando(true);
-        setErro(null);
-        setImagemAtiva(0);
+    setImagemAtiva(0);
+  }, [id]);
 
-        const resposta = await fetch(`https://dummyjson.com/products/${id}`);
-        if (!resposta.ok) throw new Error("Falha na requisição");
-        const dados = await resposta.json();
-        setProduto(dados);
-        document.title = `${dados.title} — Núcleo TADS Store`;
-      } catch (e) {
-        setErro(
-          "Não foi possível carregar os detalhes do produto. Tente novamente mais tarde."
-        );
-        document.title = "Produto — Núcleo TADS Store";
-      } finally {
-        setCarregando(false);
-      }
+  useEffect(() => {
+    if (produto?.title) {
+      document.title = `${produto.title} — Núcleo TADS Store`;
+    } else if (naoEncontrado) {
+      document.title = "Produto não encontrado — Núcleo TADS Store";
+    } else {
+      document.title = "Produto — Núcleo TADS Store";
     }
+  }, [produto, naoEncontrado]);
 
-    carregar();
-  }, [id, tentativa]);
+  function adicionarDemo() {
+    setAvisoCarrinho(true);
+    setTimeout(() => setAvisoCarrinho(false), 2200);
+  }
 
   if (carregando) {
     return (
@@ -159,16 +145,24 @@ function Detalhe() {
     return (
       <section className="detalhe-page">
         <Link to="/" className="detalhe-voltar">← Voltar para a loja</Link>
-        <div className="detalhe-erro-box">
-          <p className="detalhe-estado detalhe-estado--erro">{erro}</p>
-          <button
-            type="button"
-            className="detalhe-retry"
-            onClick={() => setTentativa((t) => t + 1)}
-          >
-            Tentar novamente
-          </button>
-        </div>
+        <MensagemErro mensagem={erro} onTentarNovamente={recarregar} />
+      </section>
+    );
+  }
+
+  if (naoEncontrado) {
+    return (
+      <section className="detalhe-page">
+        <Link to="/" className="detalhe-voltar">← Voltar para a loja</Link>
+        <EstadoVazio
+          icone="📦"
+          titulo="Produto não encontrado"
+          descricao="O produto solicitado não existe no catálogo ou foi removido."
+        >
+          <Link to="/" className="botao botao-primario">
+            Voltar para a vitrine
+          </Link>
+        </EstadoVazio>
       </section>
     );
   }
