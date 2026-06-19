@@ -272,11 +272,21 @@ function Detalhe() {
             <button
               type="button"
               className="detalhe-acao detalhe-acao--primaria"
+              onClick={adicionarDemo}
+              disabled={produto.stock === 0}
+              aria-label="Adicionar ao carrinho (demonstração)"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+              Adicionar ao carrinho
+            </button>
+            <button
+              type="button"
+              className="detalhe-acao"
               onClick={() => baixarEspecificacoes(produto)}
               aria-label="Baixar ficha técnica em TXT"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Baixar especificações
+              Ficha técnica
             </button>
             <button
               type="button"
@@ -297,6 +307,13 @@ function Detalhe() {
               Imprimir
             </button>
           </div>
+
+          {avisoCarrinho && (
+            <div className="detalhe-toast" role="status" aria-live="polite">
+              ✓ Adicionado ao carrinho — funcionalidade demonstrativa.
+            </div>
+          )}
+
 
 
           {(produto.sku || produto.weight || produto.dimensions) && (
