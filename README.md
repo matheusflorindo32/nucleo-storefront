@@ -63,9 +63,13 @@ Fluxo: tente acessar `/minha-conta` → é redirecionado para `/login` → entre
 
 ```
 src/
-├── components/      # UI reutilizável (Cabecalho, Vitrine, ProdutoCard, RotaPrivada, ...)
+├── components/      # UI reutilizável (Cabecalho, Vitrine, ProdutoCard,
+│                    # SkeletonProduto, MensagemErro, EstadoVazio,
+│                    # SecaoTitulo, RotaPrivada, AcaoAuth, ...)
 ├── contexts/        # AuthContext (sessão global)
+├── hooks/           # useProdutos, useProdutoDetalhe, useCategorias
 ├── pages/           # Home, Detalhe, Login, MinhaConta, NaoEncontrado, SobreProjeto
+├── services/        # api.js — camada de acesso à DummyJSON
 ├── utils/           # formatadores (preço em R$)
 ├── App.jsx          # Rotas
 ├── main.jsx         # Bootstrap + Providers
@@ -81,6 +85,21 @@ Coloque as capturas em `docs/prints/`:
 - `03-login.png` — Tela de login
 - `04-minha-conta.png` — Área protegida
 - `05-404.png` — Página 404
+
+## ✅ Checklist da entrega (Semanas 12–15)
+
+- [x] **Componentização** — componentes reutilizáveis com `props`, `children`,
+      composição, renderização condicional e listas com `.map()`.
+- [x] **Estado, Hooks e API** — `useState`, `useEffect`, hooks customizados
+      (`useProdutos`, `useProdutoDetalhe`, `useCategorias`) consumindo a
+      DummyJSON com loading, erro e estado vazio tratados.
+- [x] **Navegação SPA** — React Router com `/`, `/produto/:id`, `/login`,
+      `/minha-conta`, `/sobre-o-projeto` e `*` (404 personalizada).
+- [x] **Autenticação** — `Context API` + `localStorage`, login simulado
+      (`aluno` / `1234`), rota protegida `/minha-conta`, redirecionamento para
+      `/login` e cabeçalho alternando **Entrar / Sair**.
+- [x] **README** completo, `.gitignore` ignorando `node_modules` e código
+      limpo (sem `console.log`, sem imports não usados).
 
 ## 📌 Observações
 

@@ -24,6 +24,13 @@ const cardsConta = [
     icone: "👤",
     badge: "Atualizado",
   },
+  {
+    id: "seguranca",
+    titulo: "Segurança da sessão",
+    descricao: "Login salvo localmente para fins didáticos do projeto.",
+    icone: "🔐",
+    badge: "Context API + localStorage",
+  },
 ];
 
 function MinhaConta() {
