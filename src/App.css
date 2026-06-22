@@ -571,6 +571,27 @@ body {
 }
 .botao-primario:hover::after { transform: translateX(3px); }
 
+.botao-secundario {
+  background: var(--surface);
+  color: var(--texto);
+  border: 1px solid var(--borda);
+}
+.botao-secundario:hover {
+  background: var(--bg);
+  border-color: var(--azul-tech);
+  color: var(--azul-tech);
+}
+
+.botao-perigo {
+  background: #ef4444;
+  color: #ffffff;
+}
+.botao-perigo:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(239, 68, 68, 0.28);
+}
+
 /* ===== Rodapé ===== */
 .rodape {
   background: var(--marinho);
