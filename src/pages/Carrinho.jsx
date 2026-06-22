@@ -11,6 +11,7 @@ function Carrinho() {
   const { itens, subtotal, quantidadeTotal, mudarQtd, remover, limpar } =
     useCart();
   const [pedido, setPedido] = useState(null);
+  const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
 
   useEffect(() => {
     document.title = "Carrinho — Núcleo TADS Store";
