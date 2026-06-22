@@ -3143,6 +3143,58 @@ body {
   color: #ef4444;
 }
 
+.carrinho-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 35, 66, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 200;
+  animation: fadeIn 0.2s ease;
+}
+
+.carrinho-modal {
+  background: var(--surface);
+  border: 1px solid var(--borda);
+  border-radius: 18px;
+  padding: 28px;
+  width: min(92vw, 420px);
+  box-shadow: 0 24px 60px rgba(10, 35, 66, 0.25);
+  animation: slideUp 0.2s ease;
+}
+
+.carrinho-modal h2 {
+  margin: 0 0 10px;
+  font-size: 1.3rem;
+  color: var(--marinho);
+}
+
+.carrinho-modal p {
+  margin: 0 0 22px;
+  color: var(--texto-2);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.carrinho-modal-acoes {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .carrinho-grid {
   display: grid;
   grid-template-columns: 1fr 340px;
