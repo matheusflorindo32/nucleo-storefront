@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext.jsx";
 
 function AcaoAuth() {
-  const { logado, usuario, sair } = useAuth();
+  const { logado, usuario, perfil, sair } = useAuth();
   const navegar = useNavigate();
 
   function aoSair() {
@@ -11,10 +11,23 @@ function AcaoAuth() {
   }
 
   if (logado) {
+    const nomeExibido = perfil?.firstName || usuario || "aluno";
     return (
       <div className="auth-acao">
+        {perfil?.image ? (
+          <img
+            src={perfil.image}
+            alt=""
+            className="auth-acao-avatar"
+            aria-hidden="true"
+          />
+        ) : (
+          <span className="auth-acao-avatar auth-acao-avatar--letra" aria-hidden="true">
+            {nomeExibido.charAt(0).toUpperCase()}
+          </span>
+        )}
         <span className="auth-acao-oi">
-          Olá, <strong>{usuario || "aluno"}</strong>
+          Olá, <strong>{nomeExibido}</strong>
         </span>
         <button
           type="button"

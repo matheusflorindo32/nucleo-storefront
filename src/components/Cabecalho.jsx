@@ -1,6 +1,7 @@
 import LogoNTS from "./LogoNTS.jsx";
 import MenuTopo from "./MenuTopo.jsx";
 import AcaoAuth from "./AcaoAuth.jsx";
+import CarrinhoIcone from "./CarrinhoIcone.jsx";
 
 const itensMenu = [
   { label: "Início", href: "#inicio", ativo: true },
@@ -23,7 +24,10 @@ function Cabecalho({ mostrarHero = false }) {
       <div className="cabecalho-top">
         <LogoNTS className="logo-img" />
         <MenuTopo itens={itensMenu} />
-        <AcaoAuth />
+        <div className="cabecalho-acoes">
+          <CarrinhoIcone />
+          <AcaoAuth />
+        </div>
       </div>
 
       {mostrarHero && (

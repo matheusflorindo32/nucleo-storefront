@@ -41,6 +41,20 @@ export async function buscarProdutoPorId(id) {
   return getJSON(`${BASE_URL}/products/${id}`);
 }
 
+// Login real na API pública DummyJSON.
+// Retorna { accessToken, refreshToken, id, username, firstName, lastName, email, image, ... }
+export async function loginDummy(username, password) {
+  const resposta = await fetch(`${BASE_URL}/auth/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password, expiresInMins: 60 }),
+  });
+  if (!resposta.ok) {
+    throw new Error("Credenciais inválidas");
+  }
+  return resposta.json();
+}
+
 export async function buscarDestaquesPorCategoria(categorias = []) {
   const respostas = await Promise.all(
     categorias.map((cat) =>
