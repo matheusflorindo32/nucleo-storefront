@@ -6,6 +6,7 @@ import EstadoVazio from "../components/EstadoVazio.jsx";
 import { formatarPreco } from "../utils/formatadores.js";
 import { useProdutoDetalhe } from "../hooks/useProdutoDetalhe.js";
 import { rotularCategoria as rotular } from "../services/api.js";
+import { useCart } from "../contexts/CartContext.jsx";
 
 function Estrelas({ nota }) {
   const cheias = Math.round(nota || 0);
@@ -93,6 +94,7 @@ function Detalhe() {
   const { id } = useParams();
   const { produto, carregando, erro, naoEncontrado, recarregar } =
     useProdutoDetalhe(id);
+  const { adicionar } = useCart();
   const [imagemAtiva, setImagemAtiva] = useState(0);
   const [avisoCarrinho, setAvisoCarrinho] = useState(false);
 
@@ -110,7 +112,9 @@ function Detalhe() {
     }
   }, [produto, naoEncontrado]);
 
-  function adicionarDemo() {
+  function adicionarAoCarrinho() {
+    if (!produto) return;
+    adicionar(produto, 1);
     setAvisoCarrinho(true);
     setTimeout(() => setAvisoCarrinho(false), 2200);
   }
@@ -272,9 +276,9 @@ function Detalhe() {
             <button
               type="button"
               className="detalhe-acao detalhe-acao--primaria"
-              onClick={adicionarDemo}
+              onClick={adicionarAoCarrinho}
               disabled={produto.stock === 0}
-              aria-label="Adicionar ao carrinho (demonstração)"
+              aria-label="Adicionar ao carrinho"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
               Adicionar ao carrinho
@@ -310,7 +314,10 @@ function Detalhe() {
 
           {avisoCarrinho && (
             <div className="detalhe-toast" role="status" aria-live="polite">
-              ✓ Adicionado ao carrinho — funcionalidade demonstrativa.
+              ✓ Adicionado ao carrinho.{" "}
+              <Link to="/carrinho" className="detalhe-toast-link">
+                Ver carrinho →
+              </Link>
             </div>
           )}
 

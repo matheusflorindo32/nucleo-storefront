@@ -6,6 +6,7 @@ function Login() {
   const [usuario, setUsuario] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
+  const [carregando, setCarregando] = useState(false);
   const { entrar, logado } = useAuth();
   const navegar = useNavigate();
   const location = useLocation();
@@ -19,13 +20,18 @@ function Login() {
     if (logado) navegar(destino, { replace: true });
   }, [logado, destino, navegar]);
 
-  function aoEnviar(e) {
+  async function aoEnviar(e) {
     e.preventDefault();
-    if (usuario.trim() === "aluno" && senha === "1234") {
-      entrar(usuario.trim());
+    setErro("");
+    setCarregando(true);
+    const resultado = await entrar(usuario, senha);
+    setCarregando(false);
+    if (resultado.ok) {
       navegar(destino, { replace: true });
     } else {
-      setErro("Usuário ou senha inválidos. Use aluno / 1234.");
+      setErro(
+        "Usuário ou senha inválidos. Use aluno / 1234 (offline) ou uma conta DummyJSON (ex.: emilys / emilyspass)."
+      );
     }
   }
 
@@ -46,9 +52,10 @@ function Login() {
               className="auth-input"
               value={usuario}
               onChange={(e) => setUsuario(e.target.value)}
-              placeholder="aluno"
+              placeholder="aluno ou emilys"
               autoComplete="username"
               required
+              disabled={carregando}
             />
           </label>
 
@@ -62,6 +69,7 @@ function Login() {
               placeholder="••••"
               autoComplete="current-password"
               required
+              disabled={carregando}
             />
           </label>
 
@@ -71,14 +79,21 @@ function Login() {
             </p>
           )}
 
-          <button type="submit" className="botao botao-primario auth-submit">
-            Entrar
+          <button
+            type="submit"
+            className="botao botao-primario auth-submit"
+            disabled={carregando}
+          >
+            {carregando ? "Entrando..." : "Entrar"}
           </button>
         </form>
 
         <div className="auth-dica" aria-label="Credenciais de teste">
-          <strong>Acesso de teste:</strong> usuário <code>aluno</code> · senha{" "}
+          <strong>Acesso de teste (offline):</strong> <code>aluno</code> /{" "}
           <code>1234</code>
+          <br />
+          <strong>Login real DummyJSON:</strong> <code>emilys</code> /{" "}
+          <code>emilyspass</code>
         </div>
 
         <Link to="/" className="auth-voltar">

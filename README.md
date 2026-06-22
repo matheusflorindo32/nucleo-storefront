@@ -21,6 +21,7 @@ navegação SPA e autenticação simulada.
 - React Router com rotas:
   - `/` — Home / Vitrine
   - `/produto/:id` — Detalhes do produto (galeria, breadcrumbs, especificações)
+  - `/carrinho` — Sacola de compras (bônus)
   - `/login` — Tela de login
   - `/minha-conta` — Área protegida
   - `/sobre-o-projeto` — Documentação acadêmica
@@ -29,9 +30,16 @@ navegação SPA e autenticação simulada.
 
 ### Etapa 4 — Autenticação
 - `AuthContext` + `useAuth` para sessão global.
+- **Login real DummyJSON** via `POST /auth/login` com `accessToken` (bônus).
+- Fallback offline `aluno` / `1234` para avaliação sem internet.
 - Persistência no `localStorage` (sobrevive ao reload).
 - Componente `RotaPrivada` que redireciona deslogados para `/login`.
-- Cabeçalho alterna entre **Entrar** e **Sair** conforme a sessão.
+- Cabeçalho alterna entre **Entrar** e **Sair** conforme a sessão, com avatar real do usuário DummyJSON.
+
+### 🎁 Bônus implementados
+- **Login real DummyJSON** — autentica contra `https://dummyjson.com/auth/login`, guarda o token e exibe nome + avatar reais em `/minha-conta`.
+- **Carrinho de compras** — `CartContext` paralelo ao `AuthContext`, ícone no cabeçalho com badge, página `/carrinho` com stepper de quantidade, frete grátis acima de R$ 299 e checkout simulado. Persiste em `localStorage`.
+- **Deploy online** — aplicação publicada na Lovable.
 
 ## 🧱 Tecnologias
 - React 18
@@ -52,12 +60,15 @@ Acesse `http://localhost:5173`.
 
 ## 🔐 Login de teste
 
-| Usuário | Senha |
-|---------|-------|
-| `aluno` | `1234` |
+Dois modos disponíveis na mesma tela `/login`:
+
+| Modo | Usuário | Senha | Origem |
+|------|---------|-------|--------|
+| Offline (fallback) | `aluno` | `1234` | Simulado, não requer internet |
+| Real DummyJSON | `emilys` | `emilyspass` | API pública, retorna token + perfil |
 
 Fluxo: tente acessar `/minha-conta` → é redirecionado para `/login` → entre com
-`aluno` / `1234` → o cabeçalho passa a mostrar **Sair**.
+qualquer um dos dois → o cabeçalho passa a mostrar **Sair** + nome (e avatar, se DummyJSON).
 
 ## 🗂️ Estrutura
 

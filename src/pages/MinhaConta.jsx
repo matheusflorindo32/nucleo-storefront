@@ -72,9 +72,10 @@ const Icone = {
 };
 
 function MinhaConta() {
-  const { usuario, sair } = useAuth();
-  const nome = usuario || "aluno";
+  const { usuario, perfil, token, sair } = useAuth();
+  const nome = perfil?.firstName || usuario || "aluno";
   const inicial = nome.charAt(0).toUpperCase();
+  const modoReal = perfil?.tipo === "dummyjson";
 
   const loginTs = useMemo(() => localStorage.getItem("nts-login-ts"), []);
   const membroDesde = useMemo(() => localStorage.getItem("nts-membro-desde"), []);
@@ -88,6 +89,10 @@ function MinhaConta() {
     setVisitas(atual);
   }, []);
 
+  const tokenMascarado = token
+    ? token.slice(0, 8) + "•••" + token.slice(-4)
+    : "—";
+
   const stats = [
     { id: "pedidos", valor: "0", label: "Pedidos em aberto", icone: <Icone.Pacote />, hint: "Loja didática" },
     { id: "favoritos", valor: "0", label: "Itens favoritos", icone: <Icone.Estrela />, hint: "Lista vazia" },
@@ -97,12 +102,18 @@ function MinhaConta() {
 
   const atalhos = [
     { id: "vitrine", to: "/", titulo: "Voltar à vitrine", desc: "Explorar produtos da DummyJSON", icone: <Icone.Vitrine /> },
+    { id: "carrinho", to: "/carrinho", titulo: "Meu carrinho", desc: "Ver itens salvos para compra", icone: <Icone.Pacote /> },
     { id: "sobre", to: "/sobre-o-projeto", titulo: "Sobre o projeto", desc: "Rubrica, etapas e tecnologias", icone: <Icone.Info /> },
-    { id: "faq", to: "/faq", titulo: "Perguntas frequentes", desc: "Dúvidas sobre a loja", icone: <Icone.Pergunta /> },
   ];
 
   const atividade = [
-    { titulo: "Sessão iniciada", desc: `Login simulado como "${nome}"`, quando: formatarHora(loginTs) || "agora" },
+    {
+      titulo: "Sessão iniciada",
+      desc: modoReal
+        ? `Login real DummyJSON como "${perfil?.firstName} ${perfil?.lastName || ""}"`
+        : `Login simulado (offline) como "${nome}"`,
+      quando: formatarHora(loginTs) || "agora",
+    },
     { titulo: "Acesso à área protegida", desc: "Rota /minha-conta liberada via Context API", quando: "agora" },
     { titulo: "Conta criada", desc: "Primeiro login registrado neste navegador", quando: formatarData(membroDesde) },
   ];
@@ -120,12 +131,25 @@ function MinhaConta() {
         <article className="mc-card mc-perfil">
           <span className="mc-eyebrow">Área protegida</span>
           <div className="mc-perfil-linha">
-            <div className="mc-avatar" aria-hidden="true">{inicial}</div>
+            {perfil?.image ? (
+              <img
+                src={perfil.image}
+                alt=""
+                className="mc-avatar mc-avatar--img"
+                aria-hidden="true"
+              />
+            ) : (
+              <div className="mc-avatar" aria-hidden="true">{inicial}</div>
+            )}
             <div className="mc-perfil-texto">
               <h1 className="mc-titulo">
                 Olá, <span className="mc-nome">{nome}</span>
               </h1>
-              <p className="mc-sub">Bem-vindo de volta à Núcleo TADS Store.</p>
+              <p className="mc-sub">
+                {modoReal
+                  ? `Logado via DummyJSON · ${perfil?.email || ""}`
+                  : "Bem-vindo de volta à Núcleo TADS Store."}
+              </p>
             </div>
           </div>
 
@@ -136,7 +160,7 @@ function MinhaConta() {
             </div>
             <div>
               <dt>Plano</dt>
-              <dd>Estudante TADS</dd>
+              <dd>{modoReal ? "DummyJSON" : "Estudante TADS"}</dd>
             </div>
             <div>
               <dt>Sessão iniciada</dt>
@@ -153,10 +177,20 @@ function MinhaConta() {
             Sessão ativa
           </div>
           <ul className="mc-sessao-lista">
-            <li><span>Usuário</span><strong>{nome}</strong></li>
-            <li><span>Origem</span><strong>Login simulado</strong></li>
+            <li><span>Usuário</span><strong>{usuario || "—"}</strong></li>
+            <li>
+              <span>Origem</span>
+              <strong>{modoReal ? "DummyJSON (real)" : "Login simulado"}</strong>
+            </li>
             <li><span>Persistência</span><strong>localStorage</strong></li>
-            <li><span>Proteção</span><strong>Context API</strong></li>
+            <li>
+              <span>{modoReal ? "Token" : "Proteção"}</span>
+              <strong>
+                <code className="mc-token">
+                  {modoReal ? tokenMascarado : "Context API"}
+                </code>
+              </strong>
+            </li>
           </ul>
           <button
             type="button"
