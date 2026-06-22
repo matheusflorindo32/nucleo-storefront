@@ -11,6 +11,7 @@ function Carrinho() {
   const { itens, subtotal, quantidadeTotal, mudarQtd, remover, limpar } =
     useCart();
   const [pedido, setPedido] = useState(null);
+  const [mostrarConfirmacao, setMostrarConfirmacao] = useState(false);
 
   useEffect(() => {
     document.title = "Carrinho — Núcleo TADS Store";
@@ -88,15 +89,7 @@ function Carrinho() {
         <button
           type="button"
           className="carrinho-limpar"
-          onClick={() => {
-            if (
-              window.confirm(
-                "Tem certeza que deseja esvaziar o carrinho? Esta ação não pode ser desfeita."
-              )
-            ) {
-              limpar();
-            }
-          }}
+          onClick={() => setMostrarConfirmacao(true)}
           aria-label="Esvaziar carrinho"
         >
           Esvaziar
@@ -207,6 +200,48 @@ function Carrinho() {
           </p>
         </aside>
       </div>
+
+      {mostrarConfirmacao && (
+        <div
+          className="carrinho-modal-overlay"
+          role="presentation"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setMostrarConfirmacao(false);
+          }}
+        >
+          <div
+            className="carrinho-modal"
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="carrinho-modal-titulo"
+            aria-describedby="carrinho-modal-texto"
+          >
+            <h2 id="carrinho-modal-titulo">Esvaziar carrinho?</h2>
+            <p id="carrinho-modal-texto">
+              Todos os itens serão removidos. Esta ação não pode ser desfeita.
+            </p>
+            <div className="carrinho-modal-acoes">
+              <button
+                type="button"
+                className="botao botao-secundario"
+                onClick={() => setMostrarConfirmacao(false)}
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                className="botao botao-perigo"
+                onClick={() => {
+                  limpar();
+                  setMostrarConfirmacao(false);
+                }}
+              >
+                Confirmar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
