@@ -96,6 +96,8 @@ Coloque as capturas em `docs/prints/`:
 - `03-login.png` — Tela de login
 - `04-minha-conta.png` — Área protegida
 - `05-404.png` — Página 404
+- `06-carrinho.png` — Carrinho com 2–3 itens tech e resumo do pedido.
+- `07-login-real.png` — Minha conta exibindo dados reais do DummyJSON (nome + avatar).
 
 ## ✅ Checklist da entrega (Semanas 12–15)
 
