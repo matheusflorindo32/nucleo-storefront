@@ -76,7 +76,13 @@ function Diferenciais({ itens = itensPadrao }) {
 
       <div className="dif-grid">
         {itens.map((item, i) => (
-          <article key={item.id} className="dif-card" style={{ "--i": i }}>
+          <article
+            key={item.id}
+            className="dif-card"
+            style={{ "--i": i }}
+            tabIndex={0}
+            aria-label={`${item.titulo}: ${item.texto}`}
+          >
             <div className="dif-card-glow" aria-hidden="true" />
             <div className="dif-card-grid" aria-hidden="true" />
 

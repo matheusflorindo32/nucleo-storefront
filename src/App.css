@@ -789,9 +789,10 @@ body {
     0 10px 32px -18px rgba(10, 35, 66, 0.22);
   transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
     box-shadow 0.45s ease, border-color 0.45s ease;
+  outline: none;
 }
 
-/* hairline gradient ring on hover */
+/* hairline gradient ring on hover/focus */
 .dif-card::before {
   content: "";
   position: absolute;
@@ -812,14 +813,23 @@ body {
   pointer-events: none;
   z-index: 3;
 }
-.dif-card:hover::before { opacity: 1; }
-.dif-card:hover {
+.dif-card:hover::before,
+.dif-card:focus-visible::before { opacity: 1; }
+.dif-card:hover,
+.dif-card:focus-visible {
   transform: translateY(-8px);
   border-color: rgba(45, 212, 168, 0.35);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.95) inset,
     0 32px 64px -28px rgba(10, 35, 66, 0.32);
 }
+.dif-card:focus-visible {
+  box-shadow:
+    0 0 0 3px rgba(45, 212, 168, 0.35),
+    0 1px 0 rgba(255, 255, 255, 0.95) inset,
+    0 32px 64px -28px rgba(10, 35, 66, 0.32);
+}
+
 
 /* radial glow */
 .dif-card-glow {
@@ -897,29 +907,29 @@ body {
 
 .dif-pilar {
   font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: 0.66rem;
-  letter-spacing: 1.6px;
+  font-size: 0.74rem;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: var(--texto-2);
+  color: #4a5c72;
   padding: 5px 10px;
   border: 1px solid var(--borda);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(4px);
 }
 
 .dif-card-titulo {
   margin: 0;
-  font-size: 1.14rem;
+  font-size: 1.16rem;
   color: var(--marinho);
   font-weight: 700;
   letter-spacing: -0.01em;
 }
 .dif-card-texto {
   margin: 0;
-  color: var(--texto-2);
-  font-size: 0.9rem;
-  line-height: 1.55;
+  color: #3d4c60;
+  font-size: 0.95rem;
+  line-height: 1.6;
   flex: 1;
 }
 
@@ -933,13 +943,13 @@ body {
 .dif-metrica { display: flex; flex-direction: column; gap: 2px; }
 .dif-metrica-label {
   font-family: "JetBrains Mono", ui-monospace, monospace;
-  font-size: 0.62rem;
+  font-size: 0.72rem;
   letter-spacing: 1.4px;
   text-transform: uppercase;
-  color: var(--texto-2);
+  color: #4a5c72;
 }
 .dif-metrica-valor {
-  font-size: 1.05rem;
+  font-size: 1.08rem;
   color: var(--marinho);
   font-weight: 700;
   letter-spacing: -0.01em;
