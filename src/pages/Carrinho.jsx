@@ -89,15 +89,7 @@ function Carrinho() {
         <button
           type="button"
           className="carrinho-limpar"
-          onClick={() => {
-            if (
-              window.confirm(
-                "Tem certeza que deseja esvaziar o carrinho? Esta ação não pode ser desfeita."
-              )
-            ) {
-              limpar();
-            }
-          }}
+          onClick={() => setMostrarConfirmacao(true)}
           aria-label="Esvaziar carrinho"
         >
           Esvaziar
