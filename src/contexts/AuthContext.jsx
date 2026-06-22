@@ -15,6 +15,11 @@ export function AuthProvider({ children }) {
     setUsuario(nome);
     localStorage.setItem("logado", "true");
     localStorage.setItem("usuarioNome", nome);
+    const agora = new Date().toISOString();
+    localStorage.setItem("nts-login-ts", agora);
+    if (!localStorage.getItem("nts-membro-desde")) {
+      localStorage.setItem("nts-membro-desde", agora);
+    }
   }
 
   function sair() {
@@ -22,6 +27,7 @@ export function AuthProvider({ children }) {
     setUsuario("");
     localStorage.removeItem("logado");
     localStorage.removeItem("usuarioNome");
+    localStorage.removeItem("nts-login-ts");
   }
 
   return (
