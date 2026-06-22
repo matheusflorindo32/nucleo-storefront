@@ -1054,7 +1054,7 @@ body {
   .float-card small { display: none; }
   .vitrine { padding: 40px 18px; }
   .hero-chips { gap: 6px; }
-  .diferenciais { padding: 40px 18px 0; }
+  .dif { padding: 40px 18px 0; }
   .menu-topo-link { padding: 6px 12px; font-size: 0.82rem; }
 }
 
