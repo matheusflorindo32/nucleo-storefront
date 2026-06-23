@@ -86,4 +86,3 @@ O projeto cumpre os quatro requisitos obrigatórios — useState, useEffect, Rea
 - Antes de gerar, leia o roteiro em voz alta cronometrando — se passar de 2:10, encurte a Cena 2 ou a Cena 8.
 - Use a função **"Add captions"** do HeyGen para legendas automáticas em pt-BR.
 - Se o avatar ficar muito estático, ative o modo "Expressive" ou aumente os gestos para nível médio.
-- Substitua `[SEU NOME]` pelo seu nome real antes de gerar.
