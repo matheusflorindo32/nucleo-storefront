@@ -1,4 +1,11 @@
-# Prompt para HeyGen — Vídeo de Apresentação (Núcleo TADS Store)
+# Prompt para HeyGen — Vídeo de Apresentação
+
+**Projeto Integrador:** TADS Store  
+**Disciplina:** Desenvolvimento Front-End 2  
+**Curso:** Análise e Desenvolvimento de Sistemas (TADS)  
+**Instituição:** Instituto Federal do Espírito Santo (IFES)  
+**Professor:** Cleziel  
+**Aluno:** Matheus Florindo de Deus  
 
 Duração-alvo: ~2 minutos · Idioma: Português (Brasil) · Tom: profissional, didático e confiante.
 
