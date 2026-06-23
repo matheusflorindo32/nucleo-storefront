@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { Analytics } from "@vercel/analytics/react";
 import Layout from "./components/Layout.jsx";
 import RotaPrivada from "./components/RotaPrivada.jsx";
 import Home from "./pages/Home.jsx";
@@ -28,6 +29,7 @@ function App() {
         <Route path="/sobre-o-projeto" element={<SobreProjeto />} />
         <Route path="*" element={<NaoEncontrado />} />
       </Routes>
+      <Analytics />
     </Layout>
   );
 }
