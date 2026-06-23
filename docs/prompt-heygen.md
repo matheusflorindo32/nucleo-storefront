@@ -35,7 +35,7 @@ Duração-alvo: ~2 minutos · Idioma: Português (Brasil) · Tom: profissional, 
 
 **[CENA 1 — 0:00–0:12 · print: 01-home.png]**
 
-Olá! Eu sou [SEU NOME] e vou te mostrar o Núcleo TADS Store, um e-commerce que desenvolvi como projeto do curso de Tecnologia em Análise e Desenvolvimento de Sistemas. Ele foi construído em React com Vite, usando React Router, Context API e a API pública DummyJSON.
+Olá! Eu sou Matheus Florindo de Deus, aluno do curso de Análise e Desenvolvimento de Sistemas do Instituto Federal do Espírito Santo, e vou apresentar o TADS Store. Este projeto integrador foi desenvolvido na disciplina Desenvolvimento Front-End 2, com orientação do professor Cleziel. É um e-commerce construído em React com Vite, usando React Router, Context API e a API pública DummyJSON.
 
 **[CENA 2 — 0:12–0:28 · print: 01-home.png]**
 
