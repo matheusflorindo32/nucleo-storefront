@@ -1,4 +1,11 @@
-# Prompt para HeyGen — Vídeo de Apresentação (Núcleo TADS Store)
+# Prompt para HeyGen — Vídeo de Apresentação
+
+**Projeto Integrador:** TADS Store  
+**Disciplina:** Desenvolvimento Front-End 2  
+**Curso:** Análise e Desenvolvimento de Sistemas (TADS)  
+**Instituição:** Instituto Federal do Espírito Santo (IFES)  
+**Professor:** Cleziel  
+**Aluno:** Matheus Florindo de Deus  
 
 Duração-alvo: ~2 minutos · Idioma: Português (Brasil) · Tom: profissional, didático e confiante.
 
@@ -28,7 +35,7 @@ Duração-alvo: ~2 minutos · Idioma: Português (Brasil) · Tom: profissional, 
 
 **[CENA 1 — 0:00–0:12 · print: 01-home.png]**
 
-Olá! Eu sou [SEU NOME] e vou te mostrar o Núcleo TADS Store, um e-commerce que desenvolvi como projeto do curso de Tecnologia em Análise e Desenvolvimento de Sistemas. Ele foi construído em React com Vite, usando React Router, Context API e a API pública DummyJSON.
+Olá! Eu sou Matheus Florindo de Deus, aluno do curso de Análise e Desenvolvimento de Sistemas do Instituto Federal do Espírito Santo, e vou apresentar o TADS Store. Este projeto integrador foi desenvolvido na disciplina Desenvolvimento Front-End 2, com orientação do professor Cleziel. É um e-commerce construído em React com Vite, usando React Router, Context API e a API pública DummyJSON.
 
 **[CENA 2 — 0:12–0:28 · print: 01-home.png]**
 
@@ -79,4 +86,3 @@ O projeto cumpre os quatro requisitos obrigatórios — useState, useEffect, Rea
 - Antes de gerar, leia o roteiro em voz alta cronometrando — se passar de 2:10, encurte a Cena 2 ou a Cena 8.
 - Use a função **"Add captions"** do HeyGen para legendas automáticas em pt-BR.
 - Se o avatar ficar muito estático, ative o modo "Expressive" ou aumente os gestos para nível médio.
-- Substitua `[SEU NOME]` pelo seu nome real antes de gerar.
