@@ -8,6 +8,7 @@ import Login from "./pages/Login.jsx";
 import MinhaConta from "./pages/MinhaConta.jsx";
 import Carrinho from "./pages/Carrinho.jsx";
 import NaoEncontrado from "./pages/NaoEncontrado.jsx";
+import DashboardMatriz from "./pages/DashboardMatriz.jsx";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           }
         />
         <Route path="/sobre-o-projeto" element={<SobreProjeto />} />
+        <Route path="/dashboard-matriz" element={<DashboardMatriz />} />
         <Route path="*" element={<NaoEncontrado />} />
       </Routes>
     </Layout>
