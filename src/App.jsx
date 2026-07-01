@@ -27,6 +27,7 @@ function App() {
           }
         />
         <Route path="/sobre-o-projeto" element={<SobreProjeto />} />
+        <Route path="/dashboard-matriz" element={<DashboardMatriz />} />
         <Route path="*" element={<NaoEncontrado />} />
       </Routes>
     </Layout>
